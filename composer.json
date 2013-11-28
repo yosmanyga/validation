@@ -1,8 +1,8 @@
 {
     "name": "yosmanyga/validation",
-    "description": "Provides tools for validate results using rules",
+    "description": "Provides tools to validate variables",
     "type": "library",
-    "keywords": ["validate", "rule"],
+    "keywords": ["validate", "validator", "rule", "error", "constraint"],
     "license": "MIT",
     "authors": [
         {
