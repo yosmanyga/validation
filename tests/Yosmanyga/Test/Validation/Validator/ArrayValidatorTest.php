@@ -4,6 +4,7 @@ namespace Yosmanyga\Test\Validation\Validator;
 
 use Yosmanyga\Validation\Validator\ArrayValidator;
 use Yosmanyga\Validation\Validator\Error\Error;
+use Yosmanyga\Validation\Validator\Error\PropertyError;
 
 class ArrayValidatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -99,12 +100,12 @@ class ArrayValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(new Error('Value must be an array')), $errors);
 
         // Map invalid
-        $validator = new ArrayValidator(array('map' => function ($e) { return 'foo' == $e; }));
+        $validator = new ArrayValidator(array('map' => function ($e) { if ('foo' != $e) return 'Error'; else return null; }));
         $errors = $validator->validate(array('foo', 'bar'));
-        $this->assertEquals(array(new Error('Values are invalid')), $errors);
+        $this->assertEquals(array(new PropertyError('Error', 1)), $errors);
 
         // Map valid
-        $validator = new ArrayValidator(array('map' => function ($e) { return 'foo' == $e; }));
+        $validator = new ArrayValidator(array('map' => function ($e) { if ('foo' != $e) return 'Error'; else return null; }));
         $errors = $validator->validate(array('foo', 'foo'));
         $this->assertEmpty($errors);
 
@@ -147,5 +148,80 @@ class ArrayValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new ArrayValidator(array('map' => 'foo'));
         $validator->validate(array('foo', 'bar'));
+    }
+
+    /**
+     * @covers Yosmanyga\Validation\Validator\ArrayValidator::validateMap
+     */
+    public function testValidateMap()
+    {
+        $v = $this->getMock('Yosmanyga\Validation\Validator\ValidatorInterface');
+        $validator = new ArrayValidator();
+        $r = new \ReflectionClass($validator);
+        $p = $r->getProperty('options');
+        $p->setAccessible(true);
+        $p->setValue($validator, array('map' => $v));
+        $m = $r->getMethod('validateMap');
+        $m->setAccessible(true);
+        $m->invoke($validator, array());
+        $this->assertEquals(array('map' => array($v, 'validate')), $p->getValue($validator));
+
+        $array = array('foo1');
+        $v = $this->getMock('Yosmanyga\Validation\Validator\ValidatorInterface');
+        $v
+            ->expects($this->once())->method('validate')->with('foo1')
+            ->will($this->returnValue(new Error('Error 2')));
+        $validator = new ArrayValidator();
+        $r = new \ReflectionClass($validator);
+        $p = $r->getProperty('options');
+        $p->setAccessible(true);
+        $p->setValue($validator, array('map' => $v, 'messages' => array('map' => 'Error 1')));
+        $m = $r->getMethod('validateMap');
+        $m->setAccessible(true);
+        $this->assertEquals(array(new PropertyError('Error 2', '0')), $m->invoke($validator, $array));
+
+        $array = array('foo1');
+        $v = $this->getMock('Yosmanyga\Validation\Validator\ValidatorInterface');
+        $v
+            ->expects($this->once())->method('validate')->with('foo1')
+            ->will($this->returnValue(new PropertyError('Error 2', 'path')));
+        $validator = new ArrayValidator();
+        $r = new \ReflectionClass($validator);
+        $p = $r->getProperty('options');
+        $p->setAccessible(true);
+        $p->setValue($validator, array('map' => $v, 'messages' => array('map' => 'Error 1')));
+        $m = $r->getMethod('validateMap');
+        $m->setAccessible(true);
+        $this->assertEquals(array(new PropertyError('Error 2', '0.path')), $m->invoke($validator, $array));
+
+        $array = array('foo1');
+        $v = $this->getMock('Yosmanyga\Validation\Validator\ValidatorInterface');
+        $v
+            ->expects($this->once())->method('validate')->with('foo1')
+            ->will($this->returnValue('Error 2'));
+        $validator = new ArrayValidator();
+        $r = new \ReflectionClass($validator);
+        $p = $r->getProperty('options');
+        $p->setAccessible(true);
+        $p->setValue($validator, array('map' => $v, 'messages' => array('map' => 'Error 1')));
+        $m = $r->getMethod('validateMap');
+        $m->setAccessible(true);
+        $this->assertEquals(array(new PropertyError('Error 2', '0')), $m->invoke($validator, $array));
+    }
+
+    /**
+     * @covers Yosmanyga\Validation\Validator\ArrayValidator::validateMap
+     * @expectedException \InvalidArgumentException
+     */
+    public function testValidateMapThrowsExceptionWhenMapIsNotCallable()
+    {
+        $validator = new ArrayValidator();
+        $r = new \ReflectionClass($validator);
+        $p = $r->getProperty('options');
+        $p->setAccessible(true);
+        $p->setValue($validator, array('map' => 'foo'));
+        $m = $r->getMethod('validateMap');
+        $m->setAccessible(true);
+        $m->invoke($validator, array());
     }
 }

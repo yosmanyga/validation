@@ -3,6 +3,7 @@
 namespace Yosmanyga\Validation\Validator;
 
 use Yosmanyga\Validation\Validator\Error\Error;
+use Yosmanyga\Validation\Validator\Error\PropertyError;
 
 class ArrayValidator implements ValidatorInterface
 {
@@ -58,15 +59,10 @@ class ArrayValidator implements ValidatorInterface
         }
 
         if (isset($this->options['map'])) {
-            if (!is_callable($this->options['map'])) {
-                throw new \InvalidArgumentException("Parameter \"map\" is not callable.");
+            $errs = $this->validateMap($value);
+            if ($errs) {
+                $errors = array_merge($errs, $errors);
             }
-            $result = array_map($this->options['map'], $value);
-            if ($result != array_filter($result)) {
-                $errors[] =  new Error($this->options['messages']['map']);
-            }
-
-            return $errors;
         }
 
         if ($this->options['deniedKeys']) {
@@ -107,5 +103,42 @@ class ArrayValidator implements ValidatorInterface
         if (false === $this->options['allowExtra']) {
             $this->options['messages']['allowExtra'] = sprintf($this->options['messages']['allowExtra'], implode(", ", array_merge($this->options['requiredKeys'], $this->options['allowedKeys'])));
         }
+    }
+
+    private function validateMap($value)
+    {
+        $errors = array();
+
+        if ($this->options['map'] instanceof ValidatorInterface) {
+            $this->options['map'] = array($this->options['map'], 'validate');
+        }
+
+        if (!is_callable($this->options['map'])) {
+            throw new \InvalidArgumentException("Parameter \"map\" is not callable.");
+        }
+
+        $propertiesErrors = array_map($this->options['map'], $value);
+        if ($propertiesErrors) {
+            foreach ($propertiesErrors as $key => $propertyErrors) {
+                if (!is_array($propertyErrors)) {
+                    $propertyErrors = array($propertyErrors);
+                }
+
+                foreach ($propertyErrors as $propertyError) {
+                    if ($propertyError instanceof Error) {
+                        $propertyError = new PropertyError($propertyError->getText(), $key);
+                        $errors[] = $propertyError;
+                    } elseif ($propertyError instanceof PropertyError) {
+                        $propertyError->prependPath($key);
+                        $errors[] = $propertyError;
+                    } elseif (false != $propertyError) {
+                        $propertyError = new PropertyError($propertyError, $key);
+                        $errors[] = $propertyError;
+                    }
+                }
+            }
+        }
+
+        return $errors;
     }
 }
