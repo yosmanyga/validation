@@ -15,9 +15,9 @@ You can validate an array by using the ```ArrayValidator```:
 
 Available options:
 
-- allowNull: Value can be null
-- requiredKeys: Value must have these keys
-- allowedKeys: Value can have these keys
-- deniedKeys: Value can't have these keys
-- allowExtra: Value can have extra keys
+- allowNull: Array can be null
+- requiredKeys: Array must have these keys
+- allowedKeys: Array can have these keys
+- deniedKeys: Array can't have these keys
+- allowExtra: Array can have extra keys
 - messages: Array of messages for each error
