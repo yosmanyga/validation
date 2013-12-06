@@ -42,30 +42,17 @@ class ExpressionValueValidatorTest extends \PHPUnit_Framework_TestCase
         $p->setAccessible(true);
         $this->assertEquals(array('value' => $value), $p->getValue($validator));
         $this->assertEquals(array(new Error('This value is not valid')), $errors);
-
-        /** @var \PHPUnit_Framework_MockObject_MockObject $expressionLanguage */
-        $expressionLanguage = $this->getMock('Symfony\Component\ExpressionLanguage\ExpressionLanguage');
-        $expressionLanguage
-            ->expects($this->once())->method('evaluate')
-            ->with($expression, array('value' => $value))
-            ->will($this->returnValue(true));
-        /** @var \Symfony\Component\ExpressionLanguage\ExpressionLanguage $expressionLanguage */
-        $validator = new ExpressionValueValidator($expression, array(), $expressionLanguage);
-        $errors = $validator->validate($value);
-        $this->assertEquals(array(), $errors);
-    }
-
-    /**
-     * @covers Yosmanyga\Validation\Validator\ExpressionValueValidator::setExpression
-     */
-    public function testSetExpression()
-    {
-        $validator = new ExpressionValueValidator();
-        $validator->setExpression('foo');
-        $r = new \ReflectionClass($validator);
-        $p = $r->getProperty('expression');
-        $p->setAccessible(true);
-        $this->assertEquals('foo', $p->getValue($validator));
+//
+//        /** @var \PHPUnit_Framework_MockObject_MockObject $expressionLanguage */
+//        $expressionLanguage = $this->getMock('Symfony\Component\ExpressionLanguage\ExpressionLanguage');
+//        $expressionLanguage
+//            ->expects($this->once())->method('evaluate')
+//            ->with($expression, array('value' => $value))
+//            ->will($this->returnValue(true));
+//        /** @var \Symfony\Component\ExpressionLanguage\ExpressionLanguage $expressionLanguage */
+//        $validator = new ExpressionValueValidator($expression, array(), $expressionLanguage);
+//        $errors = $validator->validate($value);
+//        $this->assertEquals(array(), $errors);
     }
 
     /**

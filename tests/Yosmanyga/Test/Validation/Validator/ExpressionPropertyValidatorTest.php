@@ -11,18 +11,15 @@ class ExpressionPropertyValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $expression = 'foo';
-        $validator = new ExpressionPropertyValidator($expression);
-        $this->assertAttributeEquals($expression, 'expression', $validator);
-        $this->assertAttributeEquals(array('message' => 'This value is not valid'), 'options', $validator);
+        $validator = new ExpressionPropertyValidator('foo');
         $this->assertAttributeInstanceOf('Symfony\Component\PropertyAccess\PropertyAccessor', 'propertyAccessor', $validator);
         $this->assertAttributeInstanceOf('Yosmanyga\Validation\Validator\ExpressionValueValidator', 'expressionValueValidator', $validator);
 
-        $propertyAccessor = $this->getMock('Symfony\Component\PropertyAccess\PropertyAccessor');
+        $expression = 'foo';
+        $options = array();
+        $propertyAccessor = $this->getMock('Symfony\Component\PropertyAccess\PropertyAccessorInterface');
         $expressionValueValidator = $this->getMock('Yosmanyga\Validation\Validator\ExpressionValueValidator');
-        $options = array('message' => 'foo');
         $validator = new ExpressionPropertyValidator($expression, $options, $propertyAccessor, $expressionValueValidator);
-        $this->assertAttributeEquals($options, 'options', $validator);
         $this->assertAttributeEquals($propertyAccessor, 'propertyAccessor', $validator);
         $this->assertAttributeEquals($expressionValueValidator, 'expressionValueValidator', $validator);
     }
@@ -42,9 +39,6 @@ class ExpressionPropertyValidatorTest extends \PHPUnit_Framework_TestCase
             ->with($object, $property)
             ->will($this->returnValue($value));
         $expressionValueValidator = $this->getMock('Yosmanyga\Validation\Validator\ExpressionValueValidator');
-        $expressionValueValidator
-            ->expects($this->once())->method('setExpression')
-            ->with($expression);
         $expressionValueValidator
             ->expects($this->once())->method('addVariable')
             ->with('this', $object);

@@ -8,16 +8,6 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 class ExpressionPropertyValidator implements PropertyValidatorInterface
 {
     /**
-     * @var string
-     */
-    private $expression;
-
-    /**
-     * @var array
-     */
-    private $options;
-
-    /**
      * @var \Symfony\Component\PropertyAccess\PropertyAccessor
      */
     private $propertyAccessor;
@@ -35,15 +25,8 @@ class ExpressionPropertyValidator implements PropertyValidatorInterface
      */
     public function __construct($expression, $options = array(), PropertyAccessorInterface $propertyAccessor = null, ExpressionValueValidator $expressionValueValidator = null)
     {
-        $this->expression = $expression;
-        $this->options = array_replace(
-            array(
-                'message' => 'This value is not valid',
-            ),
-            $options
-        );
         $this->propertyAccessor = $propertyAccessor ?: new PropertyAccessor();
-        $this->expressionValueValidator = $expressionValueValidator ?: new ExpressionValueValidator();
+        $this->expressionValueValidator = $expressionValueValidator ?: new ExpressionValueValidator($expression, $options);
     }
 
     /**
@@ -51,7 +34,6 @@ class ExpressionPropertyValidator implements PropertyValidatorInterface
      */
     public function validate($object, $property)
     {
-        $this->expressionValueValidator->setExpression($this->expression);
         $this->expressionValueValidator->addVariable('this', $object);
 
         $value = $this->propertyAccessor->getValue($object, $property);

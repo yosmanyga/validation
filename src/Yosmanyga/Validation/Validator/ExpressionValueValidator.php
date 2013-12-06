@@ -57,14 +57,6 @@ class ExpressionValueValidator implements ValidatorInterface
     }
 
     /**
-     * @param string $expression
-     */
-    public function setExpression($expression)
-    {
-        $this->expression = $expression;
-    }
-
-    /**
      * @param string $name
      * @param mixed  $value
      */
