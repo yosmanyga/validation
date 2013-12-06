@@ -15,7 +15,7 @@ You can validate a simple value by using the ```ValueValidator```:
 
 If there are errors it will return its as an array of ```Error``` objects.
 
-## Available options
+## Available options:
 
 - allowNull: Value can be null
 - type: Value must be of this type
