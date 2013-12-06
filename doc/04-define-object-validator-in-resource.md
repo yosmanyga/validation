@@ -3,9 +3,9 @@
 You can use the library [yosmanyga/resource](https://github.com/yosmanyga/resource)
 to store and load validators from a resource:
 
-Actually you can define its in yml, xml and annotation formats:
+Actually you can define validators in yml, xml and annotation formats:
 
-In this case, "username" must be a string, and can't be null; "age" must be an
+In this sample, "username" must be a string, and can't be null; "age" must be an
 integer and between 18 and 35; and "roles" items must be string values.
 
 validators.yml:
