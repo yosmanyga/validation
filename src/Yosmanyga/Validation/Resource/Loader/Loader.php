@@ -8,6 +8,7 @@ use Yosmanyga\Resource\Loader\LoaderInterface;
 use Yosmanyga\Resource\Normalizer\NormalizerInterface;
 use Yosmanyga\Resource\Reader\Iterator\ReaderInterface;
 use Yosmanyga\Validation\Resource\Compiler\ObjectCompiler;
+use Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition;
 
 class Loader implements LoaderInterface
 {
@@ -57,17 +58,46 @@ class Loader implements LoaderInterface
 
         $this->reader->open($resource);
 
+        /** @var \Yosmanyga\Validation\Resource\Definition\ObjectDefinition[] $definitions */
+        $definitions = array();
+        /** @var \Yosmanyga\Validation\Validator\ObjectValidator[] $validators */
         $validators = array();
         while ($data = $this->reader->current()) {
             /** @var \Yosmanyga\Validation\Resource\Definition\ObjectDefinition $definition */
             $definition = $this->normalizer->normalize($data, $resource);
 
+            $definitions[$definition->class] = $definition;
             $validators[$definition->class] = $this->compiler->compile($definition);
 
             $this->reader->next();
         }
 
+        $validators = $this->fillObjectValidators($definitions, $validators);
+
         $this->cacher->store($validators, $resource);
+
+        return $validators;
+    }
+
+    /**
+     * @param \Yosmanyga\Validation\Resource\Definition\ObjectDefinition[] $definitions
+     * @param \Yosmanyga\Validation\Validator\ObjectValidator[] $validators
+     * @return \Yosmanyga\Validation\Validator\ObjectValidator[]
+     */
+    public function fillObjectValidators($definitions, $validators)
+    {
+        foreach ($definitions as $class => $definition) {
+            foreach ($definition->validators['properties'] as $property => $validatorsDefinitions) {
+                foreach ($validatorsDefinitions as $i => $validatorDefinition) {
+                    if ($validatorDefinition instanceof ObjectReferenceDefinition) {
+                        $validator = $validators[$class];
+                        $propertyValidators = $validator->getValidators();
+                        $propertyValidators[$property] = $validators[$validatorDefinition->class];
+                        $validator->setValidators($propertyValidators);
+                    }
+                }
+            }
+        }
 
         return $validators;
     }
