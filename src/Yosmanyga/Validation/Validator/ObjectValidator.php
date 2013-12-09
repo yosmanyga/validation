@@ -64,6 +64,22 @@ class ObjectValidator implements ValidatorInterface
     }
 
     /**
+     * @return \Yosmanyga\Validation\Validator\PropertyValidatorInterface[]
+     */
+    public function getValidators()
+    {
+        return $this->validators;
+    }
+
+    /**
+     * @param \Yosmanyga\Validation\Validator\PropertyValidatorInterface[] $validators
+     */
+    public function setValidators($validators)
+    {
+        $this->validators = $validators;
+    }
+
+    /**
      * @param  array                                                        $objectValidators
      * @return \Yosmanyga\Validation\Validator\PropertyValidatorInterface[]
      */

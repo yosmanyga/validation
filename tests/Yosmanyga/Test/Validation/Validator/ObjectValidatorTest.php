@@ -66,6 +66,17 @@ class ObjectValidatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Yosmanyga\Validation\Validator\ObjectValidator::setValidators
+     * @covers Yosmanyga\Validation\Validator\ObjectValidator::getValidators
+     */
+    public function testGetSetValidators()
+    {
+        $validator = new ObjectValidator();
+        $validator->setValidators(array('foo'));
+        $this->assertEquals(array('foo'), $validator->getValidators());
+    }
+
+    /**
      * @covers Yosmanyga\Validation\Validator\ObjectValidator::fixValidators
      */
     public function testFixValidators()
