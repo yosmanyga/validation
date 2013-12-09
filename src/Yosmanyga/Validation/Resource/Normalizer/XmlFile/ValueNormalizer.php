@@ -9,19 +9,6 @@ use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
 class ValueNormalizer extends AbstractNormalizer
 {
     /**
-     * @var \Yosmanyga\Resource\Normalizer\DelegatorNormalizer
-     */
-    private $normalizer;
-
-    /**
-     * @param $normalizers \Yosmanyga\Resource\Normalizer\NormalizerInterface[]
-     */
-    public function __construct($normalizers = array())
-    {
-        $this->normalizer = new DelegatorNormalizer($normalizers);
-    }
-
-    /**
      * @inheritdoc
      */
     public function supports($data, Resource $resource)
@@ -49,10 +36,5 @@ class ValueNormalizer extends AbstractNormalizer
         $definition->import($options);
 
         return $definition;
-    }
-
-    public function setNormalizers($normalizers)
-    {
-        $this->normalizer = new DelegatorNormalizer($normalizers);
     }
 }
