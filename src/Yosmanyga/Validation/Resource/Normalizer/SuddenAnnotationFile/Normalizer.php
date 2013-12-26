@@ -3,37 +3,30 @@
 namespace Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile;
 
 use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
-use Yosmanyga\Resource\Normalizer\NormalizerInterface;
+use Yosmanyga\Resource\Normalizer\SuddenAnnotationFileNormalizer;
 use Yosmanyga\Resource\Resource;
 use Yosmanyga\Validation\Resource\Definition\ObjectDefinition;
 use Yosmanyga\Validation\Validator\ArrayValidator;
 use Yosmanyga\Validation\Validator\ExceptionValidator;
 
-class Normalizer implements NormalizerInterface
+class Normalizer extends SuddenAnnotationFileNormalizer
 {
     /**
-     * @var \Yosmanyga\Resource\Normalizer\DelegatorNormalizer
-     */
-    private $normalizer;
-
-    /**
-     * @param $normalizers \Yosmanyga\Resource\Normalizer\NormalizerInterface[]
+     * @inheritdoc
      */
     public function __construct($normalizers = array())
     {
-        $this->normalizer = new DelegatorNormalizer($normalizers);
-    }
+        $normalizers = $normalizers ?: array(
+            new ValueNormalizer(),
+            new ExpressionNormalizer(),
+            new ArrayNormalizer(array(
+                new ValueNormalizer(),
+                new ExpressionNormalizer()
+            )),
+            new ObjectReferenceNormalizer()
+        );
 
-    /**
-     * @inherit
-     */
-    public function supports($data, Resource $resource)
-    {
-        if ($resource->hasType('type') && 'annotation' == $resource->getType()) {
-            return true;
-        }
-
-        return false;
+        parent::__construct($normalizers);
     }
 
     /**

@@ -2,22 +2,28 @@
 
 namespace Yosmanyga\Validation\Resource\Compiler;
 
+use Yosmanyga\Resource\Compiler\DelegatorCompiler;
 use Yosmanyga\Validation\Resource\Definition\ObjectDefinition;
 use Yosmanyga\Validation\Validator\ObjectValidator;
-use Yosmanyga\Resource\Compiler\CompilerInterface;
-use Yosmanyga\Resource\Compiler\DelegatorCompiler;
 
-class ObjectCompiler implements CompilerInterface
+class ObjectCompiler extends DelegatorCompiler
 {
-    /** @var \Yosmanyga\Resource\Compiler\DelegatorCompiler  */
-    private $compiler;
-
     /**
-     * @param \Yosmanyga\Resource\Compiler\DelegatorCompiler $compiler
+     * @param \Yosmanyga\Resource\Compiler\CompilerInterface[] $compilers
      */
-    public function __construct(DelegatorCompiler $compiler)
+    public function __construct($compilers = null)
     {
-        $this->compiler = $compiler;
+        $compilers = $compilers ?: array(
+            new ValueCompiler(),
+            new ExpressionCompiler(),
+            new ArrayCompiler(array(
+                new ValueCompiler(),
+                new ExpressionCompiler()
+            )),
+            new ObjectReferenceCompiler()
+        );
+
+        parent::__construct($compilers);
     }
 
     /**
@@ -39,10 +45,11 @@ class ObjectCompiler implements CompilerInterface
     public function compile($definition)
     {
         $validators = array();
+
         /** @var \Yosmanyga\Validation\Resource\Definition\ObjectDefinition $definition */
         foreach ($definition->validators['properties'] as $property => $validatorDefinitions) {
             foreach ($validatorDefinitions as $validator) {
-                $validators[$property][] = $this->compiler->compile($validator);
+                $validators[$property][] = $this->compile($validator);
             }
         }
 

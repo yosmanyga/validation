@@ -3,45 +3,30 @@
 namespace Yosmanyga\Validation\Resource\Normalizer\YamlFile;
 
 use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
-use Yosmanyga\Resource\Normalizer\NormalizerInterface;
 use Yosmanyga\Resource\Resource;
 use Yosmanyga\Validation\Resource\Definition\ObjectDefinition;
 use Yosmanyga\Validation\Validator\ArrayValidator;
 use Yosmanyga\Validation\Validator\ExceptionValidator;
+use Yosmanyga\Resource\Normalizer\YamlFileNormalizer;
 
-class Normalizer implements NormalizerInterface
+class Normalizer extends YamlFileNormalizer
 {
-    /**
-     * @var \Yosmanyga\Resource\Normalizer\DelegatorNormalizer
-     */
-    private $normalizer;
-
-    /**
-     * @param $normalizers \Yosmanyga\Resource\Normalizer\NormalizerInterface[]
-     */
-    public function __construct($normalizers = array())
-    {
-        $this->normalizer = new DelegatorNormalizer($normalizers);
-    }
-
     /**
      * @inheritdoc
      */
-    public function supports($data, Resource $resource)
+    public function __construct($normalizers = array())
     {
-        if ($resource->hasType('type')) {
-            if ('yaml' == $resource->getType()) {
-                return true;
-            }
+        $normalizers = $normalizers ?: array(
+            new ValueNormalizer(),
+            new ExpressionNormalizer(),
+            new ArrayNormalizer(array(
+                new ValueNormalizer(),
+                new ExpressionNormalizer()
+            )),
+            new ObjectReferenceNormalizer()
+        );
 
-            return false;
-        }
-
-        if ($resource->hasMetadata('file') && in_array(pathinfo($resource->getMetadata('file'), PATHINFO_EXTENSION), array('yaml', 'yml'))) {
-            return true;
-        }
-
-        return false;
+        parent::__construct($normalizers);
     }
 
     /**

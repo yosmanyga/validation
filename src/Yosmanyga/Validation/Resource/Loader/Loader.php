@@ -5,10 +5,16 @@ namespace Yosmanyga\Validation\Resource\Loader;
 use Yosmanyga\Resource\Cacher\CacherInterface;
 use Yosmanyga\Resource\Cacher\NullCacher;
 use Yosmanyga\Resource\Loader\LoaderInterface;
+use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
+use Yosmanyga\Resource\Normalizer\DirectoryNormalizer;
 use Yosmanyga\Resource\Normalizer\NormalizerInterface;
+use Yosmanyga\Resource\Reader\Iterator\DelegatorReader;
 use Yosmanyga\Resource\Reader\Iterator\ReaderInterface;
 use Yosmanyga\Validation\Resource\Compiler\ObjectCompiler;
 use Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition;
+use Yosmanyga\Validation\Resource\Normalizer\YamlFile\Normalizer as YamlFileNormalizer;
+use Yosmanyga\Validation\Resource\Normalizer\XmlFile\Normalizer as XmlFileNormalizer;
+use Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile\Normalizer as SuddenAnnotationFileNormalizer;
 
 class Loader implements LoaderInterface
 {
@@ -38,11 +44,24 @@ class Loader implements LoaderInterface
      * @param \Yosmanyga\Validation\Resource\Compiler\ObjectCompiler    $compiler
      * @param \Yosmanyga\Resource\Cacher\CacherInterface                $cacher
      */
-    public function __construct(ReaderInterface $reader, NormalizerInterface $normalizer, ObjectCompiler $compiler, CacherInterface $cacher)
+    public function __construct(
+        ReaderInterface $reader = null,
+        NormalizerInterface $normalizer = null,
+        ObjectCompiler $compiler = null,
+        CacherInterface $cacher = null)
     {
-        $this->reader = $reader;
-        $this->normalizer = $normalizer;
-        $this->compiler = $compiler;
+        $this->reader = $reader ?: new DelegatorReader();
+        $this->normalizer = $normalizer ?: new DelegatorNormalizer(array(
+            new YamlFileNormalizer(),
+            new XmlFileNormalizer,
+            new SuddenAnnotationFileNormalizer(),
+            new DirectoryNormalizer(array(
+                new YamlFileNormalizer(),
+                new XmlFileNormalizer,
+                new SuddenAnnotationFileNormalizer()
+            ))
+        ));
+        $this->compiler = $compiler ?: new ObjectCompiler();
         $this->cacher = $cacher ?: new NullCacher();
     }
 
