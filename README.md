@@ -32,7 +32,7 @@ You can validate an array by using the ```ArrayValidator```:
 You can validate an object by using the ```ObjectValidator```:
 
     $user = new User();
-    $user->name = 'Jonh';
+    $user->name = 'John';
     $user->age = 30;
 
     // Validates that the property 'name' is a string

@@ -35,11 +35,10 @@ This validator uses the ExpressionLanguage Component of Symfony.
 
 # Object Validator
 
-You can validate many properties inside an object by using the
-```ObjectValidator```:
+You can validate many properties inside an object by using the ```ObjectValidator```:
 
     $user = new User();
-    $user->name = 'Jonh';
+    $user->name = 'John';
     $user->age = 30;
 
     // Validates that the property 'name' is a string
@@ -104,7 +103,7 @@ class:
     }
 
     $user = new User();
-    $user->name = 'Jonh';
+    $user->name = 'John';
     $user->age = 30;
     $validator = new ValidatedObjectValidator();
     $errors = $validator->validate($user);
@@ -160,7 +159,7 @@ If you need to have multiple validators for an object you can use a
     }
 
     $user = new User();
-    $user->name = 'Jonh';
+    $user->name = 'John';
     $user->age = 30;
 
     $validator = new GroupObjectValidator(array(
