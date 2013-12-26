@@ -66,7 +66,7 @@ class Loader implements LoaderInterface
     }
 
     /**
-     * @param $resource \Yosmanyga\Resource\Resource
+     * @param \Yosmanyga\Resource\Resource $resource
      * @return \Yosmanyga\Validation\Validator\ObjectValidator[]
      */
     public function load($resource)
