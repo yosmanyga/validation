@@ -107,7 +107,7 @@ class Loader implements LoaderInterface
     {
         foreach ($definitions as $class => $definition) {
             foreach ($definition->validators['properties'] as $property => $validatorsDefinitions) {
-                foreach ($validatorsDefinitions as $i => $validatorDefinition) {
+                foreach ($validatorsDefinitions as $validatorDefinition) {
                     if ($validatorDefinition instanceof ObjectReferenceDefinition) {
                         $validator = $validators[$class];
                         $propertyValidators = $validator->getValidators();
