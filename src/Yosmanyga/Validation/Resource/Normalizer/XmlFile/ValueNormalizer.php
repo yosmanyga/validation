@@ -4,7 +4,6 @@ namespace Yosmanyga\Validation\Resource\Normalizer\XmlFile;
 
 use Yosmanyga\Resource\Resource;
 use Yosmanyga\Validation\Resource\Definition\ValueDefinition;
-use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
 
 class ValueNormalizer extends AbstractNormalizer
 {
