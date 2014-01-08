@@ -11,6 +11,7 @@ use Yosmanyga\Resource\Reader\Iterator\ReaderInterface;
 use Yosmanyga\Validation\Resource\Compiler\ObjectCompiler;
 use Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition;
 use Yosmanyga\Validation\Resource\Normalizer\Normalizer;
+use Yosmanyga\Resource\Compiler\CompilerInterface;
 
 class Loader implements LoaderInterface
 {
@@ -25,7 +26,7 @@ class Loader implements LoaderInterface
     private $normalizer;
 
     /**
-     * @var \Yosmanyga\Validation\Resource\Compiler\ObjectCompiler
+     * @var \Yosmanyga\Resource\Compiler\CompilerInterface
      */
     private $compiler;
 
@@ -37,13 +38,13 @@ class Loader implements LoaderInterface
     /**
      * @param \Yosmanyga\Resource\Reader\Iterator\ReaderInterface       $reader
      * @param \Yosmanyga\Resource\Normalizer\NormalizerInterface        $normalizer
-     * @param \Yosmanyga\Validation\Resource\Compiler\ObjectCompiler    $compiler
+     * @param \Yosmanyga\Resource\Compiler\CompilerInterface            $compiler
      * @param \Yosmanyga\Resource\Cacher\CacherInterface                $cacher
      */
     public function __construct(
         ReaderInterface $reader = null,
         NormalizerInterface $normalizer = null,
-        ObjectCompiler $compiler = null,
+        CompilerInterface $compiler = null,
         CacherInterface $cacher = null)
     {
         $this->reader = $reader ?: new DelegatorReader();
