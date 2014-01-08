@@ -97,7 +97,7 @@ User.php:
         /**
          * @Validator\Array({
          *   map: {
-         *     validator: @Validator\Value,
+         *     validator: Value,
          *     options: {
          *       type: "string"
          *     }

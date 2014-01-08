@@ -2,24 +2,27 @@
 
 namespace Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile;
 
-use Yosmanyga\Resource\Normalizer\NormalizerInterface;
 use Yosmanyga\Resource\Resource;
-use Yosmanyga\Validation\Resource\Definition\ArrayDefinition;
-use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
+use Yosmanyga\Validation\Resource\Normalizer\Common\ArrayNormalizer as CommonArrayNormalizer;
+use Yosmanyga\Validation\Resource\Normalizer\YamlFile\ArrayNormalizer as YamlFileArrayNormalizer;
 
-class ArrayNormalizer implements NormalizerInterface
+class ArrayNormalizer extends CommonArrayNormalizer
 {
     /**
-     * @var \Yosmanyga\Resource\Normalizer\DelegatorNormalizer
+     * @var \Yosmanyga\Validation\Resource\Normalizer\YamlFile\ArrayNormalizer
      */
-    private $normalizer;
+    private $yamlFileNormalizer;
 
-    /**
-     * @param $normalizers \Yosmanyga\Resource\Normalizer\NormalizerInterface[]
-     */
-    public function __construct($normalizers = array())
+    public function __construct($normalizers = array(), $yamlFileNormalizer = null)
     {
-        $this->normalizer = new DelegatorNormalizer($normalizers);
+        $normalizers = $normalizers ?: array(
+            new ValueNormalizer(),
+            new ExpressionNormalizer()
+        );
+
+        parent::__construct($normalizers);
+
+        $this->yamlFileNormalizer = $yamlFileNormalizer ?: new YamlFileArrayNormalizer();
     }
 
     /**
@@ -27,46 +30,16 @@ class ArrayNormalizer implements NormalizerInterface
      */
     public function supports($data, Resource $resource)
     {
-        if (isset($data['key']) && '\Array' == strrchr($data['key'], '\\')) {
-            return true;
-        }
+        $data = substr($data['key'], strrpos($data['key'], '\\') + 1);
 
-        return false;
+        return parent::supports($data, $resource);
     }
 
     /**
-     * @param  mixed                                                     $data
-     * @param  \Yosmanyga\Resource\Resource                              $resource
-     * @return \Yosmanyga\Validation\Resource\Definition\ArrayDefinition
+     * @inheritdoc
      */
     public function normalize($data, Resource $resource)
     {
-        $definition = new ArrayDefinition();
-
-        if (isset($data['value']['map'])) {
-            try {
-                $options = isset($data['value']['map']['options']) ? $data['value']['map']['options'] : array();
-                $map = $this->normalizer->normalize(
-                    array(
-                        'key' => $data['value']['map']['validator'],
-                        'value' => $options
-                    ),
-                    $resource
-                );
-            } catch (\RuntimeException $e) {
-                $map = $data['value']['map']['validator'];
-            }
-
-            $data['value']['map'] = $map;
-        }
-
-        $definition->import($data['value']);
-
-        return $definition;
-    }
-
-    public function setNormalizers($normalizers)
-    {
-        $this->normalizer = new DelegatorNormalizer($normalizers);
+        return $this->yamlFileNormalizer->normalize($data, $resource);
     }
 }

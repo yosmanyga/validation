@@ -2,34 +2,37 @@
 
 namespace Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile;
 
-use Yosmanyga\Resource\Normalizer\NormalizerInterface;
 use Yosmanyga\Resource\Resource;
-use Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition;
+use Yosmanyga\Validation\Resource\Normalizer\Common\ObjectReferenceNormalizer as CommonObjectReferenceNormalizer;
+use Yosmanyga\Validation\Resource\Normalizer\YamlFile\ObjectReferenceNormalizer as YamlFileObjectReferenceNormalizer;
 
-class ObjectReferenceNormalizer implements NormalizerInterface
+class ObjectReferenceNormalizer extends CommonObjectReferenceNormalizer
 {
+    /**
+     * @var \Yosmanyga\Validation\Resource\Normalizer\YamlFile\ObjectReferenceNormalizer
+     */
+    private $yamlFileNormalizer;
+
+    public function __construct($yamlFileNormalizer = null)
+    {
+        $this->yamlFileNormalizer = $yamlFileNormalizer ?: new YamlFileObjectReferenceNormalizer();
+    }
+
     /**
      * @inheritdoc
      */
     public function supports($data, Resource $resource)
     {
-        if (isset($data['key']) && '\Object' == strrchr($data['key'], '\\')) {
-            return true;
-        }
+        $data = substr($data['key'], strrpos($data['key'], '\\') + 1);
 
-        return false;
+        return parent::supports($data, $resource);
     }
 
     /**
-     * @param  mixed                                                     $data
-     * @param  \Yosmanyga\Resource\Resource                              $resource
-     * @return \Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition
+     * @inheritdoc
      */
     public function normalize($data, Resource $resource)
     {
-        $definition = new ObjectReferenceDefinition();
-        $definition->import($data['value']);
-
-        return $definition;
+        return $this->yamlFileNormalizer->normalize($data, $resource);
     }
 }

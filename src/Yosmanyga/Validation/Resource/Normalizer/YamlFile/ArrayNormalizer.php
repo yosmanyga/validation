@@ -2,24 +2,19 @@
 
 namespace Yosmanyga\Validation\Resource\Normalizer\YamlFile;
 
-use Yosmanyga\Resource\Normalizer\NormalizerInterface;
+use Yosmanyga\Validation\Resource\Normalizer\Common\ArrayNormalizer as CommonArrayNormalizer;
 use Yosmanyga\Resource\Resource;
-use Yosmanyga\Validation\Resource\Definition\ArrayDefinition;
-use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
 
-class ArrayNormalizer implements NormalizerInterface
+class ArrayNormalizer extends CommonArrayNormalizer
 {
-    /**
-     * @var \Yosmanyga\Resource\Normalizer\DelegatorNormalizer
-     */
-    private $normalizer;
-
-    /**
-     * @param $normalizers \Yosmanyga\Resource\Normalizer\NormalizerInterface[]
-     */
     public function __construct($normalizers = array())
     {
-        $this->normalizer = new DelegatorNormalizer($normalizers);
+        $normalizers = $normalizers ?: array(
+            new ValueNormalizer(),
+            new ExpressionNormalizer()
+        );
+
+        parent::__construct($normalizers);
     }
 
     /**
@@ -27,11 +22,9 @@ class ArrayNormalizer implements NormalizerInterface
      */
     public function supports($data, Resource $resource)
     {
-        if (isset($data['key']) && 'Array' == $data['key']) {
-            return true;
-        }
+        $data = $data['key'];
 
-        return false;
+        return parent::supports($data, $resource);
     }
 
     /**
@@ -41,32 +34,17 @@ class ArrayNormalizer implements NormalizerInterface
      */
     public function normalize($data, Resource $resource)
     {
-        $definition = new ArrayDefinition();
-
         if (isset($data['value']['map'])) {
-            try {
-                $options = isset($data['value']['map']['options']) ? $data['value']['map']['options'] : array();
-                $map = $this->normalizer->normalize(
-                    array(
-                        'key' => $data['value']['map']['validator'],
-                        'value' => $options
-                    ),
-                    $resource
-                );
-            } catch (\RuntimeException $e) {
-                $map = $data['value']['map']['validator'];
-            }
-
-            $data['value']['map'] = $map;
+            $options = isset($data['value']['map']['options']) ? $data['value']['map']['options'] : array();
+            $data['value']['map'] = $this->normalizer->normalize(
+                array(
+                    'key' => $data['value']['map']['validator'],
+                    'value' => $options
+                ),
+                $resource
+            );;
         }
 
-        $definition->import($data['value']);
-
-        return $definition;
-    }
-
-    public function setNormalizers($normalizers)
-    {
-        $this->normalizer = new DelegatorNormalizer($normalizers);
+        return $this->createDefinition($data['value']);
     }
 }

@@ -3,20 +3,29 @@
 namespace Yosmanyga\Validation\Resource\Normalizer\XmlFile;
 
 use Yosmanyga\Resource\Resource;
-use Yosmanyga\Validation\Resource\Definition\ExpressionDefinition;
+use Yosmanyga\Validation\Resource\Normalizer\Common\ExpressionNormalizer as CommonExpressionNormalizer;
+use Yosmanyga\Resource\Util\XmlKit;
 
-class ExpressionNormalizer extends AbstractNormalizer
+class ExpressionNormalizer extends CommonExpressionNormalizer
 {
+    /**
+     * @var \Yosmanyga\Resource\Util\XmlKit
+     */
+    private $xmlKit;
+
+    public function __construct($xmlKit = null)
+    {
+        $this->xmlKit = $xmlKit ?: new XmlKit();
+    }
+
     /**
      * @inheritdoc
      */
     public function supports($data, Resource $resource)
     {
-        if (isset($data['name']) && 'Expression' == $data['name']) {
-            return true;
-        }
+        $data = $data['value']['name'];
 
-        return false;
+        return parent::supports($data, $resource);
     }
 
     /**
@@ -26,14 +35,10 @@ class ExpressionNormalizer extends AbstractNormalizer
      */
     public function normalize($data, Resource $resource)
     {
-        $options = array();
-        if (isset($data['option'])) {
-            $options = $this->normalizeOptions($data['option']);
+        if (isset($data['value']['option'])) {
+            $data['value'] = $this->xmlKit->extractContent($data['value']['option']);
         }
 
-        $definition = new ExpressionDefinition();
-        $definition->import($options);
-
-        return $definition;
+        return $this->createDefinition($data['value']);
     }
 }

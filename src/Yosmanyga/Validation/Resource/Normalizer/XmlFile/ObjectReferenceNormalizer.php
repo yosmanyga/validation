@@ -3,37 +3,40 @@
 namespace Yosmanyga\Validation\Resource\Normalizer\XmlFile;
 
 use Yosmanyga\Resource\Resource;
-use Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition;
+use Yosmanyga\Validation\Resource\Normalizer\Common\ObjectReferenceNormalizer as CommonObjectReferenceNormalizer;
+use Yosmanyga\Resource\Util\XmlKit;
 
-class ObjectReferenceNormalizer extends AbstractNormalizer
+class ObjectReferenceNormalizer extends CommonObjectReferenceNormalizer
 {
+    /**
+     * @var \Yosmanyga\Resource\Util\XmlKit
+     */
+    private $xmlKit;
+
+    public function __construct($xmlKit = null)
+    {
+        $this->xmlKit = $xmlKit ?: new XmlKit();
+    }
+
     /**
      * @inheritdoc
      */
     public function supports($data, Resource $resource)
     {
-        if (isset($data['name']) && 'Object' == $data['name']) {
-            return true;
-        }
+        $data = $data['value']['name'];
 
-        return false;
+        return parent::supports($data, $resource);
     }
 
     /**
-     * @param  mixed                                                     $data
-     * @param  \Yosmanyga\Resource\Resource                              $resource
-     * @return \Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition
+     * @inheritdoc
      */
     public function normalize($data, Resource $resource)
     {
-        $options = array();
-        if (isset($data['option'])) {
-            $options = $this->normalizeOptions($data['option']);
+        if (isset($data['value']['option'])) {
+            $data['value'] = $this->xmlKit->extractContent($data['value']['option']);
         }
 
-        $definition = new ObjectReferenceDefinition();
-        $definition->import($options);
-
-        return $definition;
+        return $this->createDefinition($data['value']);
     }
 }
