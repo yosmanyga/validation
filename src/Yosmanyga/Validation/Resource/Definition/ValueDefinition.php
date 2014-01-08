@@ -44,8 +44,8 @@ class ValueDefinition extends Definition implements ValidatedInterface
             )),
             'messages' => new ArrayValidator(array(
                 'allowedKeys' => array('null', 'type', 'eq', 'neq', 'iq', 'niq', 'gt', 'ge', 'lt', 'le', 'in', 'nin'),
-                'map' => function ($e) {
-                    return is_string($e);
+                'map' => function ($item) {
+                    return is_string($item);
                 },
                 'messages' => array(
                     'map' => 'messages values must be strings'

@@ -100,12 +100,12 @@ class ArrayValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(new Error('Value must be an array')), $errors);
 
         // Map invalid
-        $validator = new ArrayValidator(array('map' => function ($e) { if ('foo' != $e) return 'Error'; else return null; }));
+        $validator = new ArrayValidator(array('map' => function ($item) { if ('foo' != $item) return 'Error'; else return null; }));
         $errors = $validator->validate(array('foo', 'bar'));
         $this->assertEquals(array(new PropertyError('Error', 1)), $errors);
 
         // Map valid
-        $validator = new ArrayValidator(array('map' => function ($e) { if ('foo' != $e) return 'Error'; else return null; }));
+        $validator = new ArrayValidator(array('map' => function ($item) { if ('foo' != $item) return 'Error'; else return null; }));
         $errors = $validator->validate(array('foo', 'foo'));
         $this->assertEmpty($errors);
 

@@ -24,24 +24,24 @@ class ArrayDefinition extends Definition implements ValidatedInterface
     {
         return new ObjectValidator(array(
             'requiredKeys' => new ArrayValidator(array(
-                'map' => function ($e) {
-                    return is_string($e);
+                'map' => function ($item) {
+                    return is_string($item);
                 },
                 'messages' => array(
                     'map' => 'requiredKeys values must be strings'
                 )
             )),
             'allowedKeys' => new ArrayValidator(array(
-                'map' => function ($e) {
-                    return is_string($e);
+                'map' => function ($item) {
+                    return is_string($item);
                 },
                 'messages' => array(
                     'map' => 'allowedKeys values must be strings'
                 )
             )),
             'deniedKeys' => new ArrayValidator(array(
-                'map' => function ($e) {
-                    return is_string($e);
+                'map' => function ($item) {
+                    return is_string($item);
                 },
                 'messages' => array(
                     'map' => 'deniedKeys values must be strings'
@@ -51,8 +51,8 @@ class ArrayDefinition extends Definition implements ValidatedInterface
                 'type' => 'boolean'
             )),
             'messages' => new ArrayValidator(array(
-                'map' => function ($e) {
-                    return is_string($e);
+                'map' => function ($item) {
+                    return is_string($item);
                 },
                 'allowedKeys' => array('null', 'type', 'requiredKeys', 'deniedKeys', 'allowExtra'),
                 'messages' => array(
