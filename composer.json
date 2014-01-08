@@ -16,10 +16,12 @@
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
         "symfony/expression-language": "2.4.*@dev",
-        "symfony/property-access": "~2.3"
+        "symfony/property-access": "~2.3",
+        "yosmanyga/resource": "dev-master"
     },
     "suggest": {
-        "symfony/expression-language": "For expression validators"
+        "symfony/expression-language": "For expression validators",
+        "yosmanyga/resource": "For loading validators from resource"
     },
     "autoload": {
         "psr-0": { "Yosmanyga\\Validation": "src/" }
