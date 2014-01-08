@@ -3,7 +3,7 @@
 namespace Yosmanyga\Validation\Resource\Loader;
 
 use Yosmanyga\Resource\Cacher\CacherInterface;
-use Yosmanyga\Resource\Cacher\NullCacher;
+use Yosmanyga\Resource\Cacher\Cacher;
 use Yosmanyga\Resource\Loader\LoaderInterface;
 use Yosmanyga\Resource\Normalizer\NormalizerInterface;
 use Yosmanyga\Resource\Reader\Iterator\DelegatorReader;
@@ -50,7 +50,7 @@ class Loader implements LoaderInterface
         $this->reader = $reader ?: new DelegatorReader();
         $this->normalizer = $normalizer ?: new Normalizer();
         $this->compiler = $compiler ?: new ObjectCompiler();
-        $this->cacher = $cacher ?: new NullCacher();
+        $this->cacher = $cacher ?: new Cacher();
     }
 
     /**
