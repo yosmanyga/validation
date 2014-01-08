@@ -149,8 +149,7 @@ You can also validate nested objects:
 
 # Group Object Validator
 
-If you need to have multiple validators for an object you can use a
-```GroupObjectValidator```
+If you need to have multiple validators for an object you can use a ```GroupObjectValidator```
 
     class User
     {
