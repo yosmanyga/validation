@@ -50,7 +50,7 @@ class ObjectCompiler extends DelegatorCompiler
             /** @var \Yosmanyga\Validation\Resource\Definition\ObjectDefinition $definition */
             foreach ($definition->validators['properties'] as $property => $validatorDefinitions) {
                 foreach ($validatorDefinitions as $validator) {
-                    $validators[$property][] = $this->compile($validator);
+                    $validators[$property][] = parent::compile($validator);
                 }
             }
         }
