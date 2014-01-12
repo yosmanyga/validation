@@ -47,10 +47,11 @@ class ObjectCompiler extends DelegatorCompiler
         $validators = array();
 
         if (isset($definition->validators)) {
-            /** @var \Yosmanyga\Validation\Resource\Definition\ObjectDefinition $definition */
-            foreach ($definition->validators['properties'] as $property => $validatorDefinitions) {
-                foreach ($validatorDefinitions as $validator) {
-                    $validators[$property][] = parent::compile($validator);
+            if (isset($definition->validators['properties'])) {
+                foreach ($definition->validators['properties'] as $property => $validatorDefinitions) {
+                    foreach ($validatorDefinitions as $validator) {
+                        $validators[$property][] = parent::compile($validator);
+                    }
                 }
             }
         }
