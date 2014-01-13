@@ -61,7 +61,7 @@ class Normalizer extends CommonNormalizer
         return $this->createDefinition($data['key'], $definitions);
     }
 
-    private function normalizeProperties($properties, $resource)
+    protected function normalizeProperties($properties, $resource)
     {
         $validatorValidator = new ExceptionValidator(new ArrayValidator(array(
             'requiredKeys' => array('validator'),

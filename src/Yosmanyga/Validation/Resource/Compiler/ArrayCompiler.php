@@ -20,6 +20,11 @@ class ArrayCompiler implements CompilerInterface
      */
     public function __construct($compilers = array())
     {
+        $compilers = $compilers ?: array(
+            new ValueCompiler(),
+            new ExpressionCompiler()
+        );
+
         $this->compiler = new DelegatorCompiler($compilers);
     }
     
@@ -41,8 +46,8 @@ class ArrayCompiler implements CompilerInterface
      */
     public function compile($definition)
     {
-        $definitionValidator = new ExceptionValidator($definition->createValidator());
-        $definitionValidator->validate($definition);
+        $validator = new ExceptionValidator($definition->createValidator());
+        $validator->validate($definition);
 
         // Try to compile map option
         // Just works if map is a validator
@@ -54,10 +59,5 @@ class ArrayCompiler implements CompilerInterface
         }
 
         return new ArrayValidator($definition->export());
-    }
-
-    public function setCompilers($compilers)
-    {
-        $this->compiler = new DelegatorCompiler($compilers);
     }
 }

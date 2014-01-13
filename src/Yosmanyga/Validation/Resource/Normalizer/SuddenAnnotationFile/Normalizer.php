@@ -4,9 +4,6 @@ namespace Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile;
 
 use Yosmanyga\Resource\Normalizer\SuddenAnnotationFileDelegatorNormalizer;
 use Yosmanyga\Resource\Resource;
-use Yosmanyga\Validation\Resource\Definition\ObjectDefinition;
-use Yosmanyga\Validation\Validator\ArrayValidator;
-use Yosmanyga\Validation\Validator\ExceptionValidator;
 use Yosmanyga\Validation\Resource\Normalizer\Common\Normalizer as CommonNormalizer;
 
 class Normalizer extends CommonNormalizer
@@ -14,7 +11,7 @@ class Normalizer extends CommonNormalizer
     /**
      * @var \Yosmanyga\Resource\Normalizer\YamlFileDelegatorNormalizer
      */
-    private $delegator;
+    protected $delegator;
 
     /**
      * @param \Yosmanyga\Resource\Normalizer\NormalizerInterface $normalizers
@@ -49,28 +46,15 @@ class Normalizer extends CommonNormalizer
      */
     public function normalize($data, Resource $resource)
     {
-        $this->validateData($data['value']);
-
         $class = '';
-        $validatorDefinitions = array();
+        $definitions = array();
         foreach ($data['value'] as $validator) {
             $class = $validator['metadata']['class'];
             if (isset($validator['property'])) {
-                $validatorDefinitions['properties'][$validator['property']][] = $this->delegator->normalize($validator, $resource);
+                $definitions['properties'][$validator['property']][] = $this->delegator->normalize($validator, $resource);
             }
         }
 
-        $definition = new ObjectDefinition();
-        $definition->class = $class;
-        $definition->validators = $validatorDefinitions;
-
-        return $definition;
-    }
-
-    private function validateData($data)
-    {
-        $dataValidator = new ExceptionValidator(new ArrayValidator());
-
-        return $dataValidator->validate($data);
+        return $this->createDefinition($class, $definitions);
     }
 }

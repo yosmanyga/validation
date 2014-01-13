@@ -57,7 +57,6 @@ class Normalizer extends CommonNormalizer
 
         $validator->validate($data['value']);
 
-        $class = $data['value']['name'];
         $definitions = array();
         if (isset($data['value']['property'])) {
             $definitions['properties'] = $this->normalizeProperties(
@@ -66,14 +65,10 @@ class Normalizer extends CommonNormalizer
             );
         }
 
-        $definition = new ObjectDefinition();
-        $definition->class = $class;
-        $definition->validators = $definitions;
-
-        return $definition;
+        return $this->createDefinition($data['value']['name'], $definitions);
     }
 
-    private function normalizeProperties($properties, $resource)
+    protected function normalizeProperties($properties, $resource)
     {
         $validator = new ExceptionValidator(new ArrayValidator(array(
             'requiredKeys' => array('name', 'validator'),
@@ -94,11 +89,10 @@ class Normalizer extends CommonNormalizer
         return $definitions;
     }
 
-    private function normalizeValidators($validators, $resource)
+    protected function normalizeValidators($validators, $resource)
     {
         $validatorValidator = new ExceptionValidator(new ArrayValidator(array(
-            'requiredKeys' => array('name'),
-            'allowedKeys' => array('option'),
+            'allowedKeys' => array('name', 'option'),
             'allowExtra' => false
         )));
 

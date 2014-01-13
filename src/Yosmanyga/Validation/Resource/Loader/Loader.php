@@ -91,7 +91,7 @@ class Loader implements LoaderInterface
      * @param \Yosmanyga\Validation\Validator\ObjectValidator[] $validators
      * @return \Yosmanyga\Validation\Validator\ObjectValidator[]
      */
-    private function fillObjectValidators($definitions, $validators)
+    protected function fillObjectValidators($definitions, $validators)
     {
         foreach ($definitions as $class => $definition) {
             foreach ($definition->validators['properties'] as $property => $validatorsDefinitions) {
