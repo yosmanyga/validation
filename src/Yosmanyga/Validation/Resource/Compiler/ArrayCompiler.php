@@ -27,7 +27,7 @@ class ArrayCompiler implements CompilerInterface
 
         $this->compiler = new DelegatorCompiler($compilers);
     }
-    
+
     /**
      * @inheritdoc
      */

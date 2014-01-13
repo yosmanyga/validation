@@ -36,10 +36,10 @@ class Loader implements LoaderInterface
     private $cacher;
 
     /**
-     * @param \Yosmanyga\Resource\Reader\Iterator\ReaderInterface       $reader
-     * @param \Yosmanyga\Resource\Normalizer\NormalizerInterface        $normalizer
-     * @param \Yosmanyga\Resource\Compiler\CompilerInterface            $compiler
-     * @param \Yosmanyga\Resource\Cacher\CacherInterface                $cacher
+     * @param \Yosmanyga\Resource\Reader\Iterator\ReaderInterface $reader
+     * @param \Yosmanyga\Resource\Normalizer\NormalizerInterface  $normalizer
+     * @param \Yosmanyga\Resource\Compiler\CompilerInterface      $compiler
+     * @param \Yosmanyga\Resource\Cacher\CacherInterface          $cacher
      */
     public function __construct(
         ReaderInterface $reader = null,
@@ -54,7 +54,7 @@ class Loader implements LoaderInterface
     }
 
     /**
-     * @param \Yosmanyga\Resource\Resource $resource
+     * @param  \Yosmanyga\Resource\Resource                      $resource
      * @return \Yosmanyga\Validation\Validator\ObjectValidator[]
      */
     public function load($resource)
@@ -87,8 +87,8 @@ class Loader implements LoaderInterface
     }
 
     /**
-     * @param \Yosmanyga\Validation\Resource\Definition\ObjectDefinition[] $definitions
-     * @param \Yosmanyga\Validation\Validator\ObjectValidator[] $validators
+     * @param  \Yosmanyga\Validation\Resource\Definition\ObjectDefinition[] $definitions
+     * @param  \Yosmanyga\Validation\Validator\ObjectValidator[]            $validators
      * @return \Yosmanyga\Validation\Validator\ObjectValidator[]
      */
     protected function fillObjectValidators($definitions, $validators)

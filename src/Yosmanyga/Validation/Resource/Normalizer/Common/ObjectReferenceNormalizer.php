@@ -21,7 +21,7 @@ abstract class ObjectReferenceNormalizer implements NormalizerInterface
     }
 
     /**
-     * @param  array $data
+     * @param  array                                                               $data
      * @return \Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition
      */
     protected function createDefinition($data)

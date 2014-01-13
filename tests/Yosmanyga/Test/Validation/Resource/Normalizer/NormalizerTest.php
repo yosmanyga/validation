@@ -3,7 +3,6 @@
 namespace Yosmanyga\Test\Validation\Resource\Normalizer;
 
 use Yosmanyga\Resource\Resource;
-use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
 use Yosmanyga\Resource\Normalizer\DirectoryNormalizer;
 use Yosmanyga\Validation\Resource\Normalizer\Normalizer;
 use Yosmanyga\Validation\Resource\Normalizer\YamlFile\Normalizer as YamlFileNormalizer;

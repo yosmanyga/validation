@@ -35,7 +35,7 @@ abstract class ArrayNormalizer implements NormalizerInterface
     }
 
     /**
-     * @param  array $data
+     * @param  array                                                          $data
      * @return \Yosmanyga\Validation\Resource\Definition\ExpressionDefinition
      */
     protected function createDefinition($data)

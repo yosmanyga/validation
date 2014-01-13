@@ -29,8 +29,8 @@ class ExpressionNormalizer extends CommonExpressionNormalizer
     }
 
     /**
-     * @param  mixed                                                     $data
-     * @param  \Yosmanyga\Resource\Resource                              $resource
+     * @param  mixed                                                          $data
+     * @param  \Yosmanyga\Resource\Resource                                   $resource
      * @return \Yosmanyga\Validation\Resource\Definition\ExpressionDefinition
      */
     public function normalize($data, Resource $resource)

@@ -21,7 +21,7 @@ abstract class ValueNormalizer implements NormalizerInterface
     }
 
     /**
-     * @param  array $data
+     * @param  array                                                     $data
      * @return \Yosmanyga\Validation\Resource\Definition\ValueDefinition
      */
     protected function createDefinition($data)

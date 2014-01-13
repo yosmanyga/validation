@@ -2,10 +2,6 @@
 
 namespace Yosmanyga\Test\Validation\Resource\Normalizer\YamlFile;
 
-use Yosmanyga\Validation\Resource\Definition\ExpressionDefinition;
-use Yosmanyga\Validation\Resource\Definition\ObjectDefinition;
-use Yosmanyga\Validation\Resource\Definition\ValueDefinition;
-use Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition;
 use Yosmanyga\Validation\Resource\Normalizer\YamlFile\Normalizer;
 use Yosmanyga\Validation\Resource\Normalizer\YamlFile\ValueNormalizer;
 use Yosmanyga\Validation\Resource\Normalizer\YamlFile\ExpressionNormalizer;

@@ -2,14 +2,10 @@
 
 namespace Yosmanyga\Validation\Resource\Normalizer\XmlFile;
 
-use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
-use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
 use Yosmanyga\Resource\Normalizer\XmlFileDelegatorNormalizer;
 use Yosmanyga\Resource\Resource;
-use Yosmanyga\Validation\Resource\Definition\ObjectDefinition;
 use Yosmanyga\Validation\Validator\ArrayValidator;
 use Yosmanyga\Validation\Validator\ExceptionValidator;
-use Yosmanyga\Validation\Validator\ExpressionValueValidator;
 use Yosmanyga\Validation\Resource\Normalizer\Common\Normalizer as CommonNormalizer;
 
 class Normalizer extends CommonNormalizer

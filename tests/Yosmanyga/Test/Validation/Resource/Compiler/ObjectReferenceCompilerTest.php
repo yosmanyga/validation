@@ -55,5 +55,5 @@ class ObjectReferenceCompilerTest extends \PHPUnit_Framework_TestCase
             $method->invoke($compiler, $definition)
         );
     }
-    
+
 }

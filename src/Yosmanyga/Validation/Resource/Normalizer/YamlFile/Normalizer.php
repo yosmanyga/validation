@@ -3,7 +3,6 @@
 namespace Yosmanyga\Validation\Resource\Normalizer\YamlFile;
 
 use Yosmanyga\Resource\Resource;
-use Yosmanyga\Validation\Resource\Definition\ObjectDefinition;
 use Yosmanyga\Validation\Validator\ArrayValidator;
 use Yosmanyga\Validation\Validator\ExceptionValidator;
 use Yosmanyga\Resource\Normalizer\YamlFileDelegatorNormalizer;

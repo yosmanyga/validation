@@ -21,7 +21,7 @@ abstract class ExpressionNormalizer implements NormalizerInterface
     }
 
     /**
-     * @param  array $data
+     * @param  array                                                          $data
      * @return \Yosmanyga\Validation\Resource\Definition\ExpressionDefinition
      */
     protected function createDefinition($data)
