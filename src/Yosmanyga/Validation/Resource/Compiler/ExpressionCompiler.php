@@ -27,13 +27,22 @@ class ExpressionCompiler implements CompilerInterface
      */
     public function compile($definition)
     {
-        $definitionValidator = new ExceptionValidator($definition->createValidator());
-        $definitionValidator->validate($definition);
+        $validator = $this->createValidator($definition);
+        $validator->validate($definition);
 
         $options = $definition->export();
         $expression = $options['expression'];
         unset($options['expression']);
 
         return new ExpressionPropertyValidator($expression, $options);
+    }
+
+    /**
+     * @param  \Yosmanyga\Validation\Resource\Definition\ExpressionDefinition $definition
+     * @return \Yosmanyga\Validation\Validator\ExceptionValidator
+     */
+    protected function createValidator($definition)
+    {
+        return new ExceptionValidator($definition->createValidator());
     }
 }

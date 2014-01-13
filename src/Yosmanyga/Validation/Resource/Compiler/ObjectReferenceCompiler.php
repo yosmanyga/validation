@@ -26,9 +26,18 @@ class ObjectReferenceCompiler implements CompilerInterface
      */
     public function compile($definition)
     {
-        $definitionValidator = new ExceptionValidator($definition->createValidator());
-        $definitionValidator->validate($definition);
+        $validator = $this->createValidator($definition);
+        $validator->validate($definition);
 
         return null;
+    }
+
+    /**
+     * @param  \Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition $definition
+     * @return \Yosmanyga\Validation\Validator\ExceptionValidator
+     */
+    protected function createValidator($definition)
+    {
+        return new ExceptionValidator($definition->createValidator());
     }
 }
