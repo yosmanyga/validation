@@ -17,7 +17,9 @@
         "phpunit/phpunit": "3.7.*",
         "symfony/expression-language": "2.4.*@dev",
         "symfony/property-access": "~2.3",
-        "yosmanyga/resource": "dev-master"
+        "yosmanyga/resource": "dev-master",
+        "symfony/yaml": "~2.3",
+        "symfony/finder": "~2.3"
     },
     "suggest": {
         "symfony/expression-language": "For expression validators",
