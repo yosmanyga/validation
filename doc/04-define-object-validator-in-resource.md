@@ -107,87 +107,17 @@ User.php:
         public $roles;
     }
 
-Next create the loader:
+Next create the loader and load validators from the resource:
 
 index.php:
 
     use Yosmanyga\Validation\Resource\Loader\Loader;
-    use Yosmanyga\Resource\Reader\Iterator\DelegatorReader;
-    use Yosmanyga\Resource\Reader\Iterator\XmlFileReader;
-    use Yosmanyga\Resource\Reader\Iterator\YamlFileReader;
-    use Yosmanyga\Resource\Reader\Iterator\SuddenAnnotationFileReader;
-    use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
-    use Yosmanyga\Validation\Resource\Normalizer\YamlFile\Normalizer as YamlFileNormalizer;
-    use Yosmanyga\Validation\Resource\Normalizer\YamlFile\ValueNormalizer as YamlFileValueNormalizer;
-    use Yosmanyga\Validation\Resource\Normalizer\YamlFile\ArrayNormalizer as YamlFileArrayNormalizer;
-    use Yosmanyga\Validation\Resource\Normalizer\YamlFile\ExpressionNormalizer as YamlFileExpressionNormalizer;
-    use Yosmanyga\Validation\Resource\Normalizer\XmlFile\Normalizer as XmlFileNormalizer;
-    use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ValueNormalizer as XmlFileValueNormalizer;
-    use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ArrayNormalizer as XmlFileArrayNormalizer;
-    use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ExpressionNormalizer as XmlFileExpressionNormalizer;
-    use Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile\Normalizer as SuddenAnnotationFileNormalizer;
-    use Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile\ValueNormalizer as SuddenAnnotationFileValueNormalizer;
-    use Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile\ArrayNormalizer as SuddenAnnotationFileArrayNormalizer;
-    use Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile\ExpressionNormalizer as SuddenAnnotationFileExpressionNormalizer;
-    use Yosmanyga\Validation\Resource\Compiler\ObjectCompiler;
-    use Yosmanyga\Resource\Compiler\DelegatorCompiler;
-    use Yosmanyga\Validation\Resource\Compiler\ValueCompiler;
-    use Yosmanyga\Validation\Resource\Compiler\ArrayCompiler;
-    use Yosmanyga\Validation\Resource\Compiler\ExpressionCompiler;
-    use Yosmanyga\Resource\Cacher\Cacher;
-    use Yosmanyga\Resource\Cacher\Checker\FileVersionChecker;
-    use Yosmanyga\Resource\Cacher\Storer\FileStorer;
     use Yosmanyga\Resource\Resource;
 
-    $loader = new Loader(
-        new DelegatorReader(array(
-            new XmlFileReader(),
-            new YamlFileReader(),
-            new SuddenAnnotationFileReader()
-        )),
-        new DelegatorNormalizer(array(
-            new YamlFileNormalizer(array(
-                new YamlFileValueNormalizer(),
-                new YamlFileArrayNormalizer(array(
-                    new YamlFileValueNormalizer()
-                )),
-                new YamlFileExpressionNormalizer()
-            )),
-            new XmlFileNormalizer(array(
-                new XmlFileValueNormalizer(),
-                new XmlFileArrayNormalizer(array(
-                    new XmlFileValueNormalizer()
-                )),
-                new XmlFileExpressionNormalizer()
-            )),
-            new SuddenAnnotationFileNormalizer(array(
-                new SuddenAnnotationFileValueNormalizer(),
-                new SuddenAnnotationFileArrayNormalizer(array(
-                    new SuddenAnnotationFileValueNormalizer()
-                )),
-                new SuddenAnnotationFileExpressionNormalizer()
-            ))
-        )),
-        new ObjectCompiler(
-            new DelegatorCompiler(array(
-                new ValueCompiler(),
-                new ArrayCompiler(array(
-                    new ValueCompiler()
-                )),
-                new ExpressionCompiler()
-            ))
-        ),
-        new Cacher(
-            new FileVersionChecker(
-                new FileStorer(__DIR__ . "/cache", ".check")
-            ),
-            new FileStorer(__DIR__ . "/cache")
-        )
-    );
-
-Then you can load validators from the resource:
+    $loader = new Loader();
 
     // Load validators
+
     $validators = $loader->load(
         new Resource(array('file' => 'validators.yml'))
     );
