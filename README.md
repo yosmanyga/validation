@@ -51,3 +51,6 @@ You can validate an object by using the ```ObjectValidator```:
 # Documentation
 
 Read the documentation for more information.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/yosmanyga/validation/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
