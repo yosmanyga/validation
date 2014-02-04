@@ -2,7 +2,6 @@
 
 namespace Yosmanyga\Validation\Resource\Normalizer\Common;
 
-use Yosmanyga\Resource\Resource;
 use Yosmanyga\Resource\Normalizer\NormalizerInterface;
 use Yosmanyga\Validation\Resource\Definition\ObjectDefinition;
 
