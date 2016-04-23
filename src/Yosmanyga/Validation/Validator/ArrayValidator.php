@@ -45,7 +45,7 @@ class ArrayValidator implements ValidatorInterface
         $this->configureMessages();
 
         if (null === $value) {
-            if (!$this->options['allowNull']) {
+            if ($this->options['allowNull'] === false) {
                 $errors[] =  new Error($this->options['messages']['null']);
             }
 
@@ -58,28 +58,28 @@ class ArrayValidator implements ValidatorInterface
             return $errors;
         }
 
-        if (isset($this->options['map'])) {
+        if ($this->options['map'] !== null) {
             $errs = $this->validateMap($value);
             if ($errs) {
                 $errors = array_merge($errs, $errors);
             }
         }
 
-        if ($this->options['deniedKeys']) {
+        if (!empty($this->options['deniedKeys'])) {
             $intersect = array_intersect($this->options['deniedKeys'], array_keys($value));
             if ($intersect) {
                 $errors[] =  new Error($this->options['messages']['deniedKeys']);
             }
         }
 
-        if ($this->options['requiredKeys']) {
+        if (!empty($this->options['requiredKeys'])) {
             $diff = array_diff($this->options['requiredKeys'], array_keys($value));
             if ($diff) {
                 $errors[] =  new Error($this->options['messages']['requiredKeys']);
             }
         }
 
-        if (!$this->options['allowExtra']) {
+        if ($this->options['allowExtra'] === false) {
             $diff = array_diff(array_keys($value), array_merge($this->options['deniedKeys'], $this->options['requiredKeys'], $this->options['allowedKeys']));
             if ($diff) {
                 $errors[] =  new Error($this->options['messages']['allowExtra']);
@@ -92,11 +92,11 @@ class ArrayValidator implements ValidatorInterface
 
     private function configureMessages()
     {
-        if ($this->options['deniedKeys']) {
+        if (!empty($this->options['deniedKeys'])) {
             $this->options['messages']['deniedKeys'] = sprintf($this->options['messages']['deniedKeys'], implode(", ", $this->options['deniedKeys']));
         }
 
-        if ($this->options['requiredKeys']) {
+        if (!empty($this->options['requiredKeys'])) {
             $this->options['messages']['requiredKeys'] = sprintf($this->options['messages']['requiredKeys'], implode(", ", $this->options['requiredKeys']));
         }
 

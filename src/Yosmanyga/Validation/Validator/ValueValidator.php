@@ -56,54 +56,54 @@ class ValueValidator implements ValidatorInterface
         $this->configureMessages();
 
         if (null === $value) {
-            if (!$this->options['allowNull']) {
+            if ($this->options['allowNull'] === false) {
                 return array(new Error($this->options['messages']['null']));
             }
 
             return array();
         }
 
-        if ($this->options['type'] && $this->options['type'] != gettype($value)) {
+        if ($this->options['type'] !== null && $this->options['type'] != gettype($value)) {
             $errors[] =  new Error($this->options['messages']['type']);
         }
 
-        if ($this->options['eq'] && $value != $this->options['eq']) {
+        if ($this->options['eq'] !== null && $value != $this->options['eq']) {
             $errors[] =  new Error($this->options['messages']['eq']);
         }
 
-        if ($this->options['neq'] && $value == $this->options['neq']) {
+        if ($this->options['neq'] !== null && $value == $this->options['neq']) {
             $errors[] =  new Error($this->options['messages']['neq']);
         }
 
-        if ($this->options['iq'] && $value != $this->options['iq']) {
+        if ($this->options['iq'] !== null && $value != $this->options['iq']) {
             $errors[] =  new Error($this->options['messages']['iq']);
         }
 
-        if ($this->options['niq'] && $value == $this->options['niq']) {
+        if ($this->options['niq'] !== null && $value == $this->options['niq']) {
             $errors[] =  new Error($this->options['messages']['niq']);
         }
 
-        if ($this->options['gt'] && $value <= $this->options['gt']) {
+        if ($this->options['gt'] !== null && $value <= $this->options['gt']) {
             $errors[] =  new Error($this->options['messages']['gt']);
         }
 
-        if ($this->options['ge'] && $value < $this->options['ge']) {
+        if ($this->options['ge'] !== null && $value < $this->options['ge']) {
             $errors[] =  new Error($this->options['messages']['ge']);
         }
 
-        if ($this->options['lt'] && $value >= $this->options['lt']) {
+        if ($this->options['lt'] !== null && $value >= $this->options['lt']) {
             $errors[] =  new Error($this->options['messages']['lt']);
         }
 
-        if ($this->options['le'] && $value > $this->options['le']) {
+        if ($this->options['le'] !== null && $value > $this->options['le']) {
             $errors[] =  new Error($this->options['messages']['le']);
         }
 
-        if ($this->options['in'] && !in_array($value, $this->options['in'])) {
+        if ($this->options['in'] !== null && !in_array($value, $this->options['in'])) {
             $errors[] =  new Error($this->options['messages']['in']);
         }
 
-        if ($this->options['nin'] && in_array($value, $this->options['nin'])) {
+        if ($this->options['nin'] !== null && in_array($value, $this->options['nin'])) {
             $errors[] =  new Error($this->options['messages']['nin']);
         }
 
@@ -112,37 +112,37 @@ class ValueValidator implements ValidatorInterface
 
     private function configureMessages()
     {
-        if ($this->options['type']) {
+        if ($this->options['type'] !== null) {
             $this->options['messages']['type'] = sprintf($this->options['messages']['type'], $this->options['type']);
         }
-        if ($this->options['eq']) {
+        if ($this->options['eq'] !== null) {
             $this->options['messages']['eq'] = sprintf($this->options['messages']['eq'], $this->options['eq']);
         }
-        if ($this->options['neq']) {
+        if ($this->options['neq'] !== null) {
             $this->options['messages']['neq'] = sprintf($this->options['messages']['neq'], $this->options['neq']);
         }
-        if ($this->options['iq']) {
+        if ($this->options['iq'] !== null) {
             $this->options['messages']['iq'] = sprintf($this->options['messages']['iq'], $this->options['iq']);
         }
-        if ($this->options['niq']) {
+        if ($this->options['niq'] !== null) {
             $this->options['messages']['niq'] = sprintf($this->options['messages']['niq'], $this->options['niq']);
         }
-        if ($this->options['gt']) {
+        if ($this->options['gt'] !== null) {
             $this->options['messages']['gt'] = sprintf($this->options['messages']['gt'], $this->options['gt']);
         }
-        if ($this->options['ge']) {
+        if ($this->options['ge'] !== null) {
             $this->options['messages']['ge'] = sprintf($this->options['messages']['ge'], $this->options['ge']);
         }
-        if ($this->options['lt']) {
+        if ($this->options['lt'] !== null) {
             $this->options['messages']['lt'] = sprintf($this->options['messages']['lt'], $this->options['lt']);
         }
-        if ($this->options['le']) {
+        if ($this->options['le'] !== null) {
             $this->options['messages']['le'] = sprintf($this->options['messages']['le'], $this->options['le']);
         }
-        if ($this->options['in']) {
+        if ($this->options['in'] !== null) {
             $this->options['messages']['in'] = sprintf($this->options['messages']['in'], implode(", ", $this->options['in']));
         }
-        if ($this->options['nin']) {
+        if ($this->options['nin'] !== null) {
             $this->options['messages']['nin'] = sprintf($this->options['messages']['nin'], implode(", ", $this->options['nin']));
         }
     }
