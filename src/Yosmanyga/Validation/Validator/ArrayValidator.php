@@ -131,7 +131,7 @@ class ArrayValidator implements ValidatorInterface
                     } elseif ($propertyError instanceof PropertyError) {
                         $propertyError->prependPath($key);
                         $errors[] = $propertyError;
-                    } elseif (false != $propertyError) {
+                    } elseif ($propertyError !== null) {
                         $propertyError = new PropertyError($propertyError, $key);
                         $errors[] = $propertyError;
                     }
