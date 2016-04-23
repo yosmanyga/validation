@@ -17,7 +17,7 @@ class ValueValidator implements ValidatorInterface
     public function __construct($options = array())
     {
         $this->options = array_replace_recursive(array(
-            'allowNull' => true,
+            'allowNull' => false,
             'type' => null,
             'eq' => null,
             'neq' => null,

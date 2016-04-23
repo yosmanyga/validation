@@ -91,6 +91,7 @@ class ArrayDefinition extends Definition implements ValidatedInterface
                 ),
             )),
             'allowExtra' => new ValueValidator(array(
+                'allowNull' => true,
                 'type' => 'boolean',
             )),
             'messages' => new ArrayValidator(array(

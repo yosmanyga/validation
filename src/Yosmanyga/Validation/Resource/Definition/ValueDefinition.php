@@ -128,15 +128,19 @@ class ValueDefinition extends Definition implements ValidatedInterface
     {
         return new ObjectValidator(array(
             'allowNull' => new ValueValidator(array(
+                'allowNull' => true,
                 'type' => 'boolean',
             )),
             'type' => new ValueValidator(array(
+                'allowNull' => true,
                 'type' => 'string',
             )),
             'in' => new ValueValidator(array(
+                'allowNull' => true,
                 'type' => 'array',
             )),
             'nin' => new ValueValidator(array(
+                'allowNull' => true,
                 'type' => 'array',
             )),
             'messages' => new ArrayValidator(array(

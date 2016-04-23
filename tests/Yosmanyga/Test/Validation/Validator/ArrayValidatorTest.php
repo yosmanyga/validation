@@ -18,7 +18,7 @@ class ArrayValidatorTest extends \PHPUnit_Framework_TestCase
         $validator = new ArrayValidator();
         $this->assertAttributeEquals(
             array(
-                'allowNull' => true,
+                'allowNull' => false,
                 'map' => null,
                 'requiredKeys' => array(),
                 'allowedKeys' => array(),
@@ -87,12 +87,12 @@ class ArrayValidatorTest extends \PHPUnit_Framework_TestCase
         // Allow null
         $validator = new ArrayValidator();
         $errors = $validator->validate(null);
-        $this->assertEmpty($errors);
+        $this->assertEquals(array(new Error("Value can't be null")), $errors);
 
         // Don't allow null
-        $validator = new ArrayValidator(array('allowNull' => false));
+        $validator = new ArrayValidator(array('allowNull' => true));
         $errors = $validator->validate(null);
-        $this->assertEquals(array(new Error("Value can't be null")), $errors);
+        $this->assertEmpty($errors);
 
         // Not array
         $validator = new ArrayValidator();

@@ -17,7 +17,7 @@ class ValueValidatorTest extends \PHPUnit_Framework_TestCase
         $validator = new ValueValidator();
         $this->assertAttributeEquals(
             array(
-                'allowNull' => true,
+                'allowNull' => false,
                 'type' => null,
                 'eq' => null,
                 'neq' => null,

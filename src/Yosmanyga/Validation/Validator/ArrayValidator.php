@@ -18,7 +18,7 @@ class ArrayValidator implements ValidatorInterface
     public function __construct($options = array())
     {
         $this->options = array_replace_recursive(array(
-            'allowNull' => true,
+            'allowNull' => false,
             'map' => null,
             'requiredKeys' => array(),
             'allowedKeys' => array(),
