@@ -30,7 +30,7 @@ class ExpressionPropertyValidator implements PropertyValidatorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate($object, $property)
     {

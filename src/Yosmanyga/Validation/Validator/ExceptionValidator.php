@@ -18,7 +18,7 @@ class ExceptionValidator implements ValidatorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate($value)
     {
@@ -28,6 +28,6 @@ class ExceptionValidator implements ValidatorInterface
             return array();
         }
 
-        throw new \RuntimeException(sprintf("Invalid value %s, got this error: %s", print_r($value, true), implode('. ', $errors)));
+        throw new \RuntimeException(sprintf('Invalid value %s, got this error: %s', print_r($value, true), implode('. ', $errors)));
     }
 }

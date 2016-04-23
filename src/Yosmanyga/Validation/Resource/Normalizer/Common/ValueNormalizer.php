@@ -9,7 +9,7 @@ use Yosmanyga\Validation\Resource\Definition\ValueDefinition;
 abstract class ValueNormalizer implements NormalizerInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports($data, Resource $resource)
     {
@@ -21,7 +21,8 @@ abstract class ValueNormalizer implements NormalizerInterface
     }
 
     /**
-     * @param  array                                                     $data
+     * @param array $data
+     *
      * @return \Yosmanyga\Validation\Resource\Definition\ValueDefinition
      */
     protected function createDefinition($data)

@@ -10,7 +10,7 @@ use Yosmanyga\Validation\Validator\ValueValidator;
 class ValueCompiler implements CompilerInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports($definition)
     {
@@ -22,7 +22,8 @@ class ValueCompiler implements CompilerInterface
     }
 
     /**
-     * @param  \Yosmanyga\Validation\Resource\Definition\ValueDefinition $definition
+     * @param \Yosmanyga\Validation\Resource\Definition\ValueDefinition $definition
+     *
      * @return \Yosmanyga\Validation\Validator\ValueValidator
      */
     public function compile($definition)
@@ -34,7 +35,8 @@ class ValueCompiler implements CompilerInterface
     }
 
     /**
-     * @param  \Yosmanyga\Validation\Resource\Definition\ValueDefinition $definition
+     * @param \Yosmanyga\Validation\Resource\Definition\ValueDefinition $definition
+     *
      * @return \Yosmanyga\Validation\Validator\ExceptionValidator
      */
     protected function createValidator($definition)

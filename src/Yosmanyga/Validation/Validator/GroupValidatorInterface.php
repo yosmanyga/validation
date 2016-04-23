@@ -8,9 +8,11 @@ namespace Yosmanyga\Validation\Validator;
 interface GroupValidatorInterface
 {
     /**
-     * @param  mixed                                         $value
-     * @param  array                                         $groups
-     * @throws \InvalidArgumentException                     If a group is not found
+     * @param mixed $value
+     * @param array $groups
+     *
+     * @throws \InvalidArgumentException If a group is not found
+     *
      * @return \Yosmanyga\Validation\Validator\Error\Error[]
      */
     public function validate($value, $groups = array());

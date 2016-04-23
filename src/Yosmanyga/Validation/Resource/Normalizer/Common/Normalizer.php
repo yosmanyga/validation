@@ -8,8 +8,9 @@ use Yosmanyga\Validation\Resource\Definition\ObjectDefinition;
 abstract class Normalizer implements NormalizerInterface
 {
     /**
-     * @param  array                                                      $class
-     * @param  \Yosmanyga\Resource\Definition\DefinitionInterface[]       $validators
+     * @param array                                                $class
+     * @param \Yosmanyga\Resource\Definition\DefinitionInterface[] $validators
+     *
      * @return \Yosmanyga\Validation\Resource\Definition\ObjectDefinition
      */
     protected function createDefinition($class, $validators)

@@ -10,7 +10,7 @@ use Yosmanyga\Validation\Validator\ExpressionPropertyValidator;
 class ExpressionCompiler implements CompilerInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports($definition)
     {
@@ -22,7 +22,8 @@ class ExpressionCompiler implements CompilerInterface
     }
 
     /**
-     * @param  \Yosmanyga\Validation\Resource\Definition\ExpressionDefinition $definition
+     * @param \Yosmanyga\Validation\Resource\Definition\ExpressionDefinition $definition
+     *
      * @return \Yosmanyga\Validation\Validator\ExpressionPropertyValidator
      */
     public function compile($definition)
@@ -38,7 +39,8 @@ class ExpressionCompiler implements CompilerInterface
     }
 
     /**
-     * @param  \Yosmanyga\Validation\Resource\Definition\ExpressionDefinition $definition
+     * @param \Yosmanyga\Validation\Resource\Definition\ExpressionDefinition $definition
+     *
      * @return \Yosmanyga\Validation\Validator\ExceptionValidator
      */
     protected function createValidator($definition)

@@ -24,14 +24,14 @@ class Normalizer extends CommonNormalizer
             new ValueNormalizer(),
             new ExpressionNormalizer(),
             new ArrayNormalizer(),
-            new ObjectReferenceNormalizer()
+            new ObjectReferenceNormalizer(),
         );
 
         $this->delegator = new YamlFileDelegatorNormalizer($normalizers);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports($data, Resource $resource)
     {
@@ -39,13 +39,13 @@ class Normalizer extends CommonNormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function normalize($data, Resource $resource)
     {
         $validator = new ExceptionValidator(new ArrayValidator(array(
             'allowedKeys' => array('properties'),
-            'allowExtra' => false
+            'allowExtra' => false,
         )));
         $validator->validate($data['value']);
 
@@ -65,7 +65,7 @@ class Normalizer extends CommonNormalizer
         $validatorValidator = new ExceptionValidator(new ArrayValidator(array(
             'requiredKeys' => array('validator'),
             'allowedKeys' => array('options'),
-            'allowExtra' => false
+            'allowExtra' => false,
         )));
 
         $definitions = array();
@@ -74,7 +74,7 @@ class Normalizer extends CommonNormalizer
                 if (!is_integer($id)) {
                     $validator = array(
                         'validator' => $id,
-                        'options' => $validator
+                        'options' => $validator,
                     );
                 }
 
@@ -83,7 +83,7 @@ class Normalizer extends CommonNormalizer
                 $definitions[$property][] = $this->delegator->normalize(
                     array(
                         'key' => $validator['validator'],
-                        'value' => $validator['options']
+                        'value' => $validator['options'],
                     ),
                     $resource
                 );

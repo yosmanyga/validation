@@ -23,16 +23,16 @@ class Normalizer extends CommonNormalizer
             new ExpressionNormalizer(),
             new ArrayNormalizer(array(
                 new ValueNormalizer(),
-                new ExpressionNormalizer()
+                new ExpressionNormalizer(),
             )),
-            new ObjectReferenceNormalizer()
+            new ObjectReferenceNormalizer(),
         );
 
         $this->delegator = new SuddenAnnotationFileDelegatorNormalizer($normalizers);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports($data, Resource $resource)
     {
@@ -40,8 +40,9 @@ class Normalizer extends CommonNormalizer
     }
 
     /**
-     * @param  mixed                        $data
-     * @param  \Yosmanyga\Resource\Resource $resource
+     * @param mixed                        $data
+     * @param \Yosmanyga\Resource\Resource $resource
+     *
      * @return mixed
      */
     public function normalize($data, Resource $resource)

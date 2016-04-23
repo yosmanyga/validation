@@ -22,14 +22,14 @@ class ArrayCompiler implements CompilerInterface
     {
         $compilers = $compilers ?: array(
             new ValueCompiler(),
-            new ExpressionCompiler()
+            new ExpressionCompiler(),
         );
 
         $this->compiler = new DelegatorCompiler($compilers);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports($definition)
     {
@@ -41,7 +41,8 @@ class ArrayCompiler implements CompilerInterface
     }
 
     /**
-     * @param  \Yosmanyga\Validation\Resource\Definition\ArrayDefinition $definition
+     * @param \Yosmanyga\Validation\Resource\Definition\ArrayDefinition $definition
+     *
      * @return \Yosmanyga\Validation\Validator\ArrayValidator
      */
     public function compile($definition)

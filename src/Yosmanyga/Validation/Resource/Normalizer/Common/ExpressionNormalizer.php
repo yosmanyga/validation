@@ -9,7 +9,7 @@ use Yosmanyga\Validation\Resource\Definition\ExpressionDefinition;
 abstract class ExpressionNormalizer implements NormalizerInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports($data, Resource $resource)
     {
@@ -21,7 +21,8 @@ abstract class ExpressionNormalizer implements NormalizerInterface
     }
 
     /**
-     * @param  array                                                          $data
+     * @param array $data
+     *
      * @return \Yosmanyga\Validation\Resource\Definition\ExpressionDefinition
      */
     protected function createDefinition($data)

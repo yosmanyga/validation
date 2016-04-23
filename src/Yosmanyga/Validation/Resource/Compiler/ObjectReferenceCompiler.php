@@ -9,7 +9,7 @@ use Yosmanyga\Validation\Validator\ExceptionValidator;
 class ObjectReferenceCompiler implements CompilerInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports($definition)
     {
@@ -21,19 +21,19 @@ class ObjectReferenceCompiler implements CompilerInterface
     }
 
     /**
-     * @param  \Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition $definition
-     * @return null
+     * @param \Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition $definition
      */
     public function compile($definition)
     {
         $validator = $this->createValidator($definition);
         $validator->validate($definition);
 
-        return null;
+        return;
     }
 
     /**
-     * @param  \Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition $definition
+     * @param \Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition $definition
+     *
      * @return \Yosmanyga\Validation\Validator\ExceptionValidator
      */
     protected function createValidator($definition)

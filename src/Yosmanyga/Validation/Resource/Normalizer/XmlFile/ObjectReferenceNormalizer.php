@@ -19,7 +19,7 @@ class ObjectReferenceNormalizer extends CommonObjectReferenceNormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports($data, Resource $resource)
     {
@@ -29,7 +29,7 @@ class ObjectReferenceNormalizer extends CommonObjectReferenceNormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function normalize($data, Resource $resource)
     {

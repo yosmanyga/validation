@@ -8,7 +8,8 @@ namespace Yosmanyga\Validation\Validator;
 interface ValidatorInterface
 {
     /**
-     * @param  mixed                                         $value
+     * @param mixed $value
+     *
      * @return \Yosmanyga\Validation\Validator\Error\Error[]
      */
     public function validate($value);

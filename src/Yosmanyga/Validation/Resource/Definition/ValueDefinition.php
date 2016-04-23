@@ -25,28 +25,28 @@ class ValueDefinition extends Definition implements ValidatedInterface
     public $messages;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function createValidator()
     {
         return new ObjectValidator(array(
             'allowNull' => new ValueValidator(array(
-                'type' => 'boolean'
+                'type' => 'boolean',
             )),
             'type' => new ValueValidator(array(
-                'type' => 'string'
+                'type' => 'string',
             )),
             'in' => new ValueValidator(array(
-                'type' => 'array'
+                'type' => 'array',
             )),
             'nin' => new ValueValidator(array(
-                'type' => 'array'
+                'type' => 'array',
             )),
             'messages' => new ArrayValidator(array(
                 'allowedKeys' => array('null', 'type', 'eq', 'neq', 'iq', 'niq', 'gt', 'ge', 'lt', 'le', 'in', 'nin'),
                 'map' => new ValueValidator(array('type' => 'string')),
                 'messages' => array(
-                    'map' => 'messages values must be strings'
+                    'map' => 'messages values must be strings',
                 ),
             )),
         ));

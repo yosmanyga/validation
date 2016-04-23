@@ -13,13 +13,13 @@ class ObjectDefinition extends Definition implements ValidatedInterface
     public $validators;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function createValidator()
     {
         return new ObjectValidator(array(
             'class' => new ValueValidator(array(
-                'type' => 'string'
+                'type' => 'string',
             )),
         ));
     }

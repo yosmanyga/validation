@@ -17,13 +17,13 @@ class Normalizer extends DelegatorNormalizer
     {
         $normalizers = $normalizers ?: array(
             new YamlFileNormalizer(),
-            new XmlFileNormalizer,
+            new XmlFileNormalizer(),
             new SuddenAnnotationFileNormalizer(),
             new DirectoryNormalizer(array(
                 new YamlFileNormalizer(),
-                new XmlFileNormalizer,
-                new SuddenAnnotationFileNormalizer()
-            ))
+                new XmlFileNormalizer(),
+                new SuddenAnnotationFileNormalizer(),
+            )),
         );
 
         parent::__construct($normalizers);

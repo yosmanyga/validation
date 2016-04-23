@@ -18,7 +18,7 @@ class ArrayNormalizer extends CommonArrayNormalizer
     {
         $normalizers = $normalizers ?: array(
             new ValueNormalizer(),
-            new ExpressionNormalizer()
+            new ExpressionNormalizer(),
         );
 
         parent::__construct($normalizers);
@@ -27,7 +27,7 @@ class ArrayNormalizer extends CommonArrayNormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports($data, Resource $resource)
     {
@@ -37,7 +37,7 @@ class ArrayNormalizer extends CommonArrayNormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function normalize($data, Resource $resource)
     {
@@ -48,7 +48,7 @@ class ArrayNormalizer extends CommonArrayNormalizer
         if (isset($data['value']['map'])) {
             $data['value']['map'] = $this->normalizer->normalize(
                 array(
-                    'value' => $data['value']['map']
+                    'value' => $data['value']['map'],
                 ),
                 $resource
             );

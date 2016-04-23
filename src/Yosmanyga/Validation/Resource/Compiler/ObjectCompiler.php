@@ -18,16 +18,16 @@ class ObjectCompiler extends DelegatorCompiler
             new ExpressionCompiler(),
             new ArrayCompiler(array(
                 new ValueCompiler(),
-                new ExpressionCompiler()
+                new ExpressionCompiler(),
             )),
-            new ObjectReferenceCompiler()
+            new ObjectReferenceCompiler(),
         );
 
         parent::__construct($compilers);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports($definition)
     {
@@ -39,7 +39,8 @@ class ObjectCompiler extends DelegatorCompiler
     }
 
     /**
-     * @param  \Yosmanyga\Validation\Resource\Definition\ObjectDefinition $definition
+     * @param \Yosmanyga\Validation\Resource\Definition\ObjectDefinition $definition
+     *
      * @return \Yosmanyga\Validation\Validator\ObjectValidator
      */
     public function compile($definition)

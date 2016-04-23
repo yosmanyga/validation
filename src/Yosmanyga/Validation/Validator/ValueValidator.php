@@ -42,12 +42,12 @@ class ValueValidator implements ValidatorInterface
                 'le' => 'Value must be lower or equal to "%s"',
                 'in' => 'Value must be one of these values "%s"',
                 'nin' => 'Value must not be one of these values "%s"',
-            )
+            ),
         ), $options);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate($value)
     {
@@ -64,47 +64,47 @@ class ValueValidator implements ValidatorInterface
         }
 
         if ($this->options['type'] !== null && $this->options['type'] != gettype($value)) {
-            $errors[] =  new Error($this->options['messages']['type']);
+            $errors[] = new Error($this->options['messages']['type']);
         }
 
         if ($this->options['eq'] !== null && $value != $this->options['eq']) {
-            $errors[] =  new Error($this->options['messages']['eq']);
+            $errors[] = new Error($this->options['messages']['eq']);
         }
 
         if ($this->options['neq'] !== null && $value == $this->options['neq']) {
-            $errors[] =  new Error($this->options['messages']['neq']);
+            $errors[] = new Error($this->options['messages']['neq']);
         }
 
         if ($this->options['iq'] !== null && $value != $this->options['iq']) {
-            $errors[] =  new Error($this->options['messages']['iq']);
+            $errors[] = new Error($this->options['messages']['iq']);
         }
 
         if ($this->options['niq'] !== null && $value == $this->options['niq']) {
-            $errors[] =  new Error($this->options['messages']['niq']);
+            $errors[] = new Error($this->options['messages']['niq']);
         }
 
         if ($this->options['gt'] !== null && $value <= $this->options['gt']) {
-            $errors[] =  new Error($this->options['messages']['gt']);
+            $errors[] = new Error($this->options['messages']['gt']);
         }
 
         if ($this->options['ge'] !== null && $value < $this->options['ge']) {
-            $errors[] =  new Error($this->options['messages']['ge']);
+            $errors[] = new Error($this->options['messages']['ge']);
         }
 
         if ($this->options['lt'] !== null && $value >= $this->options['lt']) {
-            $errors[] =  new Error($this->options['messages']['lt']);
+            $errors[] = new Error($this->options['messages']['lt']);
         }
 
         if ($this->options['le'] !== null && $value > $this->options['le']) {
-            $errors[] =  new Error($this->options['messages']['le']);
+            $errors[] = new Error($this->options['messages']['le']);
         }
 
         if ($this->options['in'] !== null && !in_array($value, $this->options['in'])) {
-            $errors[] =  new Error($this->options['messages']['in']);
+            $errors[] = new Error($this->options['messages']['in']);
         }
 
         if ($this->options['nin'] !== null && in_array($value, $this->options['nin'])) {
-            $errors[] =  new Error($this->options['messages']['nin']);
+            $errors[] = new Error($this->options['messages']['nin']);
         }
 
         return $errors;
@@ -140,10 +140,10 @@ class ValueValidator implements ValidatorInterface
             $this->options['messages']['le'] = sprintf($this->options['messages']['le'], $this->options['le']);
         }
         if ($this->options['in'] !== null) {
-            $this->options['messages']['in'] = sprintf($this->options['messages']['in'], implode(", ", $this->options['in']));
+            $this->options['messages']['in'] = sprintf($this->options['messages']['in'], implode(', ', $this->options['in']));
         }
         if ($this->options['nin'] !== null) {
-            $this->options['messages']['nin'] = sprintf($this->options['messages']['nin'], implode(", ", $this->options['nin']));
+            $this->options['messages']['nin'] = sprintf($this->options['messages']['nin'], implode(', ', $this->options['nin']));
         }
     }
 }

@@ -30,13 +30,13 @@ class ArrayValidator implements ValidatorInterface
                 'map' => 'Values are invalid',
                 'requiredKeys' => 'These keys are required "%s"',
                 'deniedKeys' => 'These keys are denied "%s"',
-                'allowExtra' => 'Only these keys are allowed "%s"'
-            )
+                'allowExtra' => 'Only these keys are allowed "%s"',
+            ),
         ), $options);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate($value)
     {
@@ -46,7 +46,7 @@ class ArrayValidator implements ValidatorInterface
 
         if ($value === null) {
             if ($this->options['allowNull'] === false) {
-                $errors[] =  new Error($this->options['messages']['null']);
+                $errors[] = new Error($this->options['messages']['null']);
             }
 
             return $errors;
@@ -68,23 +68,22 @@ class ArrayValidator implements ValidatorInterface
         if (!empty($this->options['deniedKeys'])) {
             $intersect = array_intersect($this->options['deniedKeys'], array_keys($value));
             if ($intersect) {
-                $errors[] =  new Error($this->options['messages']['deniedKeys']);
+                $errors[] = new Error($this->options['messages']['deniedKeys']);
             }
         }
 
         if (!empty($this->options['requiredKeys'])) {
             $diff = array_diff($this->options['requiredKeys'], array_keys($value));
             if ($diff) {
-                $errors[] =  new Error($this->options['messages']['requiredKeys']);
+                $errors[] = new Error($this->options['messages']['requiredKeys']);
             }
         }
 
         if ($this->options['allowExtra'] === false) {
             $diff = array_diff(array_keys($value), array_merge($this->options['deniedKeys'], $this->options['requiredKeys'], $this->options['allowedKeys']));
             if ($diff) {
-                $errors[] =  new Error($this->options['messages']['allowExtra']);
+                $errors[] = new Error($this->options['messages']['allowExtra']);
             }
-
         }
 
         return $errors;
@@ -93,15 +92,15 @@ class ArrayValidator implements ValidatorInterface
     private function configureMessages()
     {
         if (!empty($this->options['deniedKeys'])) {
-            $this->options['messages']['deniedKeys'] = sprintf($this->options['messages']['deniedKeys'], implode(", ", $this->options['deniedKeys']));
+            $this->options['messages']['deniedKeys'] = sprintf($this->options['messages']['deniedKeys'], implode(', ', $this->options['deniedKeys']));
         }
 
         if (!empty($this->options['requiredKeys'])) {
-            $this->options['messages']['requiredKeys'] = sprintf($this->options['messages']['requiredKeys'], implode(", ", $this->options['requiredKeys']));
+            $this->options['messages']['requiredKeys'] = sprintf($this->options['messages']['requiredKeys'], implode(', ', $this->options['requiredKeys']));
         }
 
         if ($this->options['allowExtra'] === false) {
-            $this->options['messages']['allowExtra'] = sprintf($this->options['messages']['allowExtra'], implode(", ", array_merge($this->options['requiredKeys'], $this->options['allowedKeys'])));
+            $this->options['messages']['allowExtra'] = sprintf($this->options['messages']['allowExtra'], implode(', ', array_merge($this->options['requiredKeys'], $this->options['allowedKeys'])));
         }
     }
 
@@ -114,7 +113,7 @@ class ArrayValidator implements ValidatorInterface
         }
 
         if (!is_callable($this->options['map'])) {
-            throw new \InvalidArgumentException("Parameter \"map\" is not callable.");
+            throw new \InvalidArgumentException('Parameter "map" is not callable.');
         }
 
         $propertiesErrors = array_map($this->options['map'], $value);

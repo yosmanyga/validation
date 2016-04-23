@@ -54,7 +54,8 @@ class Loader implements LoaderInterface
     }
 
     /**
-     * @param  \Yosmanyga\Resource\Resource                      $resource
+     * @param \Yosmanyga\Resource\Resource $resource
+     *
      * @return \Yosmanyga\Validation\Validator\ObjectValidator[]
      */
     public function load($resource)
@@ -87,8 +88,9 @@ class Loader implements LoaderInterface
     }
 
     /**
-     * @param  \Yosmanyga\Validation\Resource\Definition\ObjectDefinition[] $definitions
-     * @param  \Yosmanyga\Validation\Validator\ObjectValidator[]            $validators
+     * @param \Yosmanyga\Validation\Resource\Definition\ObjectDefinition[] $definitions
+     * @param \Yosmanyga\Validation\Validator\ObjectValidator[]            $validators
+     *
      * @return \Yosmanyga\Validation\Validator\ObjectValidator[]
      */
     protected function fillObjectValidators($definitions, $validators)

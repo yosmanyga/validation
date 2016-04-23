@@ -23,7 +23,7 @@ class Error implements ErrorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getText()
     {

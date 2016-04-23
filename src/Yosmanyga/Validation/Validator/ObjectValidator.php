@@ -25,12 +25,12 @@ class ObjectValidator implements ValidatorInterface
     {
         $this->validators = $validators;
         $this->options = array_replace_recursive(array(
-            'message' => 'Value must be an object'
+            'message' => 'Value must be an object',
         ), $options);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate($value)
     {
@@ -80,7 +80,8 @@ class ObjectValidator implements ValidatorInterface
     }
 
     /**
-     * @param  array                                                        $objectValidators
+     * @param array $objectValidators
+     *
      * @return \Yosmanyga\Validation\Validator\PropertyValidatorInterface[]
      */
     private function fixValidators($objectValidators)

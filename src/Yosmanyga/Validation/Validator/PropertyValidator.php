@@ -28,7 +28,7 @@ class PropertyValidator implements PropertyValidatorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate($object, $property)
     {
@@ -50,6 +50,7 @@ class PropertyValidator implements PropertyValidatorInterface
 
     /**
      * @param $validators
+     *
      * @return \Yosmanyga\Validation\Validator\ValidatorInterface[]
      */
     private function fixValidators($validators)

@@ -16,7 +16,7 @@ class Normalizer extends CommonNormalizer
     private $delegator;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __construct($normalizers = array())
     {
@@ -24,14 +24,14 @@ class Normalizer extends CommonNormalizer
             new ValueNormalizer(),
             new ExpressionNormalizer(),
             new ArrayNormalizer(),
-            new ObjectReferenceNormalizer()
+            new ObjectReferenceNormalizer(),
         );
 
         $this->delegator = new XmlFileDelegatorNormalizer($normalizers);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports($data, Resource $resource)
     {
@@ -39,8 +39,9 @@ class Normalizer extends CommonNormalizer
     }
 
     /**
-     * @param  mixed                        $data
-     * @param  \Yosmanyga\Resource\Resource $resource
+     * @param mixed                        $data
+     * @param \Yosmanyga\Resource\Resource $resource
+     *
      * @return mixed
      */
     public function normalize($data, Resource $resource)
@@ -48,7 +49,7 @@ class Normalizer extends CommonNormalizer
         $validator = new ExceptionValidator(new ArrayValidator(array(
             'requiredKeys' => array('name'),
             'allowedKeys' => array('property'),
-            'allowExtra' => false
+            'allowExtra' => false,
         )));
 
         $validator->validate($data['value']);
@@ -68,7 +69,7 @@ class Normalizer extends CommonNormalizer
     {
         $validator = new ExceptionValidator(new ArrayValidator(array(
             'requiredKeys' => array('name', 'validator'),
-            'allowExtra' => false
+            'allowExtra' => false,
         )));
 
         if (!is_integer(key($properties))) {
@@ -89,7 +90,7 @@ class Normalizer extends CommonNormalizer
     {
         $validatorValidator = new ExceptionValidator(new ArrayValidator(array(
             'allowedKeys' => array('name', 'option'),
-            'allowExtra' => false
+            'allowExtra' => false,
         )));
 
         if (!is_integer(key($validators))) {
@@ -102,7 +103,7 @@ class Normalizer extends CommonNormalizer
 
             $definitions[] = $this->delegator->normalize(
                 array(
-                    'value' => $validator
+                    'value' => $validator,
                 ),
                 $resource
             );

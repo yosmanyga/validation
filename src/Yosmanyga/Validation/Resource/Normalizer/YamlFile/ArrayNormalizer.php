@@ -11,14 +11,14 @@ class ArrayNormalizer extends CommonArrayNormalizer
     {
         $normalizers = $normalizers ?: array(
             new ValueNormalizer(),
-            new ExpressionNormalizer()
+            new ExpressionNormalizer(),
         );
 
         parent::__construct($normalizers);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports($data, Resource $resource)
     {
@@ -28,8 +28,9 @@ class ArrayNormalizer extends CommonArrayNormalizer
     }
 
     /**
-     * @param  mixed                                                     $data
-     * @param  \Yosmanyga\Resource\Resource                              $resource
+     * @param mixed                        $data
+     * @param \Yosmanyga\Resource\Resource $resource
+     *
      * @return \Yosmanyga\Validation\Resource\Definition\ArrayDefinition
      */
     public function normalize($data, Resource $resource)
@@ -39,10 +40,10 @@ class ArrayNormalizer extends CommonArrayNormalizer
             $data['value']['map'] = $this->normalizer->normalize(
                 array(
                     'key' => $data['value']['map']['validator'],
-                    'value' => $options
+                    'value' => $options,
                 ),
                 $resource
-            );;
+            );
         }
 
         return $this->createDefinition($data['value']);

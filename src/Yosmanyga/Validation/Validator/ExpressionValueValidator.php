@@ -36,13 +36,13 @@ class ExpressionValueValidator implements ValidatorInterface
     {
         $this->expression = $expression;
         $this->options = array_replace(array(
-            'message' => 'This value is not valid'
+            'message' => 'This value is not valid',
         ), $options);
         $this->expressionLanguage = $expressionLanguage;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate($value)
     {
@@ -55,7 +55,7 @@ class ExpressionValueValidator implements ValidatorInterface
         // can't be cached because of closures.
         $this->expressionLanguage = $this->expressionLanguage ?: new ExpressionLanguage();
         if (!$this->expressionLanguage->evaluate($this->expression, $this->variables)) {
-            $errors[] =  new Error($this->options['message']);
+            $errors[] = new Error($this->options['message']);
         }
 
         return $errors;

@@ -11,14 +11,14 @@ class ObjectReferenceDefinition extends Definition
     public $class;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function createValidator()
     {
         return new ObjectValidator(array(
             'class' => new ValueValidator(array(
-                'type' => 'string'
-            ))
+                'type' => 'string',
+            )),
         ));
     }
 }

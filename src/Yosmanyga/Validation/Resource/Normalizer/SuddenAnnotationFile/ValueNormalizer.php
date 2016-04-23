@@ -19,7 +19,7 @@ class ValueNormalizer extends CommonValueNormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports($data, Resource $resource)
     {
@@ -33,7 +33,7 @@ class ValueNormalizer extends CommonValueNormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function normalize($data, Resource $resource)
     {

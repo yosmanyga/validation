@@ -30,7 +30,7 @@ class PropertyError implements ErrorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getText()
     {
@@ -58,6 +58,6 @@ class PropertyError implements ErrorInterface
      */
     public function prependPath($path)
     {
-        $this->path = sprintf("%s.%s", $path, $this->path);
+        $this->path = sprintf('%s.%s', $path, $this->path);
     }
 }
