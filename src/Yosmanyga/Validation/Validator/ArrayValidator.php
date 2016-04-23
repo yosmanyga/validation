@@ -44,7 +44,7 @@ class ArrayValidator implements ValidatorInterface
 
         $this->configureMessages();
 
-        if (null === $value) {
+        if ($value === null) {
             if ($this->options['allowNull'] === false) {
                 $errors[] =  new Error($this->options['messages']['null']);
             }
@@ -100,7 +100,7 @@ class ArrayValidator implements ValidatorInterface
             $this->options['messages']['requiredKeys'] = sprintf($this->options['messages']['requiredKeys'], implode(", ", $this->options['requiredKeys']));
         }
 
-        if (false === $this->options['allowExtra']) {
+        if ($this->options['allowExtra'] === false) {
             $this->options['messages']['allowExtra'] = sprintf($this->options['messages']['allowExtra'], implode(", ", array_merge($this->options['requiredKeys'], $this->options['allowedKeys'])));
         }
     }

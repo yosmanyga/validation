@@ -23,7 +23,7 @@ class ExpressionNormalizer extends CommonExpressionNormalizer
      */
     public function supports($data, Resource $resource)
     {
-        if (false !== strrpos($data['key'], '\\')) {
+        if (strrpos($data['key'], '\\') !== false) {
             $data = substr($data['key'], strrpos($data['key'], '\\') + 1);
         } else {
             $data = $data['key'];

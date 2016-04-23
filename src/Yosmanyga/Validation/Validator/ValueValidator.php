@@ -55,7 +55,7 @@ class ValueValidator implements ValidatorInterface
 
         $this->configureMessages();
 
-        if (null === $value) {
+        if ($value === null) {
             if ($this->options['allowNull'] === false) {
                 return array(new Error($this->options['messages']['null']));
             }

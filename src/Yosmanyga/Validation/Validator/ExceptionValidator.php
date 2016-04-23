@@ -28,6 +28,6 @@ class ExceptionValidator implements ValidatorInterface
             return array();
         }
 
-        throw new \RuntimeException(sprintf("Invalid value, got this error: %s", implode('. ', $errors)));
+        throw new \RuntimeException(sprintf("Invalid value %s, got this error: %s", print_r($value, true), implode('. ', $errors)));
     }
 }
