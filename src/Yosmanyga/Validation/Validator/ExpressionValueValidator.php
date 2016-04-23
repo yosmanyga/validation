@@ -15,6 +15,11 @@ class ExpressionValueValidator implements ValidatorInterface
     /**
      * @var array
      */
+    private $options;
+
+    /**
+     * @var array
+     */
     private $variables = array();
 
     /**
