@@ -10,12 +10,61 @@ use Yosmanyga\Validation\Validator\ValueValidator;
 
 class ArrayDefinition extends Definition implements ValidatedInterface
 {
+    /**
+     * @var array
+     */
     public $requiredKeys;
+
+    /**
+     * @var array
+     */
     public $allowedKeys;
+
+    /**
+     * @var array
+     */
     public $map;
+
+    /**
+     * @var array
+     */
     public $deniedKeys;
+
+    /**
+     * @var boolean
+     */
     public $allowExtra;
+
+    /**
+     * @var array
+     */
     public $messages;
+
+    /**
+     * @param array   $requiredKeys
+     * @param array   $allowedKeys
+     * @param array   $map
+     * @param array   $deniedKeys
+     * @param boolean $allowExtra
+     * @param array   $messages
+     */
+    public function __construct(
+        $requiredKeys = null,
+        $allowedKeys = null,
+        $map = null,
+        $deniedKeys = null,
+        $allowExtra = null,
+        $messages = null
+    )
+    {
+        $this->requiredKeys = $requiredKeys ?: array();
+        $this->allowedKeys = $allowedKeys ?: array();
+        $this->map = $map ?: array();
+        $this->deniedKeys = $deniedKeys ?: array();
+        $this->allowExtra = $allowExtra;
+        $this->messages = $messages ?: array();;
+    }
+
 
     /**
      * {@inheritdoc}
