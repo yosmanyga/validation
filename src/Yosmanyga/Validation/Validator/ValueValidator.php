@@ -116,28 +116,28 @@ class ValueValidator implements ValidatorInterface
             $this->options['messages']['type'] = sprintf($this->options['messages']['type'], $this->options['type']);
         }
         if ($this->options['eq'] !== null) {
-            $this->options['messages']['eq'] = sprintf($this->options['messages']['eq'], $this->options['eq']);
+            $this->options['messages']['eq'] = sprintf($this->options['messages']['eq'], print_r($this->options['eq'], true));
         }
         if ($this->options['neq'] !== null) {
-            $this->options['messages']['neq'] = sprintf($this->options['messages']['neq'], $this->options['neq']);
+            $this->options['messages']['neq'] = sprintf($this->options['messages']['neq'], print_r($this->options['neq'], true));
         }
         if ($this->options['iq'] !== null) {
-            $this->options['messages']['iq'] = sprintf($this->options['messages']['iq'], $this->options['iq']);
+            $this->options['messages']['iq'] = sprintf($this->options['messages']['iq'], print_r($this->options['iq'], true));
         }
         if ($this->options['niq'] !== null) {
-            $this->options['messages']['niq'] = sprintf($this->options['messages']['niq'], $this->options['niq']);
+            $this->options['messages']['niq'] = sprintf($this->options['messages']['niq'], print_r($this->options['niq'], true));
         }
         if ($this->options['gt'] !== null) {
-            $this->options['messages']['gt'] = sprintf($this->options['messages']['gt'], $this->options['gt']);
+            $this->options['messages']['gt'] = sprintf($this->options['messages']['gt'], print_r($this->options['gt'], true));
         }
         if ($this->options['ge'] !== null) {
-            $this->options['messages']['ge'] = sprintf($this->options['messages']['ge'], $this->options['ge']);
+            $this->options['messages']['ge'] = sprintf($this->options['messages']['ge'], print_r($this->options['ge'], true));
         }
         if ($this->options['lt'] !== null) {
-            $this->options['messages']['lt'] = sprintf($this->options['messages']['lt'], $this->options['lt']);
+            $this->options['messages']['lt'] = sprintf($this->options['messages']['lt'], print_r($this->options['lt'], true));
         }
         if ($this->options['le'] !== null) {
-            $this->options['messages']['le'] = sprintf($this->options['messages']['le'], $this->options['le']);
+            $this->options['messages']['le'] = sprintf($this->options['messages']['le'], print_r($this->options['le'], true));
         }
         if ($this->options['in'] !== null) {
             $this->options['messages']['in'] = sprintf($this->options['messages']['in'], implode(', ', $this->options['in']));
