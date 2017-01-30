@@ -2,9 +2,9 @@
 
 namespace Yosmanyga\Test\Validation\Resource\Normalizer\YamlFile;
 
-use Yosmanyga\Validation\Resource\Normalizer\YamlFile\ValueNormalizer;
 use Yosmanyga\Resource\Resource;
 use Yosmanyga\Validation\Resource\Definition\ValueDefinition;
+use Yosmanyga\Validation\Resource\Normalizer\YamlFile\ValueNormalizer;
 
 class ValueNormalizerTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,8 +14,8 @@ class ValueNormalizerTest extends \PHPUnit_Framework_TestCase
     public function testSupports()
     {
         $normalizer = new ValueNormalizer();
-        $this->assertTrue($normalizer->supports(array('key' => 'Value'), new Resource()));
-        $this->assertFalse($normalizer->supports(array('key' => 'bar'), new Resource()));
+        $this->assertTrue($normalizer->supports(['key' => 'Value'], new Resource()));
+        $this->assertFalse($normalizer->supports(['key' => 'bar'], new Resource()));
     }
 
     /**
@@ -28,7 +28,7 @@ class ValueNormalizerTest extends \PHPUnit_Framework_TestCase
         $definition->allowNull = true;
         $this->assertEquals(
             $definition,
-            $normalizer->normalize(array('value' => array('allowNull' => true)), new Resource())
+            $normalizer->normalize(['value' => ['allowNull' => true]], new Resource())
         );
     }
 }

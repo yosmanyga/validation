@@ -2,9 +2,9 @@
 
 namespace Yosmanyga\Validation\Resource\Normalizer\Common;
 
+use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
 use Yosmanyga\Resource\Normalizer\NormalizerInterface;
 use Yosmanyga\Resource\Resource;
-use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
 use Yosmanyga\Validation\Resource\Definition\ArrayDefinition;
 
 abstract class ArrayNormalizer implements NormalizerInterface
@@ -17,7 +17,7 @@ abstract class ArrayNormalizer implements NormalizerInterface
     /**
      * @param \Yosmanyga\Resource\Normalizer\NormalizerInterface[] $normalizers
      */
-    public function __construct($normalizers = array())
+    public function __construct($normalizers = [])
     {
         $this->normalizer = new DelegatorNormalizer($normalizers);
     }

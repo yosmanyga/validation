@@ -2,7 +2,6 @@
 
 namespace Yosmanyga\Test\Validation\Resource\Normalizer;
 
-use Yosmanyga\Resource\Resource;
 use Yosmanyga\Validation\Resource\Compiler\ExpressionCompiler;
 use Yosmanyga\Validation\Resource\Definition\ExpressionDefinition;
 use Yosmanyga\Validation\Validator\ExceptionValidator;
@@ -25,17 +24,17 @@ class ExpressionCompilerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCompile()
     {
-        $compiler = $this->getMock('Yosmanyga\Validation\Resource\Compiler\ExpressionCompiler', array('createValidator'));
+        $compiler = $this->getMock('Yosmanyga\Validation\Resource\Compiler\ExpressionCompiler', ['createValidator']);
         $definition = $this->getMock('Yosmanyga\Resource\Definition\DefinitionInterface');
         $validator = $this->getMock('Yosmanyga\Validation\Validator\ValidatorInterface');
         $compiler
             ->expects($this->once())->method('createValidator')->with($definition)
             ->will($this->returnValue($validator));
         $validator->expects($this->once())->method('validate')->with($definition);
-        $definition->expects($this->once())->method('export')->will($this->returnValue(array('expression' => 'foo', 'foo' => 'bar')));
-        /** @var \Yosmanyga\Resource\Compiler\CompilerInterface $compiler */
+        $definition->expects($this->once())->method('export')->will($this->returnValue(['expression' => 'foo', 'foo' => 'bar']));
+        /* @var \Yosmanyga\Resource\Compiler\CompilerInterface $compiler */
         $this->assertEquals(
-            new ExpressionPropertyValidator('foo', array('foo' => 'bar')),
+            new ExpressionPropertyValidator('foo', ['foo' => 'bar']),
             $compiler->compile($definition)
         );
     }

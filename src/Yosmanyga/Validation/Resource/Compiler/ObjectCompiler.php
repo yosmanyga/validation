@@ -13,15 +13,15 @@ class ObjectCompiler extends DelegatorCompiler
      */
     public function __construct($compilers = null)
     {
-        $compilers = $compilers ?: array(
+        $compilers = $compilers ?: [
             new ValueCompiler(),
             new ExpressionCompiler(),
-            new ArrayCompiler(array(
+            new ArrayCompiler([
                 new ValueCompiler(),
                 new ExpressionCompiler(),
-            )),
+            ]),
             new ObjectReferenceCompiler(),
-        );
+        ];
 
         parent::__construct($compilers);
     }
@@ -45,7 +45,7 @@ class ObjectCompiler extends DelegatorCompiler
      */
     public function compile($definition)
     {
-        $validators = array();
+        $validators = [];
 
         if (isset($definition->validators)) {
             if (isset($definition->validators['properties'])) {

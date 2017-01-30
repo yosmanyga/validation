@@ -20,11 +20,11 @@ class GroupObjectValidator implements GroupValidatorInterface
     /**
      * {@inheritdoc}
      */
-    public function validate($value, $groups = array())
+    public function validate($value, $groups = [])
     {
         $groups = $this->fixGroups($groups);
 
-        $errors = array();
+        $errors = [];
         foreach ($groups as $group) {
             if (!isset($this->validators[$group])) {
                 throw new \InvalidArgumentException(sprintf('Group "%s" not found', $group));
@@ -48,7 +48,7 @@ class GroupObjectValidator implements GroupValidatorInterface
     private function fixGroups($groups)
     {
         if (!$groups) {
-            $groups = array('Default');
+            $groups = ['Default'];
         }
 
         return $groups;

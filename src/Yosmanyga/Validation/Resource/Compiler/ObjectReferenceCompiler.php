@@ -27,8 +27,6 @@ class ObjectReferenceCompiler implements CompilerInterface
     {
         $validator = $this->createValidator($definition);
         $validator->validate($definition);
-
-        return;
     }
 
     /**

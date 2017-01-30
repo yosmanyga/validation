@@ -14,36 +14,36 @@ class ValueValidator implements ValidatorInterface
     /**
      * @param array $options
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
-        $this->options = array_replace_recursive(array(
+        $this->options = array_replace_recursive([
             'allowNull' => false,
-            'type' => null,
-            'eq' => null,
-            'neq' => null,
-            'iq' => null,
-            'niq' => null,
-            'gt' => null,
-            'ge' => null,
-            'lt' => null,
-            'le' => null,
-            'in' => null,
-            'nin' => null,
-            'messages' => array(
+            'type'      => null,
+            'eq'        => null,
+            'neq'       => null,
+            'iq'        => null,
+            'niq'       => null,
+            'gt'        => null,
+            'ge'        => null,
+            'lt'        => null,
+            'le'        => null,
+            'in'        => null,
+            'nin'       => null,
+            'messages'  => [
                 'null' => "Value can't be null",
                 'type' => 'Value must be of type "%s"',
-                'eq' => 'Value must be equal to "%s"',
-                'neq' => 'Value must not be equal to "%s"',
-                'iq' => 'Value must be identical to "%s"',
-                'niq' => 'Value must not be identical to "%s"',
-                'gt' => 'Value must be greater than "%s"',
-                'ge' => 'Value must be greater or equal to "%s"',
-                'lt' => 'Value must be lower than "%s"',
-                'le' => 'Value must be lower or equal to "%s"',
-                'in' => 'Value must be one of these values "%s"',
-                'nin' => 'Value must not be one of these values "%s"',
-            ),
-        ), $options);
+                'eq'   => 'Value must be equal to "%s"',
+                'neq'  => 'Value must not be equal to "%s"',
+                'iq'   => 'Value must be identical to "%s"',
+                'niq'  => 'Value must not be identical to "%s"',
+                'gt'   => 'Value must be greater than "%s"',
+                'ge'   => 'Value must be greater or equal to "%s"',
+                'lt'   => 'Value must be lower than "%s"',
+                'le'   => 'Value must be lower or equal to "%s"',
+                'in'   => 'Value must be one of these values "%s"',
+                'nin'  => 'Value must not be one of these values "%s"',
+            ],
+        ], $options);
     }
 
     /**
@@ -51,16 +51,16 @@ class ValueValidator implements ValidatorInterface
      */
     public function validate($value)
     {
-        $errors = array();
+        $errors = [];
 
         $this->configureMessages();
 
         if ($value === null) {
             if ($this->options['allowNull'] === false) {
-                return array(new Error($this->options['messages']['null']));
+                return [new Error($this->options['messages']['null'])];
             }
 
-            return array();
+            return [];
         }
 
         if ($this->options['type'] !== null && $this->options['type'] != gettype($value)) {

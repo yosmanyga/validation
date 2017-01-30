@@ -4,9 +4,9 @@ namespace Yosmanyga\Validation\Resource\Normalizer\XmlFile;
 
 use Yosmanyga\Resource\Normalizer\XmlFileDelegatorNormalizer;
 use Yosmanyga\Resource\Resource;
+use Yosmanyga\Validation\Resource\Normalizer\Common\Normalizer as CommonNormalizer;
 use Yosmanyga\Validation\Validator\ArrayValidator;
 use Yosmanyga\Validation\Validator\ExceptionValidator;
-use Yosmanyga\Validation\Resource\Normalizer\Common\Normalizer as CommonNormalizer;
 
 class Normalizer extends CommonNormalizer
 {
@@ -18,14 +18,14 @@ class Normalizer extends CommonNormalizer
     /**
      * {@inheritdoc}
      */
-    public function __construct($normalizers = array())
+    public function __construct($normalizers = [])
     {
-        $normalizers = $normalizers ?: array(
+        $normalizers = $normalizers ?: [
             new ValueNormalizer(),
             new ExpressionNormalizer(),
             new ArrayNormalizer(),
             new ObjectReferenceNormalizer(),
-        );
+        ];
 
         $this->delegator = new XmlFileDelegatorNormalizer($normalizers);
     }
@@ -46,15 +46,15 @@ class Normalizer extends CommonNormalizer
      */
     public function normalize($data, Resource $resource)
     {
-        $validator = new ExceptionValidator(new ArrayValidator(array(
-            'requiredKeys' => array('name'),
-            'allowedKeys' => array('property'),
-            'allowExtra' => false,
-        )));
+        $validator = new ExceptionValidator(new ArrayValidator([
+            'requiredKeys' => ['name'],
+            'allowedKeys'  => ['property'],
+            'allowExtra'   => false,
+        ]));
 
         $validator->validate($data['value']);
 
-        $definitions = array();
+        $definitions = [];
         if (isset($data['value']['property'])) {
             $definitions['properties'] = $this->normalizeProperties(
                 $data['value']['property'],
@@ -67,16 +67,16 @@ class Normalizer extends CommonNormalizer
 
     protected function normalizeProperties($properties, $resource)
     {
-        $validator = new ExceptionValidator(new ArrayValidator(array(
-            'requiredKeys' => array('name', 'validator'),
-            'allowExtra' => false,
-        )));
+        $validator = new ExceptionValidator(new ArrayValidator([
+            'requiredKeys' => ['name', 'validator'],
+            'allowExtra'   => false,
+        ]));
 
-        if (!is_integer(key($properties))) {
-            $properties = array($properties);
+        if (!is_int(key($properties))) {
+            $properties = [$properties];
         }
 
-        $definitions = array();
+        $definitions = [];
         foreach ($properties as $property) {
             $validator->validate($property);
 
@@ -88,23 +88,23 @@ class Normalizer extends CommonNormalizer
 
     protected function normalizeValidators($validators, $resource)
     {
-        $validatorValidator = new ExceptionValidator(new ArrayValidator(array(
-            'allowedKeys' => array('name', 'option'),
-            'allowExtra' => false,
-        )));
+        $validatorValidator = new ExceptionValidator(new ArrayValidator([
+            'allowedKeys' => ['name', 'option'],
+            'allowExtra'  => false,
+        ]));
 
-        if (!is_integer(key($validators))) {
-            $validators = array($validators);
+        if (!is_int(key($validators))) {
+            $validators = [$validators];
         }
 
-        $definitions = array();
+        $definitions = [];
         foreach ($validators as $validator) {
             $validatorValidator->validate($validator);
 
             $definitions[] = $this->delegator->normalize(
-                array(
+                [
                     'value' => $validator,
-                ),
+                ],
                 $resource
             );
         }

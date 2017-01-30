@@ -9,9 +9,9 @@ class ObjectReferenceDefinitionTest extends \PHPUnit_Framework_TestCase
     public function testProperties()
     {
         $definition = new ObjectReferenceDefinition();
-        $attributes = array(
-            'class'
-        );
+        $attributes = [
+            'class',
+        ];
         foreach ($attributes as $attribute) {
             $this->assertAttributeEmpty($attribute, $definition);
         }

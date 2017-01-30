@@ -2,11 +2,11 @@
 
 namespace Yosmanyga\Validation\Resource\Normalizer\YamlFile;
 
+use Yosmanyga\Resource\Normalizer\YamlFileDelegatorNormalizer;
 use Yosmanyga\Resource\Resource;
+use Yosmanyga\Validation\Resource\Normalizer\Common\Normalizer as CommonNormalizer;
 use Yosmanyga\Validation\Validator\ArrayValidator;
 use Yosmanyga\Validation\Validator\ExceptionValidator;
-use Yosmanyga\Resource\Normalizer\YamlFileDelegatorNormalizer;
-use Yosmanyga\Validation\Resource\Normalizer\Common\Normalizer as CommonNormalizer;
 
 class Normalizer extends CommonNormalizer
 {
@@ -20,12 +20,12 @@ class Normalizer extends CommonNormalizer
      */
     public function __construct($normalizers = null)
     {
-        $normalizers = $normalizers ?: array(
+        $normalizers = $normalizers ?: [
             new ValueNormalizer(),
             new ExpressionNormalizer(),
             new ArrayNormalizer(),
             new ObjectReferenceNormalizer(),
-        );
+        ];
 
         $this->delegator = new YamlFileDelegatorNormalizer($normalizers);
     }
@@ -43,13 +43,13 @@ class Normalizer extends CommonNormalizer
      */
     public function normalize($data, Resource $resource)
     {
-        $validator = new ExceptionValidator(new ArrayValidator(array(
-            'allowedKeys' => array('properties'),
-            'allowExtra' => false,
-        )));
+        $validator = new ExceptionValidator(new ArrayValidator([
+            'allowedKeys' => ['properties'],
+            'allowExtra'  => false,
+        ]));
         $validator->validate($data['value']);
 
-        $definitions = array();
+        $definitions = [];
         if (isset($data['value']['properties'])) {
             $definitions['properties'] = $this->normalizeProperties(
                 $data['value']['properties'],
@@ -62,29 +62,29 @@ class Normalizer extends CommonNormalizer
 
     protected function normalizeProperties($properties, $resource)
     {
-        $validatorValidator = new ExceptionValidator(new ArrayValidator(array(
-            'requiredKeys' => array('validator'),
-            'allowedKeys' => array('options'),
-            'allowExtra' => false,
-        )));
+        $validatorValidator = new ExceptionValidator(new ArrayValidator([
+            'requiredKeys' => ['validator'],
+            'allowedKeys'  => ['options'],
+            'allowExtra'   => false,
+        ]));
 
-        $definitions = array();
+        $definitions = [];
         foreach ($properties as $property => $validators) {
             foreach ($validators as $id => $validator) {
-                if (!is_integer($id)) {
-                    $validator = array(
+                if (!is_int($id)) {
+                    $validator = [
                         'validator' => $id,
-                        'options' => $validator,
-                    );
+                        'options'   => $validator,
+                    ];
                 }
 
                 $validatorValidator->validate($validator);
 
                 $definitions[$property][] = $this->delegator->normalize(
-                    array(
-                        'key' => $validator['validator'],
+                    [
+                        'key'   => $validator['validator'],
                         'value' => $validator['options'],
-                    ),
+                    ],
                     $resource
                 );
             }

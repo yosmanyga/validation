@@ -15,10 +15,10 @@ class ObjectReferenceDefinition extends Definition
      */
     public function createValidator()
     {
-        return new ObjectValidator(array(
-            'class' => new ValueValidator(array(
+        return new ObjectValidator([
+            'class' => new ValueValidator([
                 'type' => 'string',
-            )),
-        ));
+            ]),
+        ]);
     }
 }

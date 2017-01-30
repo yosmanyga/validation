@@ -25,7 +25,7 @@ class ExceptionValidator implements ValidatorInterface
         $errors = $this->validator->validate($value);
 
         if (!$errors) {
-            return array();
+            return [];
         }
 
         throw new \RuntimeException(sprintf('Invalid value %s, got this error: %s', print_r($value, true), implode('. ', $errors)));

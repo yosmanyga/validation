@@ -13,12 +13,12 @@ class ArrayNormalizer extends CommonArrayNormalizer
      */
     private $yamlFileNormalizer;
 
-    public function __construct($normalizers = array(), $yamlFileNormalizer = null)
+    public function __construct($normalizers = [], $yamlFileNormalizer = null)
     {
-        $normalizers = $normalizers ?: array(
+        $normalizers = $normalizers ?: [
             new ValueNormalizer(),
             new ExpressionNormalizer(),
-        );
+        ];
 
         parent::__construct($normalizers);
 

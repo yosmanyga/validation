@@ -3,8 +3,8 @@
 namespace Yosmanyga\Validation\Resource\Normalizer\XmlFile;
 
 use Yosmanyga\Resource\Resource;
-use Yosmanyga\Validation\Resource\Normalizer\Common\ExpressionNormalizer as CommonExpressionNormalizer;
 use Yosmanyga\Resource\Util\XmlKit;
+use Yosmanyga\Validation\Resource\Normalizer\Common\ExpressionNormalizer as CommonExpressionNormalizer;
 
 class ExpressionNormalizer extends CommonExpressionNormalizer
 {

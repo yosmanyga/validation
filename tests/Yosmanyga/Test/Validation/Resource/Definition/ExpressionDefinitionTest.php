@@ -9,9 +9,9 @@ class ExpressionDefinitionTest extends \PHPUnit_Framework_TestCase
     public function testProperties()
     {
         $definition = new ExpressionDefinition();
-        $attributes = array(
-            'expression', 'message'
-        );
+        $attributes = [
+            'expression', 'message',
+        ];
         foreach ($attributes as $attribute) {
             $this->assertAttributeEmpty($attribute, $definition);
         }

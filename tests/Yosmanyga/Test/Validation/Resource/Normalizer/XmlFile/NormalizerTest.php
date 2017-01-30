@@ -2,13 +2,13 @@
 
 namespace Yosmanyga\Test\Validation\Resource\Normalizer\XmlFile;
 
-use Yosmanyga\Validation\Resource\Normalizer\XmlFile\Normalizer;
-use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ValueNormalizer;
-use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ExpressionNormalizer;
-use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ArrayNormalizer;
-use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ObjectReferenceNormalizer;
 use Yosmanyga\Resource\Normalizer\XmlFileDelegatorNormalizer;
 use Yosmanyga\Resource\Resource;
+use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ArrayNormalizer;
+use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ExpressionNormalizer;
+use Yosmanyga\Validation\Resource\Normalizer\XmlFile\Normalizer;
+use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ObjectReferenceNormalizer;
+use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ValueNormalizer;
 
 class NormalizerTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,12 +19,12 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
     {
         $normalizer = new Normalizer();
         $this->assertAttributeEquals(
-            new XmlFileDelegatorNormalizer(array(
+            new XmlFileDelegatorNormalizer([
                 new ValueNormalizer(),
                 new ExpressionNormalizer(),
                 new ArrayNormalizer(),
-                new ObjectReferenceNormalizer()
-            )),
+                new ObjectReferenceNormalizer(),
+            ]),
             'delegator',
             $normalizer
         );
@@ -53,7 +53,7 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
     {
         $normalizer = $this->getMock(
             'Yosmanyga\Validation\Resource\Normalizer\XmlFile\Normalizer',
-            array('normalizeProperties', 'createDefinition')
+            ['normalizeProperties', 'createDefinition']
         );
         $resource = new Resource();
         $normalizer
@@ -64,15 +64,15 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         $normalizer
             ->expects($this->once())
             ->method('createDefinition')
-            ->with('ClassX', array('properties' => 'bar'));
-        /** @var \Yosmanyga\Validation\Resource\Normalizer\XmlFile\Normalizer $normalizer */
+            ->with('ClassX', ['properties' => 'bar']);
+        /* @var \Yosmanyga\Validation\Resource\Normalizer\XmlFile\Normalizer $normalizer */
         $normalizer->normalize(
-            array(
-                'value' => array(
-                    'name' => 'ClassX',
-                    'property' => 'foo'
-                )
-            ),
+            [
+                'value' => [
+                    'name'     => 'ClassX',
+                    'property' => 'foo',
+                ],
+            ],
             $resource
         );
     }
@@ -92,25 +92,25 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
 
     public function provideInvalidDataForNormalizeProperties()
     {
-        return array(
+        return [
             // With no 'validator' key
-            array(
-                array(
-                    'property1' => array(
-                        'foo' => 'bar'
-                    )
-                )
-            ),
+            [
+                [
+                    'property1' => [
+                        'foo' => 'bar',
+                    ],
+                ],
+            ],
             // With extra keys
-            array(
-                array(
-                    'property1' => array(
+            [
+                [
+                    'property1' => [
                         'validator' => 'Foo',
-                        'foo' => 'bar'
-                    )
-                )
-            ),
-        );
+                        'foo'       => 'bar',
+                    ],
+                ],
+            ],
+        ];
     }
 
     /**
@@ -120,7 +120,7 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
     {
         $normalizer = $this->getMock(
             'Yosmanyga\Validation\Resource\Normalizer\XmlFile\Normalizer',
-            array('normalizeValidators')
+            ['normalizeValidators']
         );
         $method = new \ReflectionMethod($normalizer, 'normalizeProperties');
         $method->setAccessible(true);
@@ -128,76 +128,76 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         $normalizer
             ->expects($this->at(0))->method('normalizeValidators')
             ->with(
-                array(
-                    'name' => 'validatorX',
-                    'option' => array(
-                        'name' => 'fooX',
-                        'value' => 'barX'
-                    )
-                ),
+                [
+                    'name'   => 'validatorX',
+                    'option' => [
+                        'name'  => 'fooX',
+                        'value' => 'barX',
+                    ],
+                ],
                 $resource
             )
-            ->will($this->returnValue(array('ValidatorX')));
+            ->will($this->returnValue(['ValidatorX']));
         $normalizer
             ->expects($this->at(1))->method('normalizeValidators')
             ->with(
-                array(
-                    0 => array(
-                        'name' => 'validatorY',
-                        'option' => array(
-                            'name' => 'fooY',
-                            'value' => 'barY'
-                        )
-                    ),
-                    1 => array(
-                        'name' => 'validatorZ',
-                        'option' => array(
-                            'name' => 'fooZ',
-                            'value' => 'barZ'
-                        )
-                    )
-                ),
+                [
+                    0 => [
+                        'name'   => 'validatorY',
+                        'option' => [
+                            'name'  => 'fooY',
+                            'value' => 'barY',
+                        ],
+                    ],
+                    1 => [
+                        'name'   => 'validatorZ',
+                        'option' => [
+                            'name'  => 'fooZ',
+                            'value' => 'barZ',
+                        ],
+                    ],
+                ],
                 $resource
             )
-            ->will($this->returnValue(array('ValidatorY', 'ValidatorZ')));
+            ->will($this->returnValue(['ValidatorY', 'ValidatorZ']));
         $this->assertEquals(
-            array(
-                'property1' => array('ValidatorX'),
-                'property2' => array('ValidatorY', 'ValidatorZ')
-            ),
+            [
+                'property1' => ['ValidatorX'],
+                'property2' => ['ValidatorY', 'ValidatorZ'],
+            ],
             $method->invoke(
                 $normalizer,
-                array(
-                    0 => array(
-                        'name' => 'property1',
-                        'validator' => array(
-                            'name' => 'validatorX',
-                            'option' => array(
-                                'name' => 'fooX',
-                                'value' => 'barX'
-                            )
-                        )
-                    ),
-                    1 => array(
-                        'name' => 'property2',
-                        'validator' => array(
-                            0 => array(
-                                'name' => 'validatorY',
-                                'option' => array(
-                                    'name' => 'fooY',
-                                    'value' => 'barY'
-                                )
-                            ),
-                            1 => array(
-                                'name' => 'validatorZ',
-                                'option' => array(
-                                    'name' => 'fooZ',
-                                    'value' => 'barZ'
-                                )
-                            )
-                        )
-                    )
-                ),
+                [
+                    0 => [
+                        'name'      => 'property1',
+                        'validator' => [
+                            'name'   => 'validatorX',
+                            'option' => [
+                                'name'  => 'fooX',
+                                'value' => 'barX',
+                            ],
+                        ],
+                    ],
+                    1 => [
+                        'name'      => 'property2',
+                        'validator' => [
+                            0 => [
+                                'name'   => 'validatorY',
+                                'option' => [
+                                    'name'  => 'fooY',
+                                    'value' => 'barY',
+                                ],
+                            ],
+                            1 => [
+                                'name'   => 'validatorZ',
+                                'option' => [
+                                    'name'  => 'fooZ',
+                                    'value' => 'barZ',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
                 new Resource()
             )
         );
@@ -214,14 +214,14 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         $delegator
             ->expects($this->at(0))->method('normalize')
             ->with(
-                array(
-                    'value' => array(
-                        'name' => 'validatorX',
-                        'option' => array(
-                            'fooX' => 'barX'
-                        )
-                    )
-                ),
+                [
+                    'value' => [
+                        'name'   => 'validatorX',
+                        'option' => [
+                            'fooX' => 'barX',
+                        ],
+                    ],
+                ],
                 $resource
             )
             ->will($this->returnValue('ValidatorX'));
@@ -231,17 +231,17 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         $method = new \ReflectionMethod($normalizer, 'normalizeValidators');
         $method->setAccessible(true);
         $this->assertEquals(
-            array(
-                'ValidatorX'
-            ),
+            [
+                'ValidatorX',
+            ],
             $method->invoke(
                 $normalizer,
-                array(
-                    'name' => 'validatorX',
-                    'option' => array(
-                        'fooX' => 'barX'
-                    )
-                ),
+                [
+                    'name'   => 'validatorX',
+                    'option' => [
+                        'fooX' => 'barX',
+                    ],
+                ],
                 new Resource()
             )
         );
@@ -252,28 +252,28 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         $delegator
             ->expects($this->at(0))->method('normalize')
             ->with(
-                array(
-                    'value' => array(
-                        'name' => 'validatorY',
-                        'option' => array(
-                            'fooY' => 'barY'
-                        )
-                    )
-                ),
+                [
+                    'value' => [
+                        'name'   => 'validatorY',
+                        'option' => [
+                            'fooY' => 'barY',
+                        ],
+                    ],
+                ],
                 $resource
             )
             ->will($this->returnValue('ValidatorY'));
         $delegator
             ->expects($this->at(1))->method('normalize')
             ->with(
-                array(
-                    'value' => array(
-                        'name' => 'validatorZ',
-                        'option' => array(
-                            'fooZ' => 'barZ'
-                        )
-                    )
-                ),
+                [
+                    'value' => [
+                        'name'   => 'validatorZ',
+                        'option' => [
+                            'fooZ' => 'barZ',
+                        ],
+                    ],
+                ],
                 $resource
             )
             ->will($this->returnValue('ValidatorZ'));
@@ -283,25 +283,25 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         $method = new \ReflectionMethod($normalizer, 'normalizeValidators');
         $method->setAccessible(true);
         $this->assertEquals(
-            array(
-                'ValidatorY', 'ValidatorZ'
-            ),
+            [
+                'ValidatorY', 'ValidatorZ',
+            ],
             $method->invoke(
                 $normalizer,
-                array(
-                    0 => array(
-                        'name' => 'validatorY',
-                        'option' => array(
-                            'fooY' => 'barY'
-                        )
-                    ),
-                    1 => array(
-                        'name' => 'validatorZ',
-                        'option' => array(
-                            'fooZ' => 'barZ'
-                        )
-                    )
-                ),
+                [
+                    0 => [
+                        'name'   => 'validatorY',
+                        'option' => [
+                            'fooY' => 'barY',
+                        ],
+                    ],
+                    1 => [
+                        'name'   => 'validatorZ',
+                        'option' => [
+                            'fooZ' => 'barZ',
+                        ],
+                    ],
+                ],
                 new Resource()
             )
         );

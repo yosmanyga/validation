@@ -3,8 +3,8 @@
 namespace Yosmanyga\Validation\Resource\Normalizer\XmlFile;
 
 use Yosmanyga\Resource\Resource;
-use Yosmanyga\Validation\Resource\Normalizer\Common\ObjectReferenceNormalizer as CommonObjectReferenceNormalizer;
 use Yosmanyga\Resource\Util\XmlKit;
+use Yosmanyga\Validation\Resource\Normalizer\Common\ObjectReferenceNormalizer as CommonObjectReferenceNormalizer;
 
 class ObjectReferenceNormalizer extends CommonObjectReferenceNormalizer
 {

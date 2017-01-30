@@ -31,7 +31,7 @@ class ArrayDefinition extends Definition implements ValidatedInterface
     public $deniedKeys;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $allowExtra;
 
@@ -41,12 +41,12 @@ class ArrayDefinition extends Definition implements ValidatedInterface
     public $messages;
 
     /**
-     * @param array   $requiredKeys
-     * @param array   $allowedKeys
-     * @param array   $map
-     * @param array   $deniedKeys
-     * @param boolean $allowExtra
-     * @param array   $messages
+     * @param array $requiredKeys
+     * @param array $allowedKeys
+     * @param array $map
+     * @param array $deniedKeys
+     * @param bool  $allowExtra
+     * @param array $messages
      */
     public function __construct(
         $requiredKeys = null,
@@ -55,52 +55,50 @@ class ArrayDefinition extends Definition implements ValidatedInterface
         $deniedKeys = null,
         $allowExtra = null,
         $messages = null
-    )
-    {
-        $this->requiredKeys = $requiredKeys ?: array();
-        $this->allowedKeys = $allowedKeys ?: array();
-        $this->map = $map ?: array();
-        $this->deniedKeys = $deniedKeys ?: array();
+    ) {
+        $this->requiredKeys = $requiredKeys ?: [];
+        $this->allowedKeys = $allowedKeys ?: [];
+        $this->map = $map ?: [];
+        $this->deniedKeys = $deniedKeys ?: [];
         $this->allowExtra = $allowExtra;
-        $this->messages = $messages ?: array();;
+        $this->messages = $messages ?: [];
     }
-
 
     /**
      * {@inheritdoc}
      */
     public function createValidator()
     {
-        return new ObjectValidator(array(
-            'requiredKeys' => new ArrayValidator(array(
-                'map' => new ValueValidator(array('type' => 'string')),
-                'messages' => array(
+        return new ObjectValidator([
+            'requiredKeys' => new ArrayValidator([
+                'map'      => new ValueValidator(['type' => 'string']),
+                'messages' => [
                     'map' => 'requiredKeys values must be strings',
-                ),
-            )),
-            'allowedKeys' => new ArrayValidator(array(
-                'map' => new ValueValidator(array('type' => 'string')),
-                'messages' => array(
+                ],
+            ]),
+            'allowedKeys' => new ArrayValidator([
+                'map'      => new ValueValidator(['type' => 'string']),
+                'messages' => [
                     'map' => 'allowedKeys values must be strings',
-                ),
-            )),
-            'deniedKeys' => new ArrayValidator(array(
-                'map' => new ValueValidator(array('type' => 'string')),
-                'messages' => array(
+                ],
+            ]),
+            'deniedKeys' => new ArrayValidator([
+                'map'      => new ValueValidator(['type' => 'string']),
+                'messages' => [
                     'map' => 'deniedKeys values must be strings',
-                ),
-            )),
-            'allowExtra' => new ValueValidator(array(
+                ],
+            ]),
+            'allowExtra' => new ValueValidator([
                 'allowNull' => true,
-                'type' => 'boolean',
-            )),
-            'messages' => new ArrayValidator(array(
-                'map' => new ValueValidator(array('type' => 'string')),
-                'allowedKeys' => array('null', 'type', 'requiredKeys', 'deniedKeys', 'allowExtra'),
-                'messages' => array(
+                'type'      => 'boolean',
+            ]),
+            'messages' => new ArrayValidator([
+                'map'         => new ValueValidator(['type' => 'string']),
+                'allowedKeys' => ['null', 'type', 'requiredKeys', 'deniedKeys', 'allowExtra'],
+                'messages'    => [
                     'map' => 'messages values must be strings',
-                ),
-            )),
-        ));
+                ],
+            ]),
+        ]);
     }
 }

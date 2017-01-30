@@ -27,7 +27,7 @@ class ExceptionValidatorTest extends \PHPUnit_Framework_TestCase
         $validator = $this->getMock('Yosmanyga\Validation\Validator\ValidatorInterface');
         $validator
             ->expects($this->once())->method('validate')->with($value)
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
         /** @var \Yosmanyga\Validation\Validator\ValidatorInterface $validator */
         $exceptionValidator = new ExceptionValidator($validator);
         $exceptionValidator->validate($value);
@@ -43,7 +43,7 @@ class ExceptionValidatorTest extends \PHPUnit_Framework_TestCase
         $validator = $this->getMock('Yosmanyga\Validation\Validator\ValidatorInterface');
         $validator
             ->expects($this->once())->method('validate')->with($value)
-            ->will($this->returnValue(array(new Error(''))));
+            ->will($this->returnValue([new Error('')]));
         /** @var \Yosmanyga\Validation\Validator\ValidatorInterface $validator */
         $exceptionValidator = new ExceptionValidator($validator);
         $exceptionValidator->validate($value);

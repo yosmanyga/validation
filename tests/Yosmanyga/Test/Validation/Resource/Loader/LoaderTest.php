@@ -2,14 +2,14 @@
 
 namespace Yosmanyga\Test\Validation\Resource\Loader;
 
+use Yosmanyga\Resource\Cacher\Cacher;
+use Yosmanyga\Resource\Reader\Iterator\DelegatorReader;
 use Yosmanyga\Resource\Resource;
+use Yosmanyga\Validation\Resource\Compiler\ObjectCompiler;
 use Yosmanyga\Validation\Resource\Definition\ObjectDefinition;
 use Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition;
 use Yosmanyga\Validation\Resource\Loader\Loader;
-use Yosmanyga\Resource\Reader\Iterator\DelegatorReader;
 use Yosmanyga\Validation\Resource\Normalizer\Normalizer;
-use Yosmanyga\Validation\Resource\Compiler\ObjectCompiler;
-use Yosmanyga\Resource\Cacher\Cacher;
 use Yosmanyga\Validation\Validator\ObjectValidator;
 
 class LoaderTest extends \PHPUnit_Framework_TestCase
@@ -62,17 +62,17 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $reader = $this->getMock('Yosmanyga\Resource\Reader\Iterator\ReaderInterface');
         $loader = $this->getMock(
             'Yosmanyga\Validation\Resource\Loader\Loader',
-            array('fillObjectValidators'),
-            array($reader, null, null, $cacher)
+            ['fillObjectValidators'],
+            [$reader, null, null, $cacher]
         );
-        /** @var \PHPUnit_Framework_MockObject_MockObject $cacher */
-        /** @var \PHPUnit_Framework_MockObject_MockObject $reader */
+        /* @var \PHPUnit_Framework_MockObject_MockObject $cacher */
+        /* @var \PHPUnit_Framework_MockObject_MockObject $reader */
         $cacher->expects($this->once())->method('check')->with($resource)->will($this->returnValue(false));
         $reader->expects($this->once())->method('open')->with($resource);
         $reader->expects($this->once())->method('current')->will($this->returnValue(false));
-        $loader->expects($this->once())->method('fillObjectValidators')->with(array(), array())->will($this->returnValue(array()));
-        $cacher->expects($this->once())->method('store')->with(array(), $resource);
-        /** @var \Yosmanyga\Resource\Loader\LoaderInterface $loader */
+        $loader->expects($this->once())->method('fillObjectValidators')->with([], [])->will($this->returnValue([]));
+        $cacher->expects($this->once())->method('store')->with([], $resource);
+        /* @var \Yosmanyga\Resource\Loader\LoaderInterface $loader */
         $loader->load($resource);
     }
 
@@ -88,24 +88,24 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $cacher = $this->getMock('Yosmanyga\Resource\Cacher\CacherInterface');
         $loader = $this->getMock(
             'Yosmanyga\Validation\Resource\Loader\Loader',
-            array('fillObjectValidators'),
-            array($reader, $normalizer, $compiler, $cacher)
+            ['fillObjectValidators'],
+            [$reader, $normalizer, $compiler, $cacher]
         );
         $cacher->expects($this->once())->method('check')->with($resource)->will($this->returnValue(false));
         $reader->expects($this->once())->method('open')->with($resource);
-        $reader->expects($this->at(1))->method('current')->will($this->returnValue(array('foo' => 'bar')));
+        $reader->expects($this->at(1))->method('current')->will($this->returnValue(['foo' => 'bar']));
         $definition = new ObjectDefinition();
         $definition->class = 'classX';
-        $definition->validators = array('validator1');
-        $normalizer->expects($this->once())->method('normalize')->with(array('foo' => 'bar'), $resource)->will($this->returnValue($definition));
+        $definition->validators = ['validator1'];
+        $normalizer->expects($this->once())->method('normalize')->with(['foo' => 'bar'], $resource)->will($this->returnValue($definition));
         $validator = new ObjectValidator();
         $compiler->expects($this->once())->method('compile')->with($definition)->will($this->returnValue($validator));
         $reader->expects($this->at(2))->method('current')->will($this->returnValue(false));
-        $loader->expects($this->once())->method('fillObjectValidators')->with(array('classX' => $definition), array('classX' => $validator))->will($this->returnValue(array('classX' => $validator)));
-        $cacher->expects($this->once())->method('store')->with(array('classX' => $validator), $resource);
-        /** @var \Yosmanyga\Validation\Resource\Loader\Loader $loader */
+        $loader->expects($this->once())->method('fillObjectValidators')->with(['classX' => $definition], ['classX' => $validator])->will($this->returnValue(['classX' => $validator]));
+        $cacher->expects($this->once())->method('store')->with(['classX' => $validator], $resource);
+        /* @var \Yosmanyga\Validation\Resource\Loader\Loader $loader */
         $this->assertEquals(
-            array('classX' => $validator),
+            ['classX' => $validator],
             $loader->load($resource)
         );
     }
@@ -122,29 +122,29 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $objectReferenceDefinition->class = 'classY';
         $definition = new ObjectDefinition();
         $definition->class = 'classX';
-        $definition->validators = array(
-            'properties' => array(
-                'propertyY' => array(
-                    $objectReferenceDefinition
-                )
-            )
-        );
+        $definition->validators = [
+            'properties' => [
+                'propertyY' => [
+                    $objectReferenceDefinition,
+                ],
+            ],
+        ];
         $this->assertEquals(
-            array(
-                'classX' => new ObjectValidator(array(
-                    'propertyY' => new ObjectValidator(array('foo'))
-                )),
-                'classY' => new ObjectValidator(array('foo'))
-            ),
+            [
+                'classX' => new ObjectValidator([
+                    'propertyY' => new ObjectValidator(['foo']),
+                ]),
+                'classY' => new ObjectValidator(['foo']),
+            ],
             $method->invoke(
                 $loader,
-                array(
-                    'classX' => $definition
-                ),
-                array(
+                [
+                    'classX' => $definition,
+                ],
+                [
                     'classX' => new ObjectValidator(),
-                    'classY' => new ObjectValidator(array('foo'))
-                )
+                    'classY' => new ObjectValidator(['foo']),
+                ]
             )
         );
     }

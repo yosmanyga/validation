@@ -15,24 +15,24 @@ class ArrayValidator implements ValidatorInterface
     /**
      * @param array $options
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
-        $this->options = array_replace_recursive(array(
-            'allowNull' => false,
-            'map' => null,
-            'requiredKeys' => array(),
-            'allowedKeys' => array(),
-            'deniedKeys' => array(),
-            'allowExtra' => true,
-            'messages' => array(
-                'null' => "Value can't be null",
-                'type' => 'Value must be an array',
-                'map' => 'Values are invalid',
+        $this->options = array_replace_recursive([
+            'allowNull'    => false,
+            'map'          => null,
+            'requiredKeys' => [],
+            'allowedKeys'  => [],
+            'deniedKeys'   => [],
+            'allowExtra'   => true,
+            'messages'     => [
+                'null'         => "Value can't be null",
+                'type'         => 'Value must be an array',
+                'map'          => 'Values are invalid',
                 'requiredKeys' => 'These keys are required "%s"',
-                'deniedKeys' => 'These keys are denied "%s"',
-                'allowExtra' => 'Only these keys are allowed "%s"',
-            ),
-        ), $options);
+                'deniedKeys'   => 'These keys are denied "%s"',
+                'allowExtra'   => 'Only these keys are allowed "%s"',
+            ],
+        ], $options);
     }
 
     /**
@@ -40,7 +40,7 @@ class ArrayValidator implements ValidatorInterface
      */
     public function validate($value)
     {
-        $errors = array();
+        $errors = [];
 
         $this->configureMessages();
 
@@ -106,10 +106,10 @@ class ArrayValidator implements ValidatorInterface
 
     private function validateMap($value)
     {
-        $errors = array();
+        $errors = [];
 
         if ($this->options['map'] instanceof ValidatorInterface) {
-            $this->options['map'] = array($this->options['map'], 'validate');
+            $this->options['map'] = [$this->options['map'], 'validate'];
         }
 
         if (!is_callable($this->options['map'])) {
@@ -120,7 +120,7 @@ class ArrayValidator implements ValidatorInterface
         if ($propertiesErrors) {
             foreach ($propertiesErrors as $key => $propertyErrors) {
                 if (!is_array($propertyErrors)) {
-                    $propertyErrors = array($propertyErrors);
+                    $propertyErrors = [$propertyErrors];
                 }
 
                 foreach ($propertyErrors as $propertyError) {

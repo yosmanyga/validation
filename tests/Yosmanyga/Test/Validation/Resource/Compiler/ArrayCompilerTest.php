@@ -3,10 +3,9 @@
 namespace Yosmanyga\Test\Validation\Resource\Normalizer;
 
 use Yosmanyga\Resource\Compiler\DelegatorCompiler;
-use Yosmanyga\Resource\Resource;
 use Yosmanyga\Validation\Resource\Compiler\ArrayCompiler;
-use Yosmanyga\Validation\Resource\Compiler\ValueCompiler;
 use Yosmanyga\Validation\Resource\Compiler\ExpressionCompiler;
+use Yosmanyga\Validation\Resource\Compiler\ValueCompiler;
 use Yosmanyga\Validation\Resource\Definition\ArrayDefinition;
 use Yosmanyga\Validation\Validator\ArrayValidator;
 
@@ -19,16 +18,16 @@ class ArrayCompilerTest extends \PHPUnit_Framework_TestCase
     {
         $compiler = new ArrayCompiler();
         $this->assertAttributeEquals(
-            new DelegatorCompiler(array(
+            new DelegatorCompiler([
                 new ValueCompiler(),
-                new ExpressionCompiler()
-            )),
+                new ExpressionCompiler(),
+            ]),
             'compiler',
             $compiler
         );
 
-        $compiler = new ArrayCompiler(array('foo'));
-        $this->assertAttributeEquals(new DelegatorCompiler(array('foo')), 'compiler', $compiler);
+        $compiler = new ArrayCompiler(['foo']);
+        $this->assertAttributeEquals(new DelegatorCompiler(['foo']), 'compiler', $compiler);
     }
 
     /**

@@ -2,10 +2,10 @@
 
 namespace Yosmanyga\Test\Validation\Resource\Normalizer\Common;
 
+use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
 use Yosmanyga\Resource\Resource;
 use Yosmanyga\Validation\Resource\Definition\ArrayDefinition;
 use Yosmanyga\Validation\Resource\Normalizer\Common\ArrayNormalizer;
-use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
 
 class ArrayNormalizerTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,11 +14,11 @@ class ArrayNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $normalizer = new MockArrayNormalizer(array('foo'));
+        $normalizer = new MockArrayNormalizer(['foo']);
         $this->assertAttributeEquals(
-            new DelegatorNormalizer(array(
-                'foo'
-            )),
+            new DelegatorNormalizer([
+                'foo',
+            ]),
             'normalizer',
             $normalizer
         );
@@ -47,7 +47,7 @@ class ArrayNormalizerTest extends \PHPUnit_Framework_TestCase
         $method->setAccessible(true);
         $definition = new ArrayDefinition();
         $definition->allowExtra = true;
-        $this->assertEquals($definition, $method->invoke($normalizer, array('allowExtra' => true)));
+        $this->assertEquals($definition, $method->invoke($normalizer, ['allowExtra' => true]));
     }
 }
 

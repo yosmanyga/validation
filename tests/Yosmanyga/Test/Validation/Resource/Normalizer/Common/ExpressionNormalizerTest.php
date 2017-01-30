@@ -30,6 +30,6 @@ class ExpressionNormalizerTest extends \PHPUnit_Framework_TestCase
         $method->setAccessible(true);
         $definition = new ExpressionDefinition();
         $definition->expression = 'foo';
-        $this->assertEquals($definition, $method->invoke($normalizer, array('expression' => 'foo')));
+        $this->assertEquals($definition, $method->invoke($normalizer, ['expression' => 'foo']));
     }
 }

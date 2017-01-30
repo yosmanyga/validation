@@ -30,6 +30,6 @@ class ObjectReferenceNormalizerTest extends \PHPUnit_Framework_TestCase
         $method->setAccessible(true);
         $definition = new ObjectReferenceDefinition();
         $definition->class = 'ClassX';
-        $this->assertEquals($definition, $method->invoke($normalizer, array('class' => 'ClassX')));
+        $this->assertEquals($definition, $method->invoke($normalizer, ['class' => 'ClassX']));
     }
 }
