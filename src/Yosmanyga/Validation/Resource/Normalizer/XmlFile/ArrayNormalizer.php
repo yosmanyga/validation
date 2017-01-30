@@ -3,9 +3,9 @@
 namespace Yosmanyga\Validation\Resource\Normalizer\XmlFile;
 
 use Yosmanyga\Resource\Resource;
-use Yosmanyga\Validation\Resource\Normalizer\Common\ArrayNormalizer as CommonArrayNormalizer;
 use Yosmanyga\Resource\Util\XmlKit;
 use Yosmanyga\Validation\Resource\Definition\ArrayDefinition;
+use Yosmanyga\Validation\Resource\Normalizer\Common\ArrayNormalizer as CommonArrayNormalizer;
 
 class ArrayNormalizer extends CommonArrayNormalizer
 {
@@ -14,12 +14,12 @@ class ArrayNormalizer extends CommonArrayNormalizer
      */
     private $xmlKit;
 
-    public function __construct($normalizers = array(), $xmlKit = null)
+    public function __construct($normalizers = [], $xmlKit = null)
     {
-        $normalizers = $normalizers ?: array(
+        $normalizers = $normalizers ?: [
             new ValueNormalizer(),
             new ExpressionNormalizer(),
-        );
+        ];
 
         parent::__construct($normalizers);
 
@@ -47,9 +47,9 @@ class ArrayNormalizer extends CommonArrayNormalizer
 
         if (isset($data['value']['map'])) {
             $data['value']['map'] = $this->normalizer->normalize(
-                array(
+                [
                     'value' => $data['value']['map'],
-                ),
+                ],
                 $resource
             );
         }

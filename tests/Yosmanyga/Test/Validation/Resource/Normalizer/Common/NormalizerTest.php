@@ -2,7 +2,6 @@
 
 namespace Yosmanyga\Test\Validation\Resource\Normalizer\Common;
 
-use Yosmanyga\Resource\Resource;
 use Yosmanyga\Validation\Resource\Definition\ObjectDefinition;
 
 class NormalizerTest extends \PHPUnit_Framework_TestCase
@@ -18,7 +17,7 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         $method->setAccessible(true);
         $definition = new ObjectDefinition();
         $definition->class = 'ClassX';
-        $definition->validators = array('foo');
-        $this->assertEquals($definition, $method->invoke($normalizer, 'ClassX', array('foo')));
+        $definition->validators = ['foo'];
+        $this->assertEquals($definition, $method->invoke($normalizer, 'ClassX', ['foo']));
     }
 }

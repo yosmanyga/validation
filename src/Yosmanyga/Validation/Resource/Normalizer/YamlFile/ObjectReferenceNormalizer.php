@@ -2,8 +2,8 @@
 
 namespace Yosmanyga\Validation\Resource\Normalizer\YamlFile;
 
-use Yosmanyga\Validation\Resource\Normalizer\Common\ObjectReferenceNormalizer as CommonObjectReferenceNormalizer;
 use Yosmanyga\Resource\Resource;
+use Yosmanyga\Validation\Resource\Normalizer\Common\ObjectReferenceNormalizer as CommonObjectReferenceNormalizer;
 
 class ObjectReferenceNormalizer extends CommonObjectReferenceNormalizer
 {

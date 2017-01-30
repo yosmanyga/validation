@@ -15,9 +15,9 @@ class ExpressionValueValidatorTest extends \PHPUnit_Framework_TestCase
         $expression = 'foo';
         $validator = new ExpressionValueValidator($expression);
         $this->assertAttributeEquals($expression, 'expression', $validator);
-        $this->assertAttributeEquals(array('message' => 'This value is not valid'), 'options', $validator);
+        $this->assertAttributeEquals(['message' => 'This value is not valid'], 'options', $validator);
 
-        $options = array('message' => 'foo');
+        $options = ['message' => 'foo'];
         $validator = new ExpressionValueValidator($expression, $options);
         $this->assertAttributeEquals($options, 'options', $validator);
     }
@@ -32,16 +32,16 @@ class ExpressionValueValidatorTest extends \PHPUnit_Framework_TestCase
         $expressionLanguage = $this->getMock('Symfony\Component\ExpressionLanguage\ExpressionLanguage');
         $expressionLanguage
             ->expects($this->once())->method('evaluate')
-            ->with($expression, array('value' => $value))
+            ->with($expression, ['value' => $value])
             ->will($this->returnValue(false));
         /** @var \Symfony\Component\ExpressionLanguage\ExpressionLanguage $expressionLanguage */
-        $validator = new ExpressionValueValidator($expression, array(), $expressionLanguage);
+        $validator = new ExpressionValueValidator($expression, [], $expressionLanguage);
         $errors = $validator->validate($value);
         $r = new \ReflectionClass($validator);
         $p = $r->getProperty('variables');
         $p->setAccessible(true);
-        $this->assertEquals(array('value' => $value), $p->getValue($validator));
-        $this->assertEquals(array(new Error('This value is not valid')), $errors);
+        $this->assertEquals(['value' => $value], $p->getValue($validator));
+        $this->assertEquals([new Error('This value is not valid')], $errors);
 //
 //        /** @var \PHPUnit_Framework_MockObject_MockObject $expressionLanguage */
 //        $expressionLanguage = $this->getMock('Symfony\Component\ExpressionLanguage\ExpressionLanguage');
@@ -65,6 +65,6 @@ class ExpressionValueValidatorTest extends \PHPUnit_Framework_TestCase
         $r = new \ReflectionClass($validator);
         $p = $r->getProperty('variables');
         $p->setAccessible(true);
-        $this->assertEquals(array('foo' => 'bar'), $p->getValue($validator));
+        $this->assertEquals(['foo' => 'bar'], $p->getValue($validator));
     }
 }

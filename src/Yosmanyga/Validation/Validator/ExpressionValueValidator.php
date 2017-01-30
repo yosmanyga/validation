@@ -20,7 +20,7 @@ class ExpressionValueValidator implements ValidatorInterface
     /**
      * @var array
      */
-    private $variables = array();
+    private $variables = [];
 
     /**
      * @var \Symfony\Component\ExpressionLanguage\ExpressionLanguage
@@ -32,12 +32,12 @@ class ExpressionValueValidator implements ValidatorInterface
      * @param array                                                    $options
      * @param \Symfony\Component\ExpressionLanguage\ExpressionLanguage $expressionLanguage
      */
-    public function __construct($expression = '', $options = array(), ExpressionLanguage $expressionLanguage = null)
+    public function __construct($expression = '', $options = [], ExpressionLanguage $expressionLanguage = null)
     {
         $this->expression = $expression;
-        $this->options = array_replace(array(
+        $this->options = array_replace([
             'message' => 'This value is not valid',
-        ), $options);
+        ], $options);
         $this->expressionLanguage = $expressionLanguage;
     }
 
@@ -46,7 +46,7 @@ class ExpressionValueValidator implements ValidatorInterface
      */
     public function validate($value)
     {
-        $errors = array();
+        $errors = [];
 
         $this->addVariable('value', $value);
 

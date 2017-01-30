@@ -2,8 +2,9 @@
 
 namespace Yosmanyga\Validation\Resource\Loader;
 
-use Yosmanyga\Resource\Cacher\CacherInterface;
 use Yosmanyga\Resource\Cacher\Cacher;
+use Yosmanyga\Resource\Cacher\CacherInterface;
+use Yosmanyga\Resource\Compiler\CompilerInterface;
 use Yosmanyga\Resource\Loader\LoaderInterface;
 use Yosmanyga\Resource\Normalizer\NormalizerInterface;
 use Yosmanyga\Resource\Reader\Iterator\DelegatorReader;
@@ -11,7 +12,6 @@ use Yosmanyga\Resource\Reader\Iterator\ReaderInterface;
 use Yosmanyga\Validation\Resource\Compiler\ObjectCompiler;
 use Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition;
 use Yosmanyga\Validation\Resource\Normalizer\Normalizer;
-use Yosmanyga\Resource\Compiler\CompilerInterface;
 
 class Loader implements LoaderInterface
 {
@@ -67,9 +67,9 @@ class Loader implements LoaderInterface
         $this->reader->open($resource);
 
         /** @var \Yosmanyga\Validation\Resource\Definition\ObjectDefinition[] $definitions */
-        $definitions = array();
+        $definitions = [];
         /** @var \Yosmanyga\Validation\Validator\ObjectValidator[] $validators */
-        $validators = array();
+        $validators = [];
         while ($data = $this->reader->current()) {
             /** @var \Yosmanyga\Validation\Resource\Definition\ObjectDefinition $definition */
             $definition = $this->normalizer->normalize($data, $resource);

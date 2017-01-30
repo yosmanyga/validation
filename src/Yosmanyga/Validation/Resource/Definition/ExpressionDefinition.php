@@ -17,13 +17,13 @@ class ExpressionDefinition extends Definition implements ValidatedInterface
      */
     public function createValidator()
     {
-        return new ObjectValidator(array(
-            'expression' => new ValueValidator(array(
+        return new ObjectValidator([
+            'expression' => new ValueValidator([
                 'type' => 'string',
-            )),
-            'message' => new ValueValidator(array(
+            ]),
+            'message' => new ValueValidator([
                 'type' => 'string',
-            )),
-        ));
+            ]),
+        ]);
     }
 }

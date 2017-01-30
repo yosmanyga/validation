@@ -15,5 +15,5 @@ interface GroupValidatorInterface
      *
      * @return \Yosmanyga\Validation\Validator\Error\Error[]
      */
-    public function validate($value, $groups = array());
+    public function validate($value, $groups = []);
 }

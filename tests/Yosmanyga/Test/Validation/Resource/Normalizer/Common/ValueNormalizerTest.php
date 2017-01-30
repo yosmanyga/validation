@@ -30,6 +30,6 @@ class ValueNormalizerTest extends \PHPUnit_Framework_TestCase
         $method->setAccessible(true);
         $definition = new ValueDefinition();
         $definition->allowNull = true;
-        $this->assertEquals($definition, $method->invoke($normalizer, array('allowNull' => true)));
+        $this->assertEquals($definition, $method->invoke($normalizer, ['allowNull' => true]));
     }
 }

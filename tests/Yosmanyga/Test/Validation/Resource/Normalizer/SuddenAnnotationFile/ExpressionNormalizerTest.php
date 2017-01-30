@@ -2,9 +2,9 @@
 
 namespace Yosmanyga\Test\Validation\Resource\Normalizer\SuddenAnnotationFile;
 
-use Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile\ExpressionNormalizer;
 use Yosmanyga\Resource\Resource;
 use Yosmanyga\Validation\Resource\Definition\ExpressionDefinition;
+use Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile\ExpressionNormalizer;
 use Yosmanyga\Validation\Resource\Normalizer\YamlFile\ExpressionNormalizer as YamlFileExpressionNormalizer;
 
 class ExpressionNormalizerTest extends \PHPUnit_Framework_TestCase
@@ -36,9 +36,9 @@ class ExpressionNormalizerTest extends \PHPUnit_Framework_TestCase
     public function testSupports()
     {
         $normalizer = new ExpressionNormalizer();
-        $this->assertTrue($normalizer->supports(array('key' => 'Expression'), new Resource()));
-        $this->assertTrue($normalizer->supports(array('key' => 'Validation\Expression'), new Resource()));
-        $this->assertFalse($normalizer->supports(array('key' => 'bar'), new Resource()));
+        $this->assertTrue($normalizer->supports(['key' => 'Expression'], new Resource()));
+        $this->assertTrue($normalizer->supports(['key' => 'Validation\Expression'], new Resource()));
+        $this->assertFalse($normalizer->supports(['key' => 'bar'], new Resource()));
     }
 
     /**
@@ -51,7 +51,7 @@ class ExpressionNormalizerTest extends \PHPUnit_Framework_TestCase
         $definition->expression = 'foo';
         $this->assertEquals(
             $definition,
-            $normalizer->normalize(array('value' => array('expression' => 'foo')), new Resource())
+            $normalizer->normalize(['value' => ['expression' => 'foo']], new Resource())
         );
     }
 }

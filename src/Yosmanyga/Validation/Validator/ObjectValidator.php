@@ -21,12 +21,12 @@ class ObjectValidator implements ValidatorInterface
      * @param \Yosmanyga\Validation\Validator\PropertyValidatorInterface[] $validators
      * @param array                                                        $options
      */
-    public function __construct($validators = array(), $options = array())
+    public function __construct($validators = [], $options = [])
     {
         $this->validators = $validators;
-        $this->options = array_replace_recursive(array(
+        $this->options = array_replace_recursive([
             'message' => 'Value must be an object',
-        ), $options);
+        ], $options);
     }
 
     /**
@@ -35,12 +35,12 @@ class ObjectValidator implements ValidatorInterface
     public function validate($value)
     {
         if (!is_object($value)) {
-            return array(new Error($this->options['message']));
+            return [new Error($this->options['message'])];
         }
 
         $this->validators = $this->fixValidators($this->validators);
 
-        $errors = array();
+        $errors = [];
 
         foreach ($this->validators as $property => $validators) {
             /** @var \Yosmanyga\Validation\Validator\PropertyValidatorInterface[] $validators */
@@ -86,16 +86,16 @@ class ObjectValidator implements ValidatorInterface
      */
     private function fixValidators($objectValidators)
     {
-        $fixedValidators = array();
+        $fixedValidators = [];
         foreach ($objectValidators as $property => $propertyValidators) {
             if (!is_array($propertyValidators)) {
-                $propertyValidators = array($propertyValidators);
+                $propertyValidators = [$propertyValidators];
             }
 
-            $fixedPropertyValidators = array();
+            $fixedPropertyValidators = [];
             foreach ($propertyValidators as $propertyValidator) {
                 if (!$propertyValidator instanceof PropertyValidatorInterface) {
-                    $fixedPropertyValidators[] = new PropertyValidator(array($propertyValidator));
+                    $fixedPropertyValidators[] = new PropertyValidator([$propertyValidator]);
                 } else {
                     $fixedPropertyValidators[] = $propertyValidator;
                 }

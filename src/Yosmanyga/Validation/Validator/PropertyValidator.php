@@ -21,7 +21,7 @@ class PropertyValidator implements PropertyValidatorInterface
      * @param \Yosmanyga\Validation\Validator\ValidatorInterface|\Yosmanyga\Validation\Validator\ValidatorInterface[] $validators
      * @param PropertyAccessorInterface                                                                               $propertyAccessor
      */
-    public function __construct($validators = array(), PropertyAccessorInterface $propertyAccessor = null)
+    public function __construct($validators = [], PropertyAccessorInterface $propertyAccessor = null)
     {
         $this->validators = $validators;
         $this->propertyAccessor = $propertyAccessor ?: new PropertyAccessor();
@@ -34,7 +34,7 @@ class PropertyValidator implements PropertyValidatorInterface
     {
         $this->validators = $this->fixValidators($this->validators);
 
-        $errors = array();
+        $errors = [];
 
         $value = $this->propertyAccessor->getValue($object, $property);
 
@@ -56,7 +56,7 @@ class PropertyValidator implements PropertyValidatorInterface
     private function fixValidators($validators)
     {
         if (!is_array($validators)) {
-            $validators = array($validators);
+            $validators = [$validators];
         }
 
         return $validators;

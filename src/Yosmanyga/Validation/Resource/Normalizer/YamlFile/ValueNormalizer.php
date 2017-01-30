@@ -2,8 +2,8 @@
 
 namespace Yosmanyga\Validation\Resource\Normalizer\YamlFile;
 
-use Yosmanyga\Validation\Resource\Normalizer\Common\ValueNormalizer as CommonValueNormalizer;
 use Yosmanyga\Resource\Resource;
+use Yosmanyga\Validation\Resource\Normalizer\Common\ValueNormalizer as CommonValueNormalizer;
 
 class ValueNormalizer extends CommonValueNormalizer
 {

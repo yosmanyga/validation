@@ -2,10 +2,10 @@
 
 namespace Yosmanyga\Test\Validation\Resource\Normalizer\XmlFile;
 
-use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ObjectReferenceNormalizer;
 use Yosmanyga\Resource\Resource;
-use Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition;
 use Yosmanyga\Resource\Util\XmlKit;
+use Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition;
+use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ObjectReferenceNormalizer;
 
 class ObjectReferenceNormalizerTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,8 +36,8 @@ class ObjectReferenceNormalizerTest extends \PHPUnit_Framework_TestCase
     public function testSupports()
     {
         $normalizer = new ObjectReferenceNormalizer();
-        $this->assertTrue($normalizer->supports(array('value' => array('name' => 'Object')), new Resource()));
-        $this->assertFalse($normalizer->supports(array('value' => array('name' => 'bar')), new Resource()));
+        $this->assertTrue($normalizer->supports(['value' => ['name' => 'Object']], new Resource()));
+        $this->assertFalse($normalizer->supports(['value' => ['name' => 'bar']], new Resource()));
     }
 
     /**
@@ -51,15 +51,15 @@ class ObjectReferenceNormalizerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             $definition,
             $normalizer->normalize(
-                array(
-                    'value' => array(
-                        'name' => 'Value',
-                        'option' => array(
-                            'name' => 'class',
-                            'value' => 'foo'
-                        )
-                    )
-                ),
+                [
+                    'value' => [
+                        'name'   => 'Value',
+                        'option' => [
+                            'name'  => 'class',
+                            'value' => 'foo',
+                        ],
+                    ],
+                ],
                 new Resource()
             )
         );

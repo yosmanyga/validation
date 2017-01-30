@@ -2,12 +2,11 @@
 
 namespace Yosmanyga\Test\Validation\Resource\Normalizer;
 
-use Yosmanyga\Resource\Resource;
 use Yosmanyga\Resource\Normalizer\DirectoryNormalizer;
 use Yosmanyga\Validation\Resource\Normalizer\Normalizer;
-use Yosmanyga\Validation\Resource\Normalizer\YamlFile\Normalizer as YamlFileNormalizer;
-use Yosmanyga\Validation\Resource\Normalizer\XmlFile\Normalizer as XmlFileNormalizer;
 use Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile\Normalizer as SuddenAnnotationFileNormalizer;
+use Yosmanyga\Validation\Resource\Normalizer\XmlFile\Normalizer as XmlFileNormalizer;
+use Yosmanyga\Validation\Resource\Normalizer\YamlFile\Normalizer as YamlFileNormalizer;
 
 class NormalizerTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,27 +15,27 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $normalizer = new Normalizer(array('foo'));
+        $normalizer = new Normalizer(['foo']);
         $this->assertAttributeEquals(
-            array(
-                'foo'
-            ),
+            [
+                'foo',
+            ],
             'normalizers',
             $normalizer
         );
 
         $normalizer = new Normalizer();
         $this->assertAttributeEquals(
-            array(
+            [
                 new YamlFileNormalizer(),
-                new XmlFileNormalizer,
+                new XmlFileNormalizer(),
                 new SuddenAnnotationFileNormalizer(),
-                new DirectoryNormalizer(array(
+                new DirectoryNormalizer([
                     new YamlFileNormalizer(),
-                    new XmlFileNormalizer,
-                    new SuddenAnnotationFileNormalizer()
-                ))
-            ),
+                    new XmlFileNormalizer(),
+                    new SuddenAnnotationFileNormalizer(),
+                ]),
+            ],
             'normalizers',
             $normalizer
         );

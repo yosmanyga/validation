@@ -9,9 +9,9 @@ class ObjectDefinitionTest extends \PHPUnit_Framework_TestCase
     public function testProperties()
     {
         $definition = new ObjectDefinition();
-        $attributes = array(
-            'class', 'validators'
-        );
+        $attributes = [
+            'class', 'validators',
+        ];
         foreach ($attributes as $attribute) {
             $this->assertAttributeEmpty($attribute, $definition);
         }

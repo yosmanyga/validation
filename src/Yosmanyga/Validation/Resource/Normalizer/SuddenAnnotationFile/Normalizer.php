@@ -18,15 +18,15 @@ class Normalizer extends CommonNormalizer
      */
     public function __construct($normalizers = null)
     {
-        $normalizers = $normalizers ?: array(
+        $normalizers = $normalizers ?: [
             new ValueNormalizer(),
             new ExpressionNormalizer(),
-            new ArrayNormalizer(array(
+            new ArrayNormalizer([
                 new ValueNormalizer(),
                 new ExpressionNormalizer(),
-            )),
+            ]),
             new ObjectReferenceNormalizer(),
-        );
+        ];
 
         $this->delegator = new SuddenAnnotationFileDelegatorNormalizer($normalizers);
     }
@@ -48,7 +48,7 @@ class Normalizer extends CommonNormalizer
     public function normalize($data, Resource $resource)
     {
         $class = '';
-        $definitions = array();
+        $definitions = [];
         foreach ($data['value'] as $validator) {
             $class = $validator['metadata']['class'];
             if (isset($validator['property'])) {

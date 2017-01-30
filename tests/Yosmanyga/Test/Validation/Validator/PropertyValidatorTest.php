@@ -12,11 +12,11 @@ class PropertyValidatorTest extends \PHPUnit_Framework_TestCase
     public function testConstruct()
     {
         $validator = new PropertyValidator();
-        $this->assertAttributeEquals(array(), 'validators', $validator);
+        $this->assertAttributeEquals([], 'validators', $validator);
         $this->assertAttributeInstanceOf('Symfony\Component\PropertyAccess\PropertyAccessor', 'propertyAccessor', $validator);
 
         $propertyAccessor = $this->getMock('Symfony\Component\PropertyAccess\PropertyAccessor');
-        $validators = array('foo');
+        $validators = ['foo'];
         $validator = new PropertyValidator($validators, $propertyAccessor);
         $this->assertAttributeEquals($validators, 'validators', $validator);
         $this->assertAttributeEquals($propertyAccessor, 'propertyAccessor', $validator);
@@ -30,12 +30,12 @@ class PropertyValidatorTest extends \PHPUnit_Framework_TestCase
         $propertyAccessor = $this->getMock('Symfony\Component\PropertyAccess\PropertyAccessor');
         $propertyAccessor->expects($this->once())->method('getValue')->will($this->returnValue('bar'));
         $validator = $this->getMock('Yosmanyga\Validation\Validator\ValidatorInterface');
-        $validator->expects($this->once())->method('validate')->with('bar')->will($this->returnValue(array('error1')));
-        $validators = array($validator);
+        $validator->expects($this->once())->method('validate')->with('bar')->will($this->returnValue(['error1']));
+        $validators = [$validator];
         /** @var \Symfony\Component\PropertyAccess\PropertyAccessor $propertyAccessor */
         $validator = new PropertyValidator($validators, $propertyAccessor);
-        $errors = $validator->validate((object) array('foo' => 'bar'), 'foo');
-        $this->assertEquals(array('error1'), $errors);
+        $errors = $validator->validate((object) ['foo' => 'bar'], 'foo');
+        $this->assertEquals(['error1'], $errors);
     }
 
     /**
@@ -49,6 +49,6 @@ class PropertyValidatorTest extends \PHPUnit_Framework_TestCase
 
         $validators = 'foo';
         $validator = new PropertyValidator();
-        $this->assertEquals(array($validators), $m->invoke($validator, $validators));
+        $this->assertEquals([$validators], $m->invoke($validator, $validators));
     }
 }

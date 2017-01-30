@@ -2,7 +2,6 @@
 
 namespace Yosmanyga\Test\Validation\Resource\Normalizer;
 
-use Yosmanyga\Resource\Resource;
 use Yosmanyga\Validation\Resource\Compiler\ObjectReferenceCompiler;
 use Yosmanyga\Validation\Resource\Definition\ObjectReferenceDefinition;
 use Yosmanyga\Validation\Validator\ExceptionValidator;
@@ -24,14 +23,14 @@ class ObjectReferenceCompilerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCompile()
     {
-        $compiler = $this->getMock('Yosmanyga\Validation\Resource\Compiler\ObjectReferenceCompiler', array('createValidator'));
+        $compiler = $this->getMock('Yosmanyga\Validation\Resource\Compiler\ObjectReferenceCompiler', ['createValidator']);
         $definition = $this->getMock('Yosmanyga\Resource\Definition\DefinitionInterface');
         $validator = $this->getMock('Yosmanyga\Validation\Validator\ValidatorInterface');
         $compiler
             ->expects($this->once())->method('createValidator')->with($definition)
             ->will($this->returnValue($validator));
         $validator->expects($this->once())->method('validate')->with($definition);
-        /** @var \Yosmanyga\Resource\Compiler\CompilerInterface $compiler */
+        /* @var \Yosmanyga\Resource\Compiler\CompilerInterface $compiler */
         $this->assertEquals(
             null,
             $compiler->compile($definition)
@@ -55,5 +54,4 @@ class ObjectReferenceCompilerTest extends \PHPUnit_Framework_TestCase
             $method->invoke($compiler, $definition)
         );
     }
-
 }

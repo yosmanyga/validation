@@ -2,8 +2,8 @@
 
 namespace Yosmanyga\Validation\Resource\Normalizer\Common;
 
-use Yosmanyga\Resource\Resource;
 use Yosmanyga\Resource\Normalizer\NormalizerInterface;
+use Yosmanyga\Resource\Resource;
 use Yosmanyga\Validation\Resource\Definition\ValueDefinition;
 
 abstract class ValueNormalizer implements NormalizerInterface

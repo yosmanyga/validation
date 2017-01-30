@@ -3,10 +3,10 @@
 namespace Yosmanyga\Validation\Resource\Compiler;
 
 use Yosmanyga\Resource\Compiler\CompilerInterface;
+use Yosmanyga\Resource\Compiler\DelegatorCompiler;
 use Yosmanyga\Validation\Resource\Definition\ArrayDefinition;
 use Yosmanyga\Validation\Validator\ArrayValidator;
 use Yosmanyga\Validation\Validator\ExceptionValidator;
-use Yosmanyga\Resource\Compiler\DelegatorCompiler;
 
 class ArrayCompiler implements CompilerInterface
 {
@@ -18,12 +18,12 @@ class ArrayCompiler implements CompilerInterface
     /**
      * @param $compilers \Yosmanyga\Resource\Compiler\CompilerInterface[]
      */
-    public function __construct($compilers = array())
+    public function __construct($compilers = [])
     {
-        $compilers = $compilers ?: array(
+        $compilers = $compilers ?: [
             new ValueCompiler(),
             new ExpressionCompiler(),
-        );
+        ];
 
         $this->compiler = new DelegatorCompiler($compilers);
     }

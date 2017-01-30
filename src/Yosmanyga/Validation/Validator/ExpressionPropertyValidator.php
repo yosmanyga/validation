@@ -23,7 +23,7 @@ class ExpressionPropertyValidator implements PropertyValidatorInterface
      * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor
      * @param \Yosmanyga\Validation\Validator\ExpressionValueValidator    $expressionValueValidator
      */
-    public function __construct($expression, $options = array(), PropertyAccessorInterface $propertyAccessor = null, ExpressionValueValidator $expressionValueValidator = null)
+    public function __construct($expression, $options = [], PropertyAccessorInterface $propertyAccessor = null, ExpressionValueValidator $expressionValueValidator = null)
     {
         $this->propertyAccessor = $propertyAccessor ?: new PropertyAccessor();
         $this->expressionValueValidator = $expressionValueValidator ?: new ExpressionValueValidator($expression, $options);

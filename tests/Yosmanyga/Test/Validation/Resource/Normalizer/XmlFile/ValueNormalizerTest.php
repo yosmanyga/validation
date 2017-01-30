@@ -2,10 +2,10 @@
 
 namespace Yosmanyga\Test\Validation\Resource\Normalizer\XmlFile;
 
-use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ValueNormalizer;
 use Yosmanyga\Resource\Resource;
-use Yosmanyga\Validation\Resource\Definition\ValueDefinition;
 use Yosmanyga\Resource\Util\XmlKit;
+use Yosmanyga\Validation\Resource\Definition\ValueDefinition;
+use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ValueNormalizer;
 
 class ValueNormalizerTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,8 +36,8 @@ class ValueNormalizerTest extends \PHPUnit_Framework_TestCase
     public function testSupports()
     {
         $normalizer = new ValueNormalizer();
-        $this->assertTrue($normalizer->supports(array('value' => array('name' => 'Value')), new Resource()));
-        $this->assertFalse($normalizer->supports(array('value' => array('name' => 'bar')), new Resource()));
+        $this->assertTrue($normalizer->supports(['value' => ['name' => 'Value']], new Resource()));
+        $this->assertFalse($normalizer->supports(['value' => ['name' => 'bar']], new Resource()));
     }
 
     /**
@@ -51,15 +51,15 @@ class ValueNormalizerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             $definition,
             $normalizer->normalize(
-                array(
-                    'value' => array(
-                        'name' => 'Value',
-                        'option' => array(
-                            'name' => 'allowNull',
-                            'value' => true
-                        )
-                    )
-                ),
+                [
+                    'value' => [
+                        'name'   => 'Value',
+                        'option' => [
+                            'name'  => 'allowNull',
+                            'value' => true,
+                        ],
+                    ],
+                ],
                 new Resource()
             )
         );

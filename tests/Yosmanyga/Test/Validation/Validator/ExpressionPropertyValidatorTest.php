@@ -16,7 +16,7 @@ class ExpressionPropertyValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeInstanceOf('Yosmanyga\Validation\Validator\ExpressionValueValidator', 'expressionValueValidator', $validator);
 
         $expression = 'foo';
-        $options = array();
+        $options = [];
         $propertyAccessor = $this->getMock('Symfony\Component\PropertyAccess\PropertyAccessorInterface');
         $expressionValueValidator = $this->getMock('Yosmanyga\Validation\Validator\ExpressionValueValidator');
         $validator = new ExpressionPropertyValidator($expression, $options, $propertyAccessor, $expressionValueValidator);
@@ -30,7 +30,7 @@ class ExpressionPropertyValidatorTest extends \PHPUnit_Framework_TestCase
     public function testValidate()
     {
         $expression = 'foo';
-        $object = (object) array('foo' => 'bar');
+        $object = (object) ['foo' => 'bar'];
         $property = 'foo';
         $value = 'bar';
         $propertyAccessor = $this->getMock('Symfony\Component\PropertyAccess\PropertyAccessor');
@@ -47,7 +47,7 @@ class ExpressionPropertyValidatorTest extends \PHPUnit_Framework_TestCase
             ->with($value);
         /** @var \Symfony\Component\PropertyAccess\PropertyAccessor $propertyAccessor */
         /** @var \Yosmanyga\Validation\Validator\ExpressionValueValidator $expressionValueValidator */
-        $validator = new ExpressionPropertyValidator($expression, array(), $propertyAccessor, $expressionValueValidator);
+        $validator = new ExpressionPropertyValidator($expression, [], $propertyAccessor, $expressionValueValidator);
         $validator->validate($object, $property);
     }
 }

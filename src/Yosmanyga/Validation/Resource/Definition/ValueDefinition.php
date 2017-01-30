@@ -11,7 +11,7 @@ use Yosmanyga\Validation\Validator\ValueValidator;
 class ValueDefinition extends Definition implements ValidatedInterface
 {
     /**
-     * @var boolean
+     * @var bool
      */
     public $allowNull;
 
@@ -76,19 +76,19 @@ class ValueDefinition extends Definition implements ValidatedInterface
     public $messages;
 
     /**
-     * @param boolean $allowNull
-     * @param string  $type
-     * @param mixed   $eq
-     * @param mixed   $neq
-     * @param mixed   $iq
-     * @param mixed   $niq
-     * @param mixed   $gt
-     * @param mixed   $ge
-     * @param mixed   $lt
-     * @param mixed   $le
-     * @param array   $in
-     * @param array   $nin
-     * @param array   $messages
+     * @param bool   $allowNull
+     * @param string $type
+     * @param mixed  $eq
+     * @param mixed  $neq
+     * @param mixed  $iq
+     * @param mixed  $niq
+     * @param mixed  $gt
+     * @param mixed  $ge
+     * @param mixed  $lt
+     * @param mixed  $le
+     * @param array  $in
+     * @param array  $nin
+     * @param array  $messages
      */
     public function __construct(
         $allowNull = null,
@@ -104,8 +104,7 @@ class ValueDefinition extends Definition implements ValidatedInterface
         $in = null,
         $nin = null,
         $messages = null
-    )
-    {
+    ) {
         $this->allowNull = $allowNull;
         $this->type = $type;
         $this->eq = $eq;
@@ -118,7 +117,7 @@ class ValueDefinition extends Definition implements ValidatedInterface
         $this->le = $le;
         $this->in = $in;
         $this->nin = $nin;
-        $this->messages = $messages ?: array();
+        $this->messages = $messages ?: [];
     }
 
     /**
@@ -126,30 +125,30 @@ class ValueDefinition extends Definition implements ValidatedInterface
      */
     public function createValidator()
     {
-        return new ObjectValidator(array(
-            'allowNull' => new ValueValidator(array(
+        return new ObjectValidator([
+            'allowNull' => new ValueValidator([
                 'allowNull' => true,
-                'type' => 'boolean',
-            )),
-            'type' => new ValueValidator(array(
+                'type'      => 'boolean',
+            ]),
+            'type' => new ValueValidator([
                 'allowNull' => true,
-                'type' => 'string',
-            )),
-            'in' => new ValueValidator(array(
+                'type'      => 'string',
+            ]),
+            'in' => new ValueValidator([
                 'allowNull' => true,
-                'type' => 'array',
-            )),
-            'nin' => new ValueValidator(array(
+                'type'      => 'array',
+            ]),
+            'nin' => new ValueValidator([
                 'allowNull' => true,
-                'type' => 'array',
-            )),
-            'messages' => new ArrayValidator(array(
-                'allowedKeys' => array('null', 'type', 'eq', 'neq', 'iq', 'niq', 'gt', 'ge', 'lt', 'le', 'in', 'nin'),
-                'map' => new ValueValidator(array('type' => 'string')),
-                'messages' => array(
+                'type'      => 'array',
+            ]),
+            'messages' => new ArrayValidator([
+                'allowedKeys' => ['null', 'type', 'eq', 'neq', 'iq', 'niq', 'gt', 'ge', 'lt', 'le', 'in', 'nin'],
+                'map'         => new ValueValidator(['type' => 'string']),
+                'messages'    => [
                     'map' => 'messages values must be strings',
-                ),
-            )),
-        ));
+                ],
+            ]),
+        ]);
     }
 }

@@ -2,13 +2,13 @@
 
 namespace Yosmanyga\Test\Validation\Resource\Normalizer\SuddenAnnotationFile;
 
-use Yosmanyga\Validation\Resource\Definition\ValueDefinition;
-use Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile\ArrayNormalizer;
-use Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile\ValueNormalizer;
-use Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile\ExpressionNormalizer;
 use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
 use Yosmanyga\Resource\Resource;
 use Yosmanyga\Validation\Resource\Definition\ArrayDefinition;
+use Yosmanyga\Validation\Resource\Definition\ValueDefinition;
+use Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile\ArrayNormalizer;
+use Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile\ExpressionNormalizer;
+use Yosmanyga\Validation\Resource\Normalizer\SuddenAnnotationFile\ValueNormalizer;
 
 class ArrayNormalizerTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,10 +19,10 @@ class ArrayNormalizerTest extends \PHPUnit_Framework_TestCase
     {
         $normalizer = new ArrayNormalizer();
         $this->assertAttributeEquals(
-            new DelegatorNormalizer(array(
+            new DelegatorNormalizer([
                 new ValueNormalizer(),
-                new ExpressionNormalizer()
-            )),
+                new ExpressionNormalizer(),
+            ]),
             'normalizer',
             $normalizer
         );
@@ -34,9 +34,9 @@ class ArrayNormalizerTest extends \PHPUnit_Framework_TestCase
     public function testSupports()
     {
         $normalizer = new ArrayNormalizer();
-        $this->assertTrue($normalizer->supports(array('key' => 'Array'), new Resource()));
-        $this->assertTrue($normalizer->supports(array('key' => 'Validator\Array'), new Resource()));
-        $this->assertFalse($normalizer->supports(array('key' => 'Validator\bar'), new Resource()));
+        $this->assertTrue($normalizer->supports(['key' => 'Array'], new Resource()));
+        $this->assertTrue($normalizer->supports(['key' => 'Validator\Array'], new Resource()));
+        $this->assertFalse($normalizer->supports(['key' => 'Validator\bar'], new Resource()));
     }
 
     /**
@@ -46,14 +46,13 @@ class ArrayNormalizerTest extends \PHPUnit_Framework_TestCase
     {
         $normalizer = new ArrayNormalizer();
         $definition = new ArrayDefinition();
-        $definition->requiredKeys = array();
+        $definition->requiredKeys = [];
         $this->assertEquals(
             $definition,
             $normalizer->normalize(
-                array(
-                    'value' =>
-                        array('requiredKeys' => array())
-                ),
+                [
+                    'value' => ['requiredKeys' => []],
+                ],
                 new Resource()
             )
         );
@@ -72,16 +71,16 @@ class ArrayNormalizerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             $arrayDefinition,
             $normalizer->normalize(
-                array(
-                    'value' => array(
-                        'map' => array(
+                [
+                    'value' => [
+                        'map' => [
                             'validator' => 'Value',
-                            'options' => array(
-                                'allowNull' => true
-                            )
-                        )
-                    )
-                ),
+                            'options'   => [
+                                'allowNull' => true,
+                            ],
+                        ],
+                    ],
+                ],
                 new Resource()
             )
         );

@@ -9,10 +9,10 @@ class ValueDefinitionTest extends \PHPUnit_Framework_TestCase
     public function testProperties()
     {
         $definition = new ValueDefinition();
-        $attributes = array(
+        $attributes = [
             'allowNull', 'type', 'eq', 'neq', 'iq', 'niq', 'gt', 'ge', 'lt',
-            'le', 'in', 'nin', 'messages'
-        );
+            'le', 'in', 'nin', 'messages',
+        ];
         foreach ($attributes as $attribute) {
             $this->assertAttributeEmpty($attribute, $definition);
         }

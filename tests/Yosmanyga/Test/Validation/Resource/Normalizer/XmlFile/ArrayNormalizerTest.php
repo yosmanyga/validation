@@ -2,13 +2,13 @@
 
 namespace Yosmanyga\Test\Validation\Resource\Normalizer\XmlFile;
 
-use Yosmanyga\Validation\Resource\Definition\ValueDefinition;
-use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ArrayNormalizer;
-use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ValueNormalizer;
-use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ExpressionNormalizer;
 use Yosmanyga\Resource\Normalizer\DelegatorNormalizer;
 use Yosmanyga\Resource\Resource;
 use Yosmanyga\Validation\Resource\Definition\ArrayDefinition;
+use Yosmanyga\Validation\Resource\Definition\ValueDefinition;
+use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ArrayNormalizer;
+use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ExpressionNormalizer;
+use Yosmanyga\Validation\Resource\Normalizer\XmlFile\ValueNormalizer;
 
 class ArrayNormalizerTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,10 +19,10 @@ class ArrayNormalizerTest extends \PHPUnit_Framework_TestCase
     {
         $normalizer = new ArrayNormalizer();
         $this->assertAttributeEquals(
-            new DelegatorNormalizer(array(
+            new DelegatorNormalizer([
                 new ValueNormalizer(),
-                new ExpressionNormalizer()
-            )),
+                new ExpressionNormalizer(),
+            ]),
             'normalizer',
             $normalizer
         );
@@ -34,8 +34,8 @@ class ArrayNormalizerTest extends \PHPUnit_Framework_TestCase
     public function testSupports()
     {
         $normalizer = new ArrayNormalizer();
-        $this->assertTrue($normalizer->supports(array('value' => array('name' => 'Array')), new Resource()));
-        $this->assertFalse($normalizer->supports(array('value' => array('name' => 'bar')), new Resource()));
+        $this->assertTrue($normalizer->supports(['value' => ['name' => 'Array']], new Resource()));
+        $this->assertFalse($normalizer->supports(['value' => ['name' => 'bar']], new Resource()));
     }
 
     /**
@@ -46,19 +46,19 @@ class ArrayNormalizerTest extends \PHPUnit_Framework_TestCase
         // One option
         $normalizer = new ArrayNormalizer();
         $definition = new ArrayDefinition();
-        $definition->requiredKeys = array();
+        $definition->requiredKeys = [];
         $this->assertEquals(
             $definition,
             $normalizer->normalize(
-                array(
-                    'value' => array(
-                        'name' => 'Array',
-                        'option' => array(
-                            'name' => 'requiredKeys',
-                            'value' => array()
-                        )
-                    )
-                ),
+                [
+                    'value' => [
+                        'name'   => 'Array',
+                        'option' => [
+                            'name'  => 'requiredKeys',
+                            'value' => [],
+                        ],
+                    ],
+                ],
                 new Resource()
             )
         );
@@ -66,25 +66,25 @@ class ArrayNormalizerTest extends \PHPUnit_Framework_TestCase
         // Many options
         $definition = new ArrayDefinition();
         $definition->allowExtra = false;
-        $definition->deniedKeys = array('bar');
+        $definition->deniedKeys = ['bar'];
         $this->assertEquals(
             $definition,
             $normalizer->normalize(
-                array(
-                    'value' => array(
-                        'name' => 'Array',
-                        'option' => array(
-                            array(
-                                'name' => 'allowExtra',
-                                'value' => false
-                            ),
-                            array(
-                                'name' => 'deniedKeys',
-                                'value' => array('bar')
-                            )
-                        )
-                    )
-                ),
+                [
+                    'value' => [
+                        'name'   => 'Array',
+                        'option' => [
+                            [
+                                'name'  => 'allowExtra',
+                                'value' => false,
+                            ],
+                            [
+                                'name'  => 'deniedKeys',
+                                'value' => ['bar'],
+                            ],
+                        ],
+                    ],
+                ],
                 new Resource()
             )
         );
@@ -103,23 +103,23 @@ class ArrayNormalizerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             $arrayDefinition,
             $normalizer->normalize(
-                array(
-                    'value' => array(
-                        'name' => 'Array',
-                        'option' => array(
-                            array(
-                                'name' => 'map',
-                                'validator' => array(
-                                    'name' => 'Value',
-                                    'option' => array(
-                                        'name' => 'allowNull',
-                                        'value' => true
-                                    )
-                                )
-                            )
-                        )
-                    )
-                ),
+                [
+                    'value' => [
+                        'name'   => 'Array',
+                        'option' => [
+                            [
+                                'name'      => 'map',
+                                'validator' => [
+                                    'name'   => 'Value',
+                                    'option' => [
+                                        'name'  => 'allowNull',
+                                        'value' => true,
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
                 new Resource()
             )
         );
