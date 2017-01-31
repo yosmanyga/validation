@@ -10,7 +10,7 @@ class ArrayDefinitionTest extends \PHPUnit_Framework_TestCase
     {
         $definition = new ArrayDefinition();
         $attributes = [
-            'requiredKeys', 'allowedKeys', 'map', 'deniedKeys', 'allowExtra', 'messages',
+            'requiredKeys', 'optionalKeys', 'map', 'deniedKeys', 'allowExtra', 'messages',
         ];
         foreach ($attributes as $attribute) {
             $this->assertAttributeEmpty($attribute, $definition);

@@ -18,7 +18,7 @@ class ArrayDefinition extends Definition implements ValidatedInterface
     /**
      * @var array
      */
-    public $allowedKeys;
+    public $optionalKeys;
 
     /**
      * @var array
@@ -42,7 +42,7 @@ class ArrayDefinition extends Definition implements ValidatedInterface
 
     /**
      * @param array $requiredKeys
-     * @param array $allowedKeys
+     * @param array $optionalKeys
      * @param array $map
      * @param array $deniedKeys
      * @param bool  $allowExtra
@@ -50,14 +50,14 @@ class ArrayDefinition extends Definition implements ValidatedInterface
      */
     public function __construct(
         $requiredKeys = null,
-        $allowedKeys = null,
+        $optionalKeys = null,
         $map = null,
         $deniedKeys = null,
         $allowExtra = null,
         $messages = null
     ) {
         $this->requiredKeys = $requiredKeys ?: [];
-        $this->allowedKeys = $allowedKeys ?: [];
+        $this->optionalKeys = $optionalKeys ?: [];
         $this->map = $map ?: [];
         $this->deniedKeys = $deniedKeys ?: [];
         $this->allowExtra = $allowExtra;
@@ -76,10 +76,10 @@ class ArrayDefinition extends Definition implements ValidatedInterface
                     'map' => 'requiredKeys values must be strings',
                 ],
             ]),
-            'allowedKeys' => new ArrayValidator([
+            'optionalKeys' => new ArrayValidator([
                 'map'      => new ScalarValidator(['type' => 'string']),
                 'messages' => [
-                    'map' => 'allowedKeys values must be strings',
+                    'map' => 'optionalKeys values must be strings',
                 ],
             ]),
             'deniedKeys' => new ArrayValidator([
@@ -94,7 +94,7 @@ class ArrayDefinition extends Definition implements ValidatedInterface
             ]),
             'messages' => new ArrayValidator([
                 'map'         => new ScalarValidator(['type' => 'string']),
-                'allowedKeys' => ['null', 'type', 'requiredKeys', 'deniedKeys', 'allowExtra'],
+                'optionalKeys' => ['null', 'type', 'requiredKeys', 'deniedKeys', 'allowExtra'],
                 'messages'    => [
                     'map' => 'messages values must be strings',
                 ],

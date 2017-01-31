@@ -21,7 +21,7 @@ class ArrayValidatorTest extends \PHPUnit_Framework_TestCase
                 'allowNull'    => false,
                 'map'          => null,
                 'requiredKeys' => [],
-                'allowedKeys'  => [],
+                'optionalKeys'  => [],
                 'deniedKeys'   => [],
                 'allowExtra'   => true,
                 'messages'     => [
@@ -44,7 +44,7 @@ class ArrayValidatorTest extends \PHPUnit_Framework_TestCase
             'allowNull'    => false,
             'map'          => 'function',
             'requiredKeys' => ['key1'],
-            'allowedKeys'  => ['key2'],
+            'optionalKeys'  => ['key2'],
             'deniedKeys'   => ['key3'],
             'allowExtra'   => false,
             'messages'     => [
@@ -61,7 +61,7 @@ class ArrayValidatorTest extends \PHPUnit_Framework_TestCase
                 'allowNull'    => false,
                 'map'          => 'function',
                 'requiredKeys' => ['key1'],
-                'allowedKeys'  => ['key2'],
+                'optionalKeys'  => ['key2'],
                 'deniedKeys'   => ['key3'],
                 'allowExtra'   => false,
                 'messages'     => [
@@ -142,12 +142,12 @@ class ArrayValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($errors);
 
         // Extra keys
-        $validator = new ArrayValidator(['allowExtra' => false, 'allowedKeys' => ['foo']]);
+        $validator = new ArrayValidator(['allowExtra' => false, 'optionalKeys' => ['foo']]);
         $errors = $validator->validate(['foo' => 'value', 'bar' => 'value']);
         $this->assertEquals([new Error('Only these keys are allowed "foo"')], $errors);
 
         // No extra keys
-        $validator = new ArrayValidator(['allowExtra' => false, 'allowedKeys' => ['foo']]);
+        $validator = new ArrayValidator(['allowExtra' => false, 'optionalKeys' => ['foo']]);
         $errors = $validator->validate(['foo' => 'value', 'bar' => 'value']);
         $this->assertEquals([new Error('Only these keys are allowed "foo"')], $errors);
     }

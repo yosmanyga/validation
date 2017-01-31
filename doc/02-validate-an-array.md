@@ -8,7 +8,7 @@ You can validate an array by using the ```ArrayValidator```:
     // key4 is denied
     $validator = new ArrayValidator(array(
         'requiredKeys' => array('key1', 'key2'),
-        'allowedKeys' => array('key3'),
+        'optionalKeys' => array('key3'),
         'deniedKeys' => array('key4')
     ));
     $errors = $validator->validate(array('key1' => 'foo1'));
@@ -42,7 +42,7 @@ You can also use a validator as the ```map``` option:
 
 - allowNull: Array can be null
 - requiredKeys: Array must have these keys
-- allowedKeys: Array can have these keys
+- optionalKeys: Array can have these keys
 - map: Applies the map to the elements of the array
 - deniedKeys: Array can't have these keys
 - allowExtra: Array can have extra keys

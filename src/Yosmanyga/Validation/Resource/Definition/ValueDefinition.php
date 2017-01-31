@@ -143,7 +143,7 @@ class ValueDefinition extends Definition implements ValidatedInterface
                 'type'      => 'array',
             ]),
             'messages' => new ArrayValidator([
-                'allowedKeys' => ['null', 'type', 'eq', 'neq', 'iq', 'niq', 'gt', 'ge', 'lt', 'le', 'in', 'nin'],
+                'optionalKeys' => ['null', 'type', 'eq', 'neq', 'iq', 'niq', 'gt', 'ge', 'lt', 'le', 'in', 'nin'],
                 'map'         => new ScalarValidator(['type' => 'string']),
                 'messages'    => [
                     'map' => 'messages values must be strings',

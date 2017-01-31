@@ -21,7 +21,7 @@ class ArrayValidator implements ValidatorInterface
             'allowNull'    => false,
             'map'          => null,
             'requiredKeys' => [],
-            'allowedKeys'  => [],
+            'optionalKeys'  => [],
             'deniedKeys'   => [],
             'allowExtra'   => true,
             'messages'     => [
@@ -80,7 +80,7 @@ class ArrayValidator implements ValidatorInterface
         }
 
         if ($this->options['allowExtra'] === false) {
-            $diff = array_diff(array_keys($value), array_merge($this->options['deniedKeys'], $this->options['requiredKeys'], $this->options['allowedKeys']));
+            $diff = array_diff(array_keys($value), array_merge($this->options['deniedKeys'], $this->options['requiredKeys'], $this->options['optionalKeys']));
             if ($diff) {
                 $errors[] = new Error($this->options['messages']['allowExtra']);
             }
@@ -100,7 +100,7 @@ class ArrayValidator implements ValidatorInterface
         }
 
         if ($this->options['allowExtra'] === false) {
-            $this->options['messages']['allowExtra'] = sprintf($this->options['messages']['allowExtra'], implode(', ', array_merge($this->options['requiredKeys'], $this->options['allowedKeys'])));
+            $this->options['messages']['allowExtra'] = sprintf($this->options['messages']['allowExtra'], implode(', ', array_merge($this->options['requiredKeys'], $this->options['optionalKeys'])));
         }
     }
 
