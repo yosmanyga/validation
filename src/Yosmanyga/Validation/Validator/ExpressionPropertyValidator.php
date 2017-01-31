@@ -13,20 +13,20 @@ class ExpressionPropertyValidator implements PropertyValidatorInterface
     private $propertyAccessor;
 
     /**
-     * @var \Yosmanyga\Validation\Validator\ExpressionValueValidator
+     * @var \Yosmanyga\Validation\Validator\ExpressionScalarValidator
      */
-    private $expressionValueValidator;
+    private $expressionScalarValidator;
 
     /**
      * @param string                                                      $expression
      * @param array                                                       $options
      * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor
-     * @param \Yosmanyga\Validation\Validator\ExpressionValueValidator    $expressionValueValidator
+     * @param \Yosmanyga\Validation\Validator\ExpressionScalarValidator    $expressionScalarValidator
      */
-    public function __construct($expression, $options = [], PropertyAccessorInterface $propertyAccessor = null, ExpressionValueValidator $expressionValueValidator = null)
+    public function __construct($expression, $options = [], PropertyAccessorInterface $propertyAccessor = null, ExpressionScalarValidator $expressionScalarValidator = null)
     {
         $this->propertyAccessor = $propertyAccessor ?: new PropertyAccessor();
-        $this->expressionValueValidator = $expressionValueValidator ?: new ExpressionValueValidator($expression, $options);
+        $this->expressionScalarValidator = $expressionScalarValidator ?: new ExpressionScalarValidator($expression, $options);
     }
 
     /**
@@ -34,10 +34,10 @@ class ExpressionPropertyValidator implements PropertyValidatorInterface
      */
     public function validate($object, $property)
     {
-        $this->expressionValueValidator->addVariable('this', $object);
+        $this->expressionScalarValidator->addVariable('this', $object);
 
         $value = $this->propertyAccessor->getValue($object, $property);
 
-        return $this->expressionValueValidator->validate($value);
+        return $this->expressionScalarValidator->validate($value);
     }
 }

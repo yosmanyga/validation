@@ -6,7 +6,7 @@ use Yosmanyga\Resource\Definition\Definition;
 use Yosmanyga\Validation\Validator\ArrayValidator;
 use Yosmanyga\Validation\Validator\ObjectValidator;
 use Yosmanyga\Validation\Validator\ValidatedInterface;
-use Yosmanyga\Validation\Validator\ValueValidator;
+use Yosmanyga\Validation\Validator\ScalarValidator;
 
 class ArrayDefinition extends Definition implements ValidatedInterface
 {
@@ -71,29 +71,29 @@ class ArrayDefinition extends Definition implements ValidatedInterface
     {
         return new ObjectValidator([
             'requiredKeys' => new ArrayValidator([
-                'map'      => new ValueValidator(['type' => 'string']),
+                'map'      => new ScalarValidator(['type' => 'string']),
                 'messages' => [
                     'map' => 'requiredKeys values must be strings',
                 ],
             ]),
             'allowedKeys' => new ArrayValidator([
-                'map'      => new ValueValidator(['type' => 'string']),
+                'map'      => new ScalarValidator(['type' => 'string']),
                 'messages' => [
                     'map' => 'allowedKeys values must be strings',
                 ],
             ]),
             'deniedKeys' => new ArrayValidator([
-                'map'      => new ValueValidator(['type' => 'string']),
+                'map'      => new ScalarValidator(['type' => 'string']),
                 'messages' => [
                     'map' => 'deniedKeys values must be strings',
                 ],
             ]),
-            'allowExtra' => new ValueValidator([
+            'allowExtra' => new ScalarValidator([
                 'allowNull' => true,
                 'type'      => 'boolean',
             ]),
             'messages' => new ArrayValidator([
-                'map'         => new ValueValidator(['type' => 'string']),
+                'map'         => new ScalarValidator(['type' => 'string']),
                 'allowedKeys' => ['null', 'type', 'requiredKeys', 'deniedKeys', 'allowExtra'],
                 'messages'    => [
                     'map' => 'messages values must be strings',

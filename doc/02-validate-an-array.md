@@ -32,7 +32,7 @@ You can validate each element of the array by using the ```map``` option:
 You can also use a validator as the ```map``` option:
 
     $validator = new ArrayValidator(array(
-        'map' => new ValueValidator(array(
+        'map' => new ScalarValidator(array(
             'type' => 'integer'
         ))
     ));

@@ -13,15 +13,15 @@ class ExpressionPropertyValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new ExpressionPropertyValidator('foo');
         $this->assertAttributeInstanceOf('Symfony\Component\PropertyAccess\PropertyAccessor', 'propertyAccessor', $validator);
-        $this->assertAttributeInstanceOf('Yosmanyga\Validation\Validator\ExpressionValueValidator', 'expressionValueValidator', $validator);
+        $this->assertAttributeInstanceOf('Yosmanyga\Validation\Validator\ExpressionScalarValidator', 'expressionScalarValidator', $validator);
 
         $expression = 'foo';
         $options = [];
         $propertyAccessor = $this->getMock('Symfony\Component\PropertyAccess\PropertyAccessorInterface');
-        $expressionValueValidator = $this->getMock('Yosmanyga\Validation\Validator\ExpressionValueValidator');
-        $validator = new ExpressionPropertyValidator($expression, $options, $propertyAccessor, $expressionValueValidator);
+        $expressionScalarValidator = $this->getMock('Yosmanyga\Validation\Validator\ExpressionScalarValidator');
+        $validator = new ExpressionPropertyValidator($expression, $options, $propertyAccessor, $expressionScalarValidator);
         $this->assertAttributeEquals($propertyAccessor, 'propertyAccessor', $validator);
-        $this->assertAttributeEquals($expressionValueValidator, 'expressionValueValidator', $validator);
+        $this->assertAttributeEquals($expressionScalarValidator, 'expressionScalarValidator', $validator);
     }
 
     /**
@@ -38,16 +38,16 @@ class ExpressionPropertyValidatorTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())->method('getValue')
             ->with($object, $property)
             ->will($this->returnValue($value));
-        $expressionValueValidator = $this->getMock('Yosmanyga\Validation\Validator\ExpressionValueValidator');
-        $expressionValueValidator
+        $expressionScalarValidator = $this->getMock('Yosmanyga\Validation\Validator\ExpressionScalarValidator');
+        $expressionScalarValidator
             ->expects($this->once())->method('addVariable')
             ->with('this', $object);
-        $expressionValueValidator
+        $expressionScalarValidator
             ->expects($this->once())->method('validate')
             ->with($value);
         /** @var \Symfony\Component\PropertyAccess\PropertyAccessor $propertyAccessor */
-        /** @var \Yosmanyga\Validation\Validator\ExpressionValueValidator $expressionValueValidator */
-        $validator = new ExpressionPropertyValidator($expression, [], $propertyAccessor, $expressionValueValidator);
+        /** @var \Yosmanyga\Validation\Validator\ExpressionScalarValidator $expressionScalarValidator */
+        $validator = new ExpressionPropertyValidator($expression, [], $propertyAccessor, $expressionScalarValidator);
         $validator->validate($object, $property);
     }
 }

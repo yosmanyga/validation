@@ -12,7 +12,7 @@ You can validate an object's property by using the ```PropertyValidator```:
     $user->age = 30;
 
     $validator = new PropertyValidator(array(
-        new ValueValidator(array(
+        new ScalarValidator(array(
             'type' => 'integer'
             'gt' => 0
         ))
@@ -45,12 +45,12 @@ You can validate many properties inside an object by using the ```ObjectValidato
     // and the property 'age' is an integer and is greater than 0
     $validator = new ObjectValidator(array(
         'name' => new PropertyValidator(array(
-            new ValueValidator(array(
+            new ScalarValidator(array(
                 'type' => 'string'
             ))
         )),
         'age' => new PropertyValidator(array(
-            new ValueValidator(array(
+            new ScalarValidator(array(
                 'type' => 'integer'
                 'gt' => 0
             ))
@@ -66,10 +66,10 @@ objects.
 You can use the short syntax:
 
     $validator = new ObjectValidator(array(
-        'name' => new ValueValidator(array(
+        'name' => new ScalarValidator(array(
             'type' => 'string'
         )),
-        'age' => new ValueValidator(array(
+        'age' => new ScalarValidator(array(
             'type' => 'integer'
             'gt' => 0
         ))
@@ -91,10 +91,10 @@ class:
         public function createValidator()
         {
             return new ObjectValidator(array(
-                'name' => new ValueValidator(array(
+                'name' => new ScalarValidator(array(
                     'type' => 'string'
                 )),
-                'age' => new ValueValidator(array(
+                'age' => new ScalarValidator(array(
                     'type' => 'integer'
                     'gt' => 0
                 ))
@@ -131,9 +131,9 @@ You can also validate nested objects:
     $object1->object2 = $object2;
 
     $validator = new ObjectValidator(array(
-        'property1' => new ValueValidator(array('type' => 'string')),
+        'property1' => new ScalarValidator(array('type' => 'string')),
         'object2' => new ObjectValidator(array(
-            'property2' => new ValueValidator(array('type' => 'integer')),
+            'property2' => new ScalarValidator(array('type' => 'integer')),
         ))
     ));
     /** @var \Yosmanyga\Validation\Validator\Error\PropertyError[] $errors */
@@ -163,15 +163,15 @@ If you need to have multiple validators for an object you can use a ```GroupObje
 
     $validator = new GroupObjectValidator(array(
         'Registration' => new ObjectValidator(array(
-            'name' => new ValueValidator(array(
+            'name' => new ScalarValidator(array(
                 'type' => 'string'
             ))
         )),
         'Update' => new ObjectValidator(array(
-            'name' => new ValueValidator(array(
+            'name' => new ScalarValidator(array(
                 'type' => 'string'
             )),
-            'age' => new ValueValidator(array(
+            'age' => new ScalarValidator(array(
                 'type' => 'integer'
                 'gt' => 0
             ))

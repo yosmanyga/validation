@@ -4,7 +4,7 @@ namespace Yosmanyga\Validation\Resource\Definition;
 
 use Yosmanyga\Resource\Definition\Definition;
 use Yosmanyga\Validation\Validator\ObjectValidator;
-use Yosmanyga\Validation\Validator\ValueValidator;
+use Yosmanyga\Validation\Validator\ScalarValidator;
 
 class ObjectReferenceDefinition extends Definition
 {
@@ -16,7 +16,7 @@ class ObjectReferenceDefinition extends Definition
     public function createValidator()
     {
         return new ObjectValidator([
-            'class' => new ValueValidator([
+            'class' => new ScalarValidator([
                 'type' => 'string',
             ]),
         ]);

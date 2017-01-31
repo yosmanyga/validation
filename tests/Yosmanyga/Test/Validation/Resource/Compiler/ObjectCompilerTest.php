@@ -10,7 +10,7 @@ use Yosmanyga\Validation\Resource\Compiler\ValueCompiler;
 use Yosmanyga\Validation\Resource\Definition\ObjectDefinition;
 use Yosmanyga\Validation\Resource\Definition\ValueDefinition;
 use Yosmanyga\Validation\Validator\ObjectValidator;
-use Yosmanyga\Validation\Validator\ValueValidator;
+use Yosmanyga\Validation\Validator\ScalarValidator;
 
 class ObjectCompilerTest extends \PHPUnit_Framework_TestCase
 {
@@ -65,7 +65,7 @@ class ObjectCompilerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             new ObjectValidator([
                 'property1' => [
-                    new ValueValidator(),
+                    new ScalarValidator(),
                 ],
             ]),
             $compiler->compile($definition)

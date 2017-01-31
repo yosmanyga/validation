@@ -1,9 +1,9 @@
-# Value Validator
+# Scalar Validator
 
-You can validate a simple value by using the ```ValueValidator```:
+You can validate a simple scalar by using the ```ScalarValidator```:
 
     // Validates that the value is an integer and is greater than 10
-    $validator = new ValueValidator(array(
+    $validator = new ScalarValidator(array(
         'type' => 'integer',
         'gt' => 10
     ));
@@ -31,13 +31,13 @@ If there are errors it will return its as an array of ```Error``` objects.
 - nin: Value must not be in this parameter array
 - messages: Array of messages for each error
 
-# Expression Value Validator
+# Expression Scalar Validator
 
-If you need a refined validator you can use the ```ExpressionValueValidator```:
+If you need a refined validator you can use the ```ExpressionScalarValidator```:
 
-    // Validates that a value is greater than 1 and lower than 10
+    // Validates that the value is greater than 1 and lower than 10
     // "value" will be replaced by given value
-    $validator = new ExpressionValueValidator(array(
+    $validator = new ExpressionScalarValidator(array(
         'expression' => 'value > 1 and value < 10'
     ));
     $errors = $validator->validate(11);

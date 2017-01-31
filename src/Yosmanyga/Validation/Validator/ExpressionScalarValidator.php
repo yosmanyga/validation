@@ -5,7 +5,7 @@ namespace Yosmanyga\Validation\Validator;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Yosmanyga\Validation\Validator\Error\Error;
 
-class ExpressionValueValidator implements ValidatorInterface
+class ExpressionScalarValidator implements ValidatorInterface
 {
     /**
      * @var string
@@ -50,7 +50,7 @@ class ExpressionValueValidator implements ValidatorInterface
 
         $this->addVariable('value', $value);
 
-        // Sometime ExpressionValueValidator is constructed without the
+        // Sometime ExpressionScalarValidator is constructed without the
         // ExpressionLanguage object, so it can be cached. ExpressionLanguage
         // can't be cached because of closures.
         $this->expressionLanguage = $this->expressionLanguage ?: new ExpressionLanguage();

@@ -6,7 +6,7 @@ use Yosmanyga\Resource\Definition\Definition;
 use Yosmanyga\Validation\Validator\ArrayValidator;
 use Yosmanyga\Validation\Validator\ObjectValidator;
 use Yosmanyga\Validation\Validator\ValidatedInterface;
-use Yosmanyga\Validation\Validator\ValueValidator;
+use Yosmanyga\Validation\Validator\ScalarValidator;
 
 class ValueDefinition extends Definition implements ValidatedInterface
 {
@@ -126,25 +126,25 @@ class ValueDefinition extends Definition implements ValidatedInterface
     public function createValidator()
     {
         return new ObjectValidator([
-            'allowNull' => new ValueValidator([
+            'allowNull' => new ScalarValidator([
                 'allowNull' => true,
                 'type'      => 'boolean',
             ]),
-            'type' => new ValueValidator([
+            'type' => new ScalarValidator([
                 'allowNull' => true,
                 'type'      => 'string',
             ]),
-            'in' => new ValueValidator([
+            'in' => new ScalarValidator([
                 'allowNull' => true,
                 'type'      => 'array',
             ]),
-            'nin' => new ValueValidator([
+            'nin' => new ScalarValidator([
                 'allowNull' => true,
                 'type'      => 'array',
             ]),
             'messages' => new ArrayValidator([
                 'allowedKeys' => ['null', 'type', 'eq', 'neq', 'iq', 'niq', 'gt', 'ge', 'lt', 'le', 'in', 'nin'],
-                'map'         => new ValueValidator(['type' => 'string']),
+                'map'         => new ScalarValidator(['type' => 'string']),
                 'messages'    => [
                     'map' => 'messages values must be strings',
                 ],

@@ -3,10 +3,10 @@ Validation
 
 This library provides tools for validating simple values, arrays and objects.
 
-You can validate a simple value by using the ```ValueValidator```:
+You can validate a simple value by using the ```ScalarValidator```:
 
     // Validates that the value is an integer and is greater than 10
-    $validator = new ValueValidator(array(
+    $validator = new ScalarValidator(array(
         'type' => 'integer',
         'gt' => 10
     ));
@@ -38,10 +38,10 @@ You can validate an object by using the ```ObjectValidator```:
     // Validates that the property 'name' is a string
     // and the property 'age' is an integer and is greater than 0
     $validator = new ObjectValidator(array(
-        'name' => new ValueValidator(array(
+        'name' => new ScalarValidator(array(
             'type' => 'string'
         )),
-        'age' => new ValueValidator(array(
+        'age' => new ScalarValidator(array(
             'type' => 'integer'
             'gt' => 0
         ))

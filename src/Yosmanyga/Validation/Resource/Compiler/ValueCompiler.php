@@ -5,7 +5,7 @@ namespace Yosmanyga\Validation\Resource\Compiler;
 use Yosmanyga\Resource\Compiler\CompilerInterface;
 use Yosmanyga\Validation\Resource\Definition\ValueDefinition;
 use Yosmanyga\Validation\Validator\ExceptionValidator;
-use Yosmanyga\Validation\Validator\ValueValidator;
+use Yosmanyga\Validation\Validator\ScalarValidator;
 
 class ValueCompiler implements CompilerInterface
 {
@@ -24,14 +24,14 @@ class ValueCompiler implements CompilerInterface
     /**
      * @param \Yosmanyga\Validation\Resource\Definition\ValueDefinition $definition
      *
-     * @return \Yosmanyga\Validation\Validator\ValueValidator
+     * @return \Yosmanyga\Validation\Validator\ScalarValidator
      */
     public function compile($definition)
     {
         $validator = $this->createValidator($definition);
         $validator->validate($definition);
 
-        return new ValueValidator($definition->export());
+        return new ScalarValidator($definition->export());
     }
 
     /**

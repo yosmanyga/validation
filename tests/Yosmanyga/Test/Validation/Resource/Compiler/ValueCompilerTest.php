@@ -5,7 +5,7 @@ namespace Yosmanyga\Test\Validation\Resource\Normalizer;
 use Yosmanyga\Validation\Resource\Compiler\ValueCompiler;
 use Yosmanyga\Validation\Resource\Definition\ValueDefinition;
 use Yosmanyga\Validation\Validator\ExceptionValidator;
-use Yosmanyga\Validation\Validator\ValueValidator;
+use Yosmanyga\Validation\Validator\ScalarValidator;
 
 class ValueCompilerTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,7 +34,7 @@ class ValueCompilerTest extends \PHPUnit_Framework_TestCase
         $definition->expects($this->once())->method('export')->will($this->returnValue(['foo']));
         /* @var \Yosmanyga\Resource\Compiler\CompilerInterface $compiler */
         $this->assertEquals(
-            new ValueValidator(['foo']),
+            new ScalarValidator(['foo']),
             $compiler->compile($definition)
         );
     }

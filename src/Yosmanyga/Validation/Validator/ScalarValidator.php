@@ -4,7 +4,7 @@ namespace Yosmanyga\Validation\Validator;
 
 use Yosmanyga\Validation\Validator\Error\Error;
 
-class ValueValidator implements ValidatorInterface
+class ScalarValidator implements ValidatorInterface
 {
     /**
      * @var array

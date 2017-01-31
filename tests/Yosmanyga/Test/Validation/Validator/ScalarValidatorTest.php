@@ -3,18 +3,18 @@
 namespace Yosmanyga\Test\Validation\Validator;
 
 use Yosmanyga\Validation\Validator\Error\Error;
-use Yosmanyga\Validation\Validator\ValueValidator;
+use Yosmanyga\Validation\Validator\ScalarValidator;
 
-class ValueValidatorTest extends \PHPUnit_Framework_TestCase
+class ScalarValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Yosmanyga\Validation\Validator\ValueValidator::__construct
+     * @covers Yosmanyga\Validation\Validator\ScalarValidator::__construct
      */
     public function testConstruct()
     {
         // Default options
 
-        $validator = new ValueValidator();
+        $validator = new ScalarValidator();
         $this->assertAttributeEquals(
             [
                 'allowNull' => false,
@@ -50,7 +50,7 @@ class ValueValidatorTest extends \PHPUnit_Framework_TestCase
 
         // Custom options
 
-        $validator = new ValueValidator([
+        $validator = new ScalarValidator([
             'allowNull' => false,
             'type'      => 'a_type',
             'eq'        => 1,
@@ -113,100 +113,100 @@ class ValueValidatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Yosmanyga\Validation\Validator\ValueValidator::validate
-     * @covers Yosmanyga\Validation\Validator\ValueValidator::configureMessages
+     * @covers Yosmanyga\Validation\Validator\ScalarValidator::validate
+     * @covers Yosmanyga\Validation\Validator\ScalarValidator::configureMessages
      */
     public function testValidate()
     {
-        $validator = new ValueValidator(['allowNull' => false]);
+        $validator = new ScalarValidator(['allowNull' => false]);
         $errors = $validator->validate(null);
         $this->assertEquals([new Error("Value can't be null")], $errors);
 
-        $validator = new ValueValidator(['allowNull' => true]);
+        $validator = new ScalarValidator(['allowNull' => true]);
         $errors = $validator->validate(null);
         $this->assertEmpty($errors);
 
-        $validator = new ValueValidator(['type' => 'integer']);
+        $validator = new ScalarValidator(['type' => 'integer']);
         $errors = $validator->validate('bar');
         $this->assertEquals([new Error('Value must be of type "integer"')], $errors);
 
-        $validator = new ValueValidator(['eq' => 'foo']);
+        $validator = new ScalarValidator(['eq' => 'foo']);
         $errors = $validator->validate('bar');
         $this->assertEquals([new Error('Value must be equal to "foo"')], $errors);
 
-        $validator = new ValueValidator(['eq' => 'foo']);
+        $validator = new ScalarValidator(['eq' => 'foo']);
         $errors = $validator->validate('foo');
         $this->assertEmpty($errors);
 
-        $validator = new ValueValidator(['neq' => 'foo']);
+        $validator = new ScalarValidator(['neq' => 'foo']);
         $errors = $validator->validate('foo');
         $this->assertEquals([new Error('Value must not be equal to "foo"')], $errors);
 
-        $validator = new ValueValidator(['neq' => 'foo']);
+        $validator = new ScalarValidator(['neq' => 'foo']);
         $errors = $validator->validate('bar');
         $this->assertEmpty($errors);
 
-        $validator = new ValueValidator(['iq' => 'foo']);
+        $validator = new ScalarValidator(['iq' => 'foo']);
         $errors = $validator->validate('bar');
         $this->assertEquals([new Error('Value must be identical to "foo"')], $errors);
 
-        $validator = new ValueValidator(['iq' => 'foo']);
+        $validator = new ScalarValidator(['iq' => 'foo']);
         $errors = $validator->validate('foo');
         $this->assertEmpty($errors);
 
-        $validator = new ValueValidator(['niq' => 'foo']);
+        $validator = new ScalarValidator(['niq' => 'foo']);
         $errors = $validator->validate('foo');
         $this->assertEquals([new Error('Value must not be identical to "foo"')], $errors);
 
-        $validator = new ValueValidator(['niq' => 'foo']);
+        $validator = new ScalarValidator(['niq' => 'foo']);
         $errors = $validator->validate('bar');
         $this->assertEmpty($errors);
 
-        $validator = new ValueValidator(['gt' => 2]);
+        $validator = new ScalarValidator(['gt' => 2]);
         $errors = $validator->validate(2);
         $this->assertEquals([new Error('Value must be greater than "2"')], $errors);
 
-        $validator = new ValueValidator(['gt' => 2]);
+        $validator = new ScalarValidator(['gt' => 2]);
         $errors = $validator->validate(3);
         $this->assertEmpty($errors);
 
-        $validator = new ValueValidator(['ge' => 2]);
+        $validator = new ScalarValidator(['ge' => 2]);
         $errors = $validator->validate(1);
         $this->assertEquals([new Error('Value must be greater or equal to "2"')], $errors);
 
-        $validator = new ValueValidator(['ge' => 2]);
+        $validator = new ScalarValidator(['ge' => 2]);
         $errors = $validator->validate(2);
         $this->assertEmpty($errors);
 
-        $validator = new ValueValidator(['lt' => 2]);
+        $validator = new ScalarValidator(['lt' => 2]);
         $errors = $validator->validate(2);
         $this->assertEquals([new Error('Value must be lower than "2"')], $errors);
 
-        $validator = new ValueValidator(['lt' => 2]);
+        $validator = new ScalarValidator(['lt' => 2]);
         $errors = $validator->validate(1);
         $this->assertEmpty($errors);
 
-        $validator = new ValueValidator(['le' => 2]);
+        $validator = new ScalarValidator(['le' => 2]);
         $errors = $validator->validate(3);
         $this->assertEquals([new Error('Value must be lower or equal to "2"')], $errors);
 
-        $validator = new ValueValidator(['le' => 2]);
+        $validator = new ScalarValidator(['le' => 2]);
         $errors = $validator->validate(2);
         $this->assertEmpty($errors);
 
-        $validator = new ValueValidator(['in' => ['foo']]);
+        $validator = new ScalarValidator(['in' => ['foo']]);
         $errors = $validator->validate('bar');
         $this->assertEquals([new Error('Value must be one of these values "foo"')], $errors);
 
-        $validator = new ValueValidator(['in' => ['foo']]);
+        $validator = new ScalarValidator(['in' => ['foo']]);
         $errors = $validator->validate('foo');
         $this->assertEmpty($errors);
 
-        $validator = new ValueValidator(['nin' => ['foo']]);
+        $validator = new ScalarValidator(['nin' => ['foo']]);
         $errors = $validator->validate('foo');
         $this->assertEquals([new Error('Value must not be one of these values "foo"')], $errors);
 
-        $validator = new ValueValidator(['nin' => ['foo']]);
+        $validator = new ScalarValidator(['nin' => ['foo']]);
         $errors = $validator->validate('bar');
         $this->assertEmpty($errors);
     }
