@@ -45,7 +45,7 @@ class Normalizer extends CommonNormalizer
     {
         $validator = new ExceptionValidator(new ArrayValidator([
             'optionalKeys' => ['properties'],
-            'allowExtra'  => false,
+            'allowExtra'   => false,
         ]));
         $validator->validate($data['value']);
 
@@ -63,9 +63,9 @@ class Normalizer extends CommonNormalizer
     protected function normalizeProperties($properties, $resource)
     {
         $validatorValidator = new ExceptionValidator(new ArrayValidator([
-            'requiredKeys' => ['validator'],
+            'requiredKeys'  => ['validator'],
             'optionalKeys'  => ['options'],
-            'allowExtra'   => false,
+            'allowExtra'    => false,
         ]));
 
         $definitions = [];

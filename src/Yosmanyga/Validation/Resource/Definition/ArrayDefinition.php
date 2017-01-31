@@ -93,9 +93,9 @@ class ArrayDefinition extends Definition implements ValidatedInterface
                 'type'      => 'boolean',
             ]),
             'messages' => new ArrayValidator([
-                'map'         => new ScalarValidator(['type' => 'string']),
+                'map'          => new ScalarValidator(['type' => 'string']),
                 'optionalKeys' => ['null', 'type', 'requiredKeys', 'deniedKeys', 'allowExtra'],
-                'messages'    => [
+                'messages'     => [
                     'map' => 'messages values must be strings',
                 ],
             ]),

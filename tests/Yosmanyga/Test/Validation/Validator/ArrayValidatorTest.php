@@ -18,13 +18,13 @@ class ArrayValidatorTest extends \PHPUnit_Framework_TestCase
         $validator = new ArrayValidator();
         $this->assertAttributeEquals(
             [
-                'allowNull'    => false,
-                'map'          => null,
-                'requiredKeys' => [],
+                'allowNull'     => false,
+                'map'           => null,
+                'requiredKeys'  => [],
                 'optionalKeys'  => [],
-                'deniedKeys'   => [],
-                'allowExtra'   => true,
-                'messages'     => [
+                'deniedKeys'    => [],
+                'allowExtra'    => true,
+                'messages'      => [
                     'null'         => "Value can't be null",
                     'type'         => 'Value must be an array',
                     'map'          => 'Values are invalid',
@@ -41,13 +41,13 @@ class ArrayValidatorTest extends \PHPUnit_Framework_TestCase
         // Custom options
 
         $validator = new ArrayValidator([
-            'allowNull'    => false,
-            'map'          => 'function',
-            'requiredKeys' => ['key1'],
+            'allowNull'     => false,
+            'map'           => 'function',
+            'requiredKeys'  => ['key1'],
             'optionalKeys'  => ['key2'],
-            'deniedKeys'   => ['key3'],
-            'allowExtra'   => false,
-            'messages'     => [
+            'deniedKeys'    => ['key3'],
+            'allowExtra'    => false,
+            'messages'      => [
                 'null'         => 'Message 1',
                 'type'         => 'Message 2',
                 'map'          => 'Message 3',
@@ -58,13 +58,13 @@ class ArrayValidatorTest extends \PHPUnit_Framework_TestCase
         ]);
         $this->assertAttributeEquals(
             [
-                'allowNull'    => false,
-                'map'          => 'function',
-                'requiredKeys' => ['key1'],
+                'allowNull'     => false,
+                'map'           => 'function',
+                'requiredKeys'  => ['key1'],
                 'optionalKeys'  => ['key2'],
-                'deniedKeys'   => ['key3'],
-                'allowExtra'   => false,
-                'messages'     => [
+                'deniedKeys'    => ['key3'],
+                'allowExtra'    => false,
+                'messages'      => [
                     'null'         => 'Message 1',
                     'type'         => 'Message 2',
                     'map'          => 'Message 3',
