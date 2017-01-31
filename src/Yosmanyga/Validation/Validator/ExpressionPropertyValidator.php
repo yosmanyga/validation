@@ -21,7 +21,7 @@ class ExpressionPropertyValidator implements PropertyValidatorInterface
      * @param string                                                      $expression
      * @param array                                                       $options
      * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor
-     * @param \Yosmanyga\Validation\Validator\ExpressionScalarValidator    $expressionScalarValidator
+     * @param \Yosmanyga\Validation\Validator\ExpressionScalarValidator   $expressionScalarValidator
      */
     public function __construct($expression, $options = [], PropertyAccessorInterface $propertyAccessor = null, ExpressionScalarValidator $expressionScalarValidator = null)
     {
